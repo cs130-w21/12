@@ -2,6 +2,9 @@
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
+To run, cd into the frontend directiory and run `yarn install` to install all the dependencies from `package.json`.
+Afterwards, run `yarn start` to spin up the frontend.
+
 ## Available Scripts
 
 In the project directory, you can run:
