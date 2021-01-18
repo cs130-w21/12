@@ -13,4 +13,4 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: '15.1'
-      - cd frontend && yarn && yarn run lint
+      - run: cd frontend && yarn && yarn run lint
