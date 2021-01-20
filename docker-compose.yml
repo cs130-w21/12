@@ -1,0 +1,22 @@
+version: '3.7'
+
+services:
+  db-postgres:
+    image: postgres:9.5.24-apline
+    restart: always
+    environment:
+      POSTGRES_USER: ironchef
+      POSTGRES_DB: cuisine
+      POSTGRES_PASSWORD: superuser
+    logging:
+      driver: none
+
+  backend:
+    build: ./backend
+    ports:
+      - '8080:8080'
+    links:
+      - db-postgres
+    restart: always
+    volumes:
+      - ./access.log:/var/log/cuisine-machine.log
