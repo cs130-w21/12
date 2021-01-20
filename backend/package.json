@@ -1,0 +1,12 @@
+{
+  "name": "backend",
+  "version": "0.1.0",
+  "main": "index.js",
+  "license": "UNLICENSED",
+  "private": true,
+  "dependencies": {
+    "express": "^4.17.1",
+    "passport": "^0.4.1",
+    "pg": "^8.5.1"
+  }
+}
