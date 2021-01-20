@@ -2,7 +2,7 @@ version: '3.7'
 
 services:
   db-postgres:
-    image: postgres:9.5.24-apline
+    image: postgres:9.5.24-alpine
     restart: always
     environment:
       POSTGRES_USER: ironchef
