@@ -9,7 +9,10 @@ import Main from './pages/Main'
 const App = () => (
   <React.Fragment>
     <AppHeader />
-    <div className="container-fluid" style={{ display: 'flex', justifyContent: 'center', flexDirection: 'column', alignItems: 'center', marginTop: '5%' }}>
+    <div
+      className="container-fluid"
+      style={{ display: 'flex', justifyContent: 'center', flexDirection: 'column', alignItems: 'center', marginTop: '30px' }}
+    >
       <img src={logo} alt="Logo" width="140" height="140" />
       <Route exact path="/" component={Main} />
       <Route path="/login/callback" component={LoginCallback} />

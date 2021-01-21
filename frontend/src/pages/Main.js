@@ -27,30 +27,46 @@ const Main = () => {
 
   return (
     <React.Fragment>
-      <form className="mt-3" onSubmit={handleSubmit}>
-        <div className="input-group">
-          <input type="text" value={`${ingredientInput}`} onChange={(event) => { SetIngredientInput(event.target.value) }} className="ingredient-input" placeholder="Enter Ingredients..." />
-          <button type="button" onClick={handleAddIngredient} className="submit-btn">
-            <FontAwesomeIcon icon={faSearch} size="lg" />
-          </button>
-        </div>
-      </form>
 
-      <div className="chip-area mt-4">
-        {
-          ingredients.map(ingredient =>
-            <Chip
-              className="mx-2 my-2 capitalize"
-              variant="outlined"
-              key={ingredient}
-              label={`${ingredient}`}
-              onClick={handleClick}
-              style={{ border: '1px solid rgba(235, 73, 23, 0.72)' }}
-              onDelete={handleDelete(ingredient)}
-            />
-          )
-        }
+      <div className="main-wrapper">
+        <div className="left-wrapper mt-3">
+          <form onSubmit={handleSubmit}>
+            <div className="input-group">
+              <input type="text" value={`${ingredientInput}`} onChange={(event) => { SetIngredientInput(event.target.value) }} className="ingredient-input" placeholder="Enter Ingredients..." />
+              <button type="button" onClick={handleAddIngredient} className="submit-btn">
+                <FontAwesomeIcon icon={faSearch} size="lg" />
+              </button>
+            </div>
+          </form>
+
+          <div className="chip-area">
+            {
+              ingredients.map(ingredient =>
+                <Chip
+                  className="mx-2 my-2 capitalize"
+                  variant="outlined"
+                  key={ingredient}
+                  label={`${ingredient}`}
+                  onClick={handleClick}
+                  style={{ border: '1px solid rgba(235, 73, 23, 0.72)' }}
+                  onDelete={handleDelete(ingredient)}
+                />
+              )
+            }
+          </div>
+        </div>
+          <div className="right-wrapper mt-3">
+            <input type="text" className="ingredient-input" placeholder="Enter..." />
+            <input type="text" className="ingredient-input" placeholder="Enter..." />
+            <input type="text" className="ingredient-input" placeholder="Enter..." />
+            <input type="text" className="ingredient-input" placeholder="Enter..." />
+            <input type="text" className="ingredient-input" placeholder="Enter..." />
+            <input type="text" className="ingredient-input" placeholder="Enter..." />
+            <input type="text" className="ingredient-input" placeholder="Enter..." />
+            <input type="text" className="ingredient-input" placeholder="Enter..." />
+          </div>
       </div>
+
     </React.Fragment>
   )
 }
