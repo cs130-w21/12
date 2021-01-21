@@ -10,7 +10,7 @@ const App = () => (
   <React.Fragment>
     <AppHeader />
     <div className="container-fluid" style={{ display: 'flex', justifyContent: 'center', flexDirection: 'column', alignItems: 'center', marginTop: '5%' }}>
-      <img src={logo} alt="Logo" width="170" height="170" />
+      <img src={logo} alt="Logo" width="140" height="140" />
       <Route exact path="/" component={Main} />
       <Route path="/login/callback" component={LoginCallback} />
     </div>
