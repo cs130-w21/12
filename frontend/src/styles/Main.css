@@ -5,6 +5,11 @@
     width: 300px;
     display: block;
 }
+
+.ingredient-input:focus {
+    outline: none;
+    box-shadow: 0 0 5px rgba(235, 73, 23, 0.72);
+}
   
 .submit-btn {
     background-color: transparent;
