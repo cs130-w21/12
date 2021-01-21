@@ -35,3 +35,7 @@
   background: transparent;
   border: 1px solid rgba(235, 73, 23, 0.72);
 }
+
+.capitalize {
+  text-transform: capitalize;
+}

@@ -1,0 +1,40 @@
+.ingredient-input {
+    border-radius: 5px;
+    border: 1px solid rgba(235, 73, 23, 0.72);
+    padding: 12px 50px 12px 15px;
+    width: 300px;
+    display: block;
+}
+  
+.submit-btn {
+    background-color: transparent;
+    border: none;
+    outline: none;
+    position: absolute;
+  
+    height: 50px;
+    width: 50px;
+    padding: 10px;
+    left: 250px;
+}
+  
+.submit-btn:focus {
+    outline: none;
+}
+  
+.chip-area {
+    display: flex;
+    flex-wrap: wrap;
+    width: 50%;
+    justify-content: center;
+}
+  
+.chip {
+    background: transparent;
+    border: 1px solid rgba(235, 73, 23, 0.72);
+}
+  
+.capitalize {
+    text-transform: capitalize;
+}
+  
