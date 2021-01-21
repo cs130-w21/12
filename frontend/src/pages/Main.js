@@ -20,17 +20,21 @@ const Main = () => {
       SetIngredientInput('')
     }
   }
+  const handleSubmit = (e) => {
+    e.preventDefault()
+    handleAddIngredient()
+  }
 
   return (
     <React.Fragment>
-      <div className="mt-3">
+      <form className="mt-3" onSubmit={handleSubmit}>
         <div className="input-group">
           <input type="text" value={`${ingredientInput}`} onChange={(event) => { SetIngredientInput(event.target.value) }} className="ingredient-input" placeholder="Enter Ingredients..." />
           <button type="button" onClick={handleAddIngredient} className="submit-btn">
             <FontAwesomeIcon icon={faSearch} size="lg" />
           </button>
         </div>
-      </div>
+      </form>
 
       <div className="chip-area mt-4">
         {
