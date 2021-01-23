@@ -19,6 +19,7 @@ const App = () => (
         <Route exact path="/" component={Main} />
         <Route path="/login/callback" component={LoginCallback} />
       </Suspense>
+      <button className="getrec">get recommendation</button>
     </div>
   </React.Fragment>
 )

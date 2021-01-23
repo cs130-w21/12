@@ -15,7 +15,7 @@ const Main = () => {
     padding: '12px 50px 12px 15px',
     width: '30vw',
     minWidth: '150px',
-    display: 'block',
+    display: 'block'
   }
   const [ingredientInput, SetIngredientInput] = useState('')
   const [ingredients, SetIngredients] = useState(['pork', 'beef'])
