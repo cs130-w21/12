@@ -1,16 +1,14 @@
-.ingredient-input {
-    border-radius: 5px;
-    border: 1px solid rgba(235, 73, 23, 0.72);
-    padding: 12px 50px 12px 15px;
-    width: 30vw;
-    min-width: 150px;
-    display: block;
-    margin-bottom: 1.6rem;
+
+.section{
+    font-weight: 400;
+    font-size: 2rem;
 }
 
-.ingredient-input:focus {
-    outline: none;
-    box-shadow: 0 0 5px rgba(235, 73, 23, 0.72);
+.sub-section {
+    font-weight: 400;
+    font-size: 1.25rem;
+    color: #757575;
+    margin-bottom: 0;
 }
 
 ::placeholder {
@@ -71,4 +69,9 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+}
+
+.instruction {
+    width: 30vw;
+    min-width: 150px;
 }
