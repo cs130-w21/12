@@ -1,14 +1,18 @@
-.ingredient-input {
-    border-radius: 5px;
-    border: 1px solid rgba(235, 73, 23, 0.72);
-    padding: 12px 50px 12px 15px;
-    width: 300px;
-    display: block;
+
+.section{
+    font-weight: 400;
+    font-size: 2rem;
 }
 
-.ingredient-input:focus {
-    outline: none;
-    box-shadow: 0 0 5px rgba(235, 73, 23, 0.72);
+.sub-section {
+    font-weight: 400;
+    font-size: 1.25rem;
+    color: #757575;
+    margin-bottom: 0;
+}
+
+::placeholder {
+    color: #ACB0AD;
 }
   
 .submit-btn {
@@ -20,7 +24,7 @@
     height: 50px;
     width: 50px;
     padding: 10px;
-    left: 250px;
+    right: 0;
 }
   
 .submit-btn:focus {
@@ -29,9 +33,10 @@
   
 .chip-area {
     display: flex;
+    justify-content: left;
     flex-wrap: wrap;
-    width: 50%;
-    justify-content: center;
+    width: 30vw;
+    min-width: 150px;
 }
   
 .chip {
@@ -42,4 +47,31 @@
 .capitalize {
     text-transform: capitalize;
 }
-  
+
+.main-wrapper {
+    display: flex;
+    width: 100%;
+}
+
+.left-wrapper {
+    width: 50%;
+    padding: 0 20px;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.right-wrapper {
+    width: 50%;
+    padding: 0 20px;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.instruction {
+    width: 30vw;
+    min-width: 150px;
+}
