@@ -16,10 +16,6 @@ const Main = () => {
     width: '30vw',
     minWidth: '150px',
     display: 'block',
-    '& :focus': {
-      outline: 'none',
-      boxShadow: '0 0 5px rgba(235, 73, 23, 0.72)'
-    }
   }
   const [ingredientInput, SetIngredientInput] = useState('')
   const [ingredients, SetIngredients] = useState(['pork', 'beef'])

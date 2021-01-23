@@ -1,11 +1,11 @@
 import './App.css'
 import React, { lazy, Suspense } from 'react'
 import { Route } from 'react-router-dom'
-import { LoginCallback } from '@okta/okta-react'
 import logo from './assets/logo.png'
 
 import AppHeader from './components/AppHeader'
 const Main = lazy(() => import('./pages/Main'))
+const LoginCallback = lazy(() => import('@okta/okta-react'))
 
 const App = () => (
   <React.Fragment>
