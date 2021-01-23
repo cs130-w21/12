@@ -5,8 +5,22 @@ import { faSearch } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 // Material UI Imports
 import Chip from '@material-ui/core/Chip'
+import Checkbox from '@material-ui/core/Checkbox'
+import UserInput from '../components/UserInput'
 
 const Main = () => {
+  const InputStyles = {
+    borderRadius: '5px',
+    border: '1px solid rgba(235, 73, 23, 0.72)',
+    padding: '12px 50px 12px 15px',
+    width: '30vw',
+    minWidth: '150px',
+    display: 'block',
+    ':focus': {
+      outline: 'none',
+      boxShadow: '0 0 5px rgba(235, 73, 23, 0.72)'
+    }
+  }
   const [ingredientInput, SetIngredientInput] = useState('')
   const [ingredients, SetIngredients] = useState(['pork', 'beef'])
   const handleClick = () => { }
@@ -14,7 +28,6 @@ const Main = () => {
     SetIngredients(ingredients.filter((ing) => ing !== ingredient))
   }
   const handleAddIngredient = () => {
-    SetIngredientInput(ingredientInput.toLowerCase())
     if (ingredientInput !== '' && ingredients.indexOf(ingredientInput) === -1) {
       SetIngredients([...ingredients, ingredientInput])
       SetIngredientInput('')
@@ -24,6 +37,11 @@ const Main = () => {
     e.preventDefault()
     handleAddIngredient()
   }
+  const handleChange = (value) => {
+    if (value != null) {
+      SetIngredientInput(value.toLowerCase())
+    }
+  }
 
   return (
     <React.Fragment>
@@ -31,8 +49,9 @@ const Main = () => {
       <div className="main-wrapper">
         <div className="left-wrapper mt-3">
           <form onSubmit={handleSubmit}>
+            <p className="section">ingredient list</p>
             <div className="input-group">
-              <input type="text" value={`${ingredientInput}`} onChange={(event) => { SetIngredientInput(event.target.value) }} className="ingredient-input" placeholder="Enter Ingredients..." />
+              <UserInput styles={InputStyles} options={['Pork', 'Chicken', 'Beef']} onChange={handleChange} placeholder="Enter Ingredient..." />
               <button type="button" onClick={handleAddIngredient} className="submit-btn">
                 <FontAwesomeIcon icon={faSearch} size="lg" />
               </button>
@@ -43,7 +62,7 @@ const Main = () => {
             {
               ingredients.map(ingredient =>
                 <Chip
-                  className="mx-2 my-2 capitalize"
+                  className="mr-2 my-2 capitalize"
                   variant="outlined"
                   key={ingredient}
                   label={`${ingredient}`}
@@ -54,16 +73,22 @@ const Main = () => {
               )
             }
           </div>
-        </div>
+          <div className="instruction mt-auto">
+            <Checkbox
+              color="default"
+            />
+            include pantry items in list</div>
+          </div>
         <div className="right-wrapper mt-3">
-          <input type="text" className="ingredient-input" placeholder="Enter..." />
-          <input type="text" className="ingredient-input" placeholder="Enter..." />
-          <input type="text" className="ingredient-input" placeholder="Enter..." />
-          <input type="text" className="ingredient-input" placeholder="Enter..." />
-          <input type="text" className="ingredient-input" placeholder="Enter..." />
-          <input type="text" className="ingredient-input" placeholder="Enter..." />
-          <input type="text" className="ingredient-input" placeholder="Enter..." />
-          <input type="text" className="ingredient-input" placeholder="Enter..." />
+          <div>
+            <div className="section">preferences</div>
+            <div className="sub-section">diet</div>
+            <UserInput styles={InputStyles} options={['Vegan', 'Vegetarian', 'Super Meat Eater']} onChange={(e) => console.log(e)} placeholder="search..." />
+            <div className="sub-section">cuisine</div>
+            <UserInput styles={InputStyles} options={['Asian', 'Italian', 'American']} onChange={(e) => console.log(e)} placeholder="search..." />
+            <div className="sub-section">sort by</div>
+            <UserInput styles={InputStyles} options={['Date', 'Rate', 'Calories']} onChange={(e) => console.log(e)} placeholder="search..." />
+          </div>
         </div>
       </div>
 

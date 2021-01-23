@@ -15,6 +15,7 @@ const App = () => (
       >
       <img src={logo} alt="Logo" width="140" height="140" />
       <Route exact path="/" component={Main} />
+      <button className="getrec">get recommendation</button>
       <Route path="/login/callback" component={LoginCallback} />
     </div>
   </React.Fragment>
