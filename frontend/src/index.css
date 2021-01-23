@@ -13,6 +13,10 @@ body {
   margin: 0;
 }
 
+button {
+  outline: none !important;
+}
+
 code {
   font-family: Menlo, Monaco, Consolas, "Courier New", monospace;
 }

@@ -75,3 +75,8 @@
     width: 30vw;
     min-width: 150px;
 }
+
+input:focus {
+    outline: none;
+    box-shadow: 0 0 8px rgba(235, 73, 23, 0.72);
+}

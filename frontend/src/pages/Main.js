@@ -16,7 +16,7 @@ const Main = () => {
     width: '30vw',
     minWidth: '150px',
     display: 'block',
-    ':focus': {
+    '& :focus': {
       outline: 'none',
       boxShadow: '0 0 5px rgba(235, 73, 23, 0.72)'
     }

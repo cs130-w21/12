@@ -17,8 +17,8 @@ const App = () => (
       <img src={logo} alt="Logo" width="140" height="140" />
       <Suspense fallback={<p>Loading...</p>}>
         <Route exact path="/" component={Main} />
+        <Route path="/login/callback" component={LoginCallback} />
       </Suspense>
-      <Route path="/login/callback" component={LoginCallback} />
     </div>
   </React.Fragment>
 )
