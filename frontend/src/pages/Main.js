@@ -55,16 +55,16 @@ const Main = () => {
             }
           </div>
         </div>
-          <div className="right-wrapper mt-3">
-            <input type="text" className="ingredient-input" placeholder="Enter..." />
-            <input type="text" className="ingredient-input" placeholder="Enter..." />
-            <input type="text" className="ingredient-input" placeholder="Enter..." />
-            <input type="text" className="ingredient-input" placeholder="Enter..." />
-            <input type="text" className="ingredient-input" placeholder="Enter..." />
-            <input type="text" className="ingredient-input" placeholder="Enter..." />
-            <input type="text" className="ingredient-input" placeholder="Enter..." />
-            <input type="text" className="ingredient-input" placeholder="Enter..." />
-          </div>
+        <div className="right-wrapper mt-3">
+          <input type="text" className="ingredient-input" placeholder="Enter..." />
+          <input type="text" className="ingredient-input" placeholder="Enter..." />
+          <input type="text" className="ingredient-input" placeholder="Enter..." />
+          <input type="text" className="ingredient-input" placeholder="Enter..." />
+          <input type="text" className="ingredient-input" placeholder="Enter..." />
+          <input type="text" className="ingredient-input" placeholder="Enter..." />
+          <input type="text" className="ingredient-input" placeholder="Enter..." />
+          <input type="text" className="ingredient-input" placeholder="Enter..." />
+        </div>
       </div>
 
     </React.Fragment>

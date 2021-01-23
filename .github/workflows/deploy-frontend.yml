@@ -1,0 +1,28 @@
+name: deploy-frontend
+
+on:
+  push:
+    branches:
+      master
+  
+  pull_request:
+    branches:
+      master
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: 1 -- Login to Heroku
+        env:
+          HEROKU_API_KEY: ${{ secrets.HEROKU_FRONTEND_API_KEY }}
+        run: heroku container:login
+      - name: 2 -- Build Docker Image
+        run: docker build -f frontend/Dockerfile -t registry.heroku.com/${{ secrets.HEROKU_FRONTEND_NAME }}/web ./frontend
+      - name: 3 -- Push Docker Image
+        run: docker push registry.heroku.com/${{ secrets.HEROKU_FRONTEND_NAME }}/web:latest
+      - name: 4 -- Release Docker Image
+        env:
+          HEROKU_API_KEY: ${{ secrets.HEROKU_FRONTEND_API_KEY }}
+        run: heroku container:release web -a ${{ secrets.HEROKU_FRONTEND_NAME }}
