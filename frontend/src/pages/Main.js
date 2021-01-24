@@ -7,6 +7,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import Chip from '@material-ui/core/Chip'
 import Checkbox from '@material-ui/core/Checkbox'
 import UserInput from '../components/UserInput'
+import { diets, cuisines } from '../data/preferences'
 
 const Main = () => {
   const InputStyles = {
@@ -79,9 +80,9 @@ const Main = () => {
           <div>
             <div className="section">preferences</div>
             <div className="sub-section">diet</div>
-            <UserInput styles={InputStyles} options={['Vegan', 'Vegetarian', 'Super Meat Eater']} onChange={(e) => console.log(e)} placeholder="search..." />
+            <UserInput styles={InputStyles} options={diets} onChange={(e) => console.log(e)} placeholder="search..." />
             <div className="sub-section">cuisine</div>
-            <UserInput styles={InputStyles} options={['Asian', 'Italian', 'American']} onChange={(e) => console.log(e)} placeholder="search..." />
+            <UserInput styles={InputStyles} options={cuisines} onChange={(e) => console.log(e)} placeholder="search..." />
             <div className="sub-section">sort by</div>
             <UserInput styles={InputStyles} options={['Date', 'Rate', 'Calories']} onChange={(e) => console.log(e)} placeholder="search..." />
           </div>

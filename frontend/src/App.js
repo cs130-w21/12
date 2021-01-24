@@ -19,7 +19,10 @@ const App = () => (
         <Route exact path="/" component={Main} />
         <Route path="/login/callback" component={LoginCallback} />
       </Suspense>
-      <button className="getrec">get recommendation</button>
+      <div>
+        <button className="getrec">get recommendation</button>
+        <button className="lucky-btn ml-3">I am Feeling Lucky</button>
+      </div>
     </div>
   </React.Fragment>
 )
