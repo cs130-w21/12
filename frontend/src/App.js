@@ -7,7 +7,6 @@ const Main = lazy(() => import('./pages/Main'))
 const LoginCallback = lazy(() => import('@okta/okta-react'))
 
 const App = () => {
-
   return (
     <React.Fragment>
       <AppHeader />
