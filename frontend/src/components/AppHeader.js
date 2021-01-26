@@ -7,7 +7,7 @@ import {
 import LoginButton from './LoginButton'
 
 const AppHeader = () => (
-  <AppBar position='static' style={{ background: '#FFFFFF' }}>
+  <AppBar position='static' style={{ background: '#FFFFFF', color: 'rgba(235, 73, 23, 0.72)' }}>
     <Toolbar>
       <Typography variant='h4' color='inherit' style={{ fontFamily: 'Roboto Condensed' }}>
         Cuisine Machine
