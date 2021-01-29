@@ -1,9 +1,6 @@
 /* Global Styling */
 
 * {
-  color: rgba(235, 73, 23, 0.72);
-  border-color: rgba(235, 73, 23, 0.72);
-
   font-family: 'Roboto Condensed', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -11,6 +8,10 @@
 
 body {
   margin: 0;
+}
+
+button {
+  outline: none !important;
 }
 
 code {

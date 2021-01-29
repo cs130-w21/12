@@ -13,11 +13,16 @@ const UserInput = (props) => {
   return (
     <Autocomplete
       options={options}
+      renderOption={(option) => (
+        <React.Fragment>
+          <span style={{ color: 'rgba(235, 73, 23, 0.72)' }}>{option}</span>
+        </React.Fragment>
+      )}
       getOptionLabel={(option) => option}
       onChange={handleChange}
       renderInput={(params) => (
         <div ref={params.InputProps.ref}>
-            <input style={styles} type="text" {...params.inputProps} placeholder={placeholder} />
+            <input style={styles} type="text" {...params.inputProps} placeholder={placeholder} required />
         </div>
       )}
     />

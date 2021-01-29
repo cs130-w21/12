@@ -1,24 +1,21 @@
 import './App.css'
-import React from 'react'
+import React, { lazy, Suspense } from 'react'
 import { Route } from 'react-router-dom'
-import { LoginCallback } from '@okta/okta-react'
-import logo from './assets/logo.png'
-import AppHeader from './components/AppHeader'
-import Main from './pages/Main'
 
-const App = () => (
-  <React.Fragment>
-    <AppHeader />
-      <div
-        className="container-fluid"
-        style={{ display: 'flex', justifyContent: 'center', flexDirection: 'column', alignItems: 'center', marginTop: '30px' }}
-      >
-      <img src={logo} alt="Logo" width="140" height="140" />
-      <Route exact path="/" component={Main} />
-      <button className="getrec">get recommendation</button>
-      <Route path="/login/callback" component={LoginCallback} />
-    </div>
-  </React.Fragment>
-)
+import AppHeader from './components/AppHeader'
+const Main = lazy(() => import('./pages/Main'))
+const LoginCallback = lazy(() => import('@okta/okta-react'))
+
+const App = () => {
+  return (
+    <React.Fragment>
+      <AppHeader />
+      <Suspense fallback={<p>Loading...</p>}>
+        <Route exact path="/" component={Main} />
+        <Route path="/login/callback" component={LoginCallback} />
+      </Suspense>
+    </React.Fragment>
+  )
+}
 
 export default App
