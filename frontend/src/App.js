@@ -5,6 +5,7 @@ import { Route } from 'react-router-dom'
 import AppHeader from './components/AppHeader'
 const Main = lazy(() => import('./pages/Main'))
 const LoginCallback = lazy(() => import('@okta/okta-react'))
+const Profile = lazy(() => import('./pages/Profile'))
 
 const App = () => {
   return (
@@ -13,6 +14,7 @@ const App = () => {
       <Suspense fallback={<p>Loading...</p>}>
         <Route exact path="/" component={Main} />
         <Route path="/login/callback" component={LoginCallback} />
+        <Route path="/profile" component={Profile} />
       </Suspense>
     </React.Fragment>
   )
