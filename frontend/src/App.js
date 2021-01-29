@@ -1,10 +1,9 @@
 import './App.css'
 import React, { lazy, Suspense } from 'react'
 import { Route } from 'react-router-dom'
-
+import { LoginCallback } from '@okta/okta-react'
 import AppHeader from './components/AppHeader'
 const Main = lazy(() => import('./pages/Main'))
-const LoginCallback = lazy(() => import('@okta/okta-react'))
 const Profile = lazy(() => import('./pages/Profile'))
 
 const App = () => {
