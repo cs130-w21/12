@@ -17,14 +17,16 @@ app.use(cors());
 
 app.get('/', (req, res) => {
   res.json(ingredients);
+  res.set('Content-Type', 'text/html');
+  res.end('something');
 });
 
 app.post('/recipes', (req) => {
   console.log(req.body);
 });
 
-const port = 8080;
+const port = process.env.PORT || 8080;
 
-app.listen(port, () => {
+app.listen(port,'0.0.0.0', () => {
   console.log(`Listening on port ${port}`); // eslint-disable-line no-console
 });
