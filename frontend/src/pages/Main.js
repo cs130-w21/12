@@ -27,7 +27,7 @@ const Main = () => {
     display: 'block'
   }
   const [ingredientOptions, setIngredientOptions] = useState([])
-  const [ingredientInput, setIngredientInput] = useState()
+  const [ingredientInput, setIngredientInput] = useState(null)
   const [ingredients, setIngredients] = useState([])
   const [preferences, setPreferences] = useState({ diet: null, cuisine: null, 'sort by': null })
   const [open, setOpen] = useState(false)
