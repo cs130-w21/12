@@ -29,14 +29,14 @@ const Profile = () => {
                 <label className="my-2">User Name</label>
                 <input className="profile-input" value={userInfo.name} readOnly />
               </div>
-              {/* <div className="section">
+              <div className="section">
                 <label className="my-2">Phone Number</label>
                 <input className="profile-input" value="123456789" readOnly />
-              </div> */}
-              {/* <div className="section">
+              </div>
+              <div className="section">
                 <label className="my-2">Preference</label>
                 <input className="profile-input" value="Vegetarian" readOnly />
-              </div> */}
+              </div>
               <div className="section">
                 <label className="my-2">Email</label>
                 <input className="profile-input" value={userInfo.email} readOnly />

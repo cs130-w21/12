@@ -21,7 +21,7 @@ const AppHeader = () => {
         <Typography variant='h4' color='inherit' style={{ fontFamily: 'Roboto Condensed' }}>
           <Link component='button' color='inherit' onClick={handleClickMain}>
             Cuisine Machine
-        </Link>
+          </Link>
         </Typography>
         <div style={{ flex: 1 }} />
         <LoginButton />

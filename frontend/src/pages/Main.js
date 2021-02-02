@@ -33,6 +33,7 @@ const Main = () => {
   const [open, setOpen] = useState(false)
   const [alertMessage, setAlertMessage] = useState('')
 
+  // TODO: Find a better way to do this.
   useEffect(() => {
     axios.get('http://localhost:8080/')
       .then((res) => setIngredientOptions(res.data))
