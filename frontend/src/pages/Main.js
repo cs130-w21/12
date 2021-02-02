@@ -40,7 +40,7 @@ const Main = () => {
       .then((res) => setIngredientOptions(res.data))
   }, [])
 
-  const handleClick = () => { }
+  const handleClick = () => {}
   const handleDelete = (ingredient) => event => {
     setIngredients(ingredients.filter((ing) => ing !== ingredient))
   }
@@ -79,16 +79,16 @@ const Main = () => {
   return (
     <React.Fragment>
       <div
-          className="container-fluid main-wrapper"
+          className="container-fluid main-wrapper mt-3 mb-3"
       >
         <img src={logo} alt="Logo" width="140" height="140" />
-        <div className="main-wrapper">
-          <div className="left-wrapper mt-3">
+        <div className="main-mid-wrapper">
+          <div className="main-sub-wrapper mt-3">
             <form onSubmit={handlePushResult}>
-              <p className="section">ingredient list</p>
+              <p className="main-sect">ingredient list</p>
               <div className="input-group">
                 <UserInput styles={InputStyles} options={ingredientOptions} onChange={handleChange} placeholder="Enter Ingredient..." />
-                <IconButton type="button" onClick={handleAddIngredient} className="submit-btn">
+                <IconButton type="button" onClick={handleAddIngredient} className="add-btn">
                   <AddIcon />
                 </IconButton>
               </div>
@@ -113,23 +113,24 @@ const Main = () => {
               <Checkbox
                 color="default"
               />
-              include pantry?</div>
+              include pantry?
             </div>
-          <div className="right-wrapper mt-3">
+          </div>
+          <div className="main-sub-wrapper mt-3">
             <div>
-              <div className="section">preferences</div>
-              <div className="sub-section">diet</div>
+              <div className="main-sect">preferences</div>
+              <div className="main-sub-section">diet</div>
               <UserInput styles={InputStyles} options={diets} onChange={ (e) => handlePreferences('diet', e) } placeholder="search..." />
-              <div className="sub-section">cuisine</div>
+              <div className="main-sub-section">cuisine</div>
               <UserInput styles={InputStyles} options={cuisines} onChange={ (e) => handlePreferences('cuisine', e) } placeholder="search..." />
-              <div className="sub-section">sort by</div>
+              <div className="main-sub-section">sort by</div>
               <UserInput styles={InputStyles} options={['Date', 'Rate', 'Calories']} onChange={ (e) => handlePreferences('sort by', e) } placeholder="search..." />
             </div>
           </div>
         </div>
-        <div>
+        <div className="main-btn-wrapper">
           <RecButton onClick={handleSubmit}>get recommendations</RecButton>
-          <RecButton className="ml-3" lucky>I am Feeling Lucky</RecButton>
+          <RecButton className="ml-lg-3" lucky>I am Feeling Lucky</RecButton>
         </div>
       </div>
 

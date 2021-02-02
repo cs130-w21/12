@@ -2,6 +2,7 @@ import { useOktaAuth } from '@okta/okta-react'
 import React, { useState, useEffect } from 'react'
 import AccountCircleIcon from '@material-ui/icons/AccountCircle'
 import '../styles/Profile.css'
+import { RecButton } from '../styles/styles'
 
 const Profile = () => {
   const { authState, authService } = useOktaAuth()
@@ -13,40 +14,40 @@ const Profile = () => {
     } else {
       authService.getUser().then(info => {
         setUserInfo(info)
-        console.log(info)
+        console.log(userInfo)
       })
     }
   }, [authState, authService])
 
   return (
     <React.Fragment>
-      <div className="container-fluid" style={{ width: '75%' }}>
-        <div className="main-wrapper mt-5">
+      <div className="container-fluid">
+        <div className="profile-wrapper mt-5">
           <AccountCircleIcon style={{ fontSize: '100px' }} />
-          {userInfo && (
-            <div className="sub-wrapper mt-3">
-              <div className="section">
+          {true && (
+            <div className="profile-sub-wrapper mt-3 mb-3">
+              <div className="profile-sect">
                 <label className="my-2">User Name</label>
-                <input className="profile-input" value={userInfo.name} readOnly />
+                <input className="profile-input" value="Jakin" readOnly />
               </div>
-              <div className="section">
+              <div className="profile-sect">
                 <label className="my-2">Phone Number</label>
                 <input className="profile-input" value="123456789" readOnly />
               </div>
-              <div className="section">
+              <div className="profile-sect">
                 <label className="my-2">Preference</label>
                 <input className="profile-input" value="Vegetarian" readOnly />
               </div>
-              <div className="section">
+              <div className="profile-sect">
                 <label className="my-2">Email</label>
-                <input className="profile-input" value={userInfo.email} readOnly />
+                <input className="profile-input" value="test@gmail.com" readOnly />
               </div>
             </div>
           )}
 
-          <button className="submit-btn">
+          <RecButton>
             Save Changes
-          </button>
+          </RecButton>
         </div>
       </div>
     </React.Fragment>
