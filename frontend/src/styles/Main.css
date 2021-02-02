@@ -2,6 +2,12 @@
     color: rgba(235, 73, 23, 0.72);
 }
 
+.main-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
 .section{
     font-weight: 400;
     font-size: 2rem;
@@ -49,11 +55,6 @@
   
 .capitalize {
     text-transform: capitalize;
-}
-
-.main-wrapper {
-    display: flex;
-    width: 100%;
 }
 
 .left-wrapper {

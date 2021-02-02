@@ -20,7 +20,7 @@ const Profile = () => {
 
   return (
     <React.Fragment>
-      <div className="container-fluid">
+      <div className="container-fluid" style={{ width: '75%' }}>
         <div className="main-wrapper mt-5">
           <AccountCircleIcon style={{ fontSize: '100px' }} />
           {userInfo && (

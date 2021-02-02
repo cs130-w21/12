@@ -9,6 +9,7 @@ import Snackbar from '@material-ui/core/Snackbar'
 import MuiAlert from '@material-ui/lab/Alert'
 // data
 import { diets, cuisines } from '../data/preferences'
+import { RecButton } from '../styles/styles'
 import UserInput from '../components/UserInput'
 import logo from '../assets/logo.png'
 import axios from 'axios'
@@ -78,8 +79,7 @@ const Main = () => {
   return (
     <React.Fragment>
       <div
-          className="container-fluid"
-          style={{ display: 'flex', justifyContent: 'center', flexDirection: 'column', alignItems: 'center', marginTop: '30px' }}
+          className="container-fluid main-wrapper"
       >
         <img src={logo} alt="Logo" width="140" height="140" />
         <div className="main-wrapper">
@@ -128,8 +128,8 @@ const Main = () => {
           </div>
         </div>
         <div>
-          <button className="getrec" onClick={handleSubmit}>get recommendations</button>
-          <button className="lucky-btn ml-3">I am Feeling Lucky</button>
+          <RecButton onClick={handleSubmit}>get recommendations</RecButton>
+          <RecButton className="ml-3" lucky>I am Feeling Lucky</RecButton>
         </div>
       </div>
 
