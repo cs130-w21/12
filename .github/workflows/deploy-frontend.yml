@@ -3,7 +3,6 @@ name: deploy-frontend
 on:
   push:
     branches:
-      - 5--ProfilePage
       - master
 
 jobs:
