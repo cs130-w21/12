@@ -6,6 +6,7 @@ import {
   Grid,
   Link
 } from '@material-ui/core/'
+import { recipes } from '../data/recipes'
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -32,8 +33,12 @@ const RecipeCollection = (props) => {
         justify="flex-start"
         alignItems="flex-start"
       >
-        <RecipeCard />
-
+        {recipes.map(r => (
+          <Grid item xs={12} sm={6} md={3} key={r.id}>
+            <RecipeCard recipe={r} />
+          </Grid>
+        ))
+        }
       </Grid>
       {!isMyRecipe &&
         <Link>
