@@ -28,7 +28,8 @@ const useStyles = makeStyles((theme) => ({
 
 const RecipeCard = (props) => {
   const classes = useStyles()
-  const [bookmarked, setBookmarked] = React.useState(false) // TODO: this should later be coming from context API
+  const [bookmarked, setBookmarked] = React.useState(false)
+  // TODO: this should later be coming from context API, and calling setbookmark on our database
 
   const handleBookmarkClick = () => {
     setBookmarked(!bookmarked)
@@ -58,12 +59,8 @@ const RecipeCard = (props) => {
           aria-label="add to favorites"
           onClick={handleBookmarkClick}
         >
-          {bookmarked &&
-            <BookmarkIcon />
-          }
-          {!bookmarked &&
-            <BookmarkBorderIcon />
-          }
+          {bookmarked && <BookmarkIcon />}
+          {!bookmarked && <BookmarkBorderIcon />}
         </IconButton>
         <IconButton aria-label="share">
           <ShareIcon />
