@@ -28,10 +28,11 @@ const Main = () => {
 
   // TODO: Find a better way to do this.
   useEffect(() => {
-    axios.get('http://localhost:8080/')
+    axios.get('https://api-cuisinemachine.herokuapp.com/')
       .then((res) => setIngredientOptions(res.data))
       .catch((error) => {
-        setIngredientOptions(['Ham', 'Turkey', 'Steak'])
+        // Dummy Data for Fallback
+        setIngredientOptions(['onion', 'garlic', 'ham', 'hot dog', 'turkey', 'steak'])
         console.error(error)
       })
   }, [])

@@ -14,7 +14,6 @@ const Profile = () => {
     } else {
       authService.getUser().then(info => {
         setUserInfo(info)
-        console.log(userInfo)
       })
     }
   }, [authState, authService])
@@ -24,7 +23,7 @@ const Profile = () => {
       <div className="container-fluid mb-3">
         <div className="profile-wrapper mt-5">
           <AccountCircleIcon style={{ fontSize: '100px' }} />
-          {true && (
+          {userInfo && (
             <div className="profile-sub-wrapper mt-3 mb-3">
               <div className="profile-sect">
                 <label className="my-2">User Name</label>
