@@ -3,6 +3,7 @@ import React, { lazy, Suspense } from 'react'
 import { Route, Switch } from 'react-router-dom'
 import { LoginCallback } from '@okta/okta-react'
 import AppHeader from './components/AppHeader'
+import RecipeCollection from './pages/RecipeCollection'
 const Main = lazy(() => import('./pages/Main'))
 const Profile = lazy(() => import('./pages/Profile'))
 
@@ -15,6 +16,8 @@ const App = () => {
           <Route exact path="/" component={Main} />
           <Route path="/login/callback" component={LoginCallback} />
           <Route path="/profile" component={Profile} />
+          <Route path="/my_recipes" component={() => <RecipeCollection isMyRecipe={true} />} />
+          <Route path="/search_results" component={() => <RecipeCollection isMyRecipe={false} />} />
         </Switch>
       </Suspense>
     </React.Fragment>
