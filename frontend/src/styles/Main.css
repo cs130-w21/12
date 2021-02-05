@@ -76,15 +76,14 @@
     min-width: 150px;
 }
 
-input:focus {
-    outline: none;
-    box-shadow: 0 0 8px rgba(235, 73, 23, 0.72);
-}
-
 @media only screen and (max-width: 768px) {
     .main-mid-wrapper {
        flex-direction: column;
        width: 100%;
+    }
+
+    .main-sect {
+        font-size: 1.75rem;
     }
 
     .main-sub-wrapper {
@@ -97,5 +96,9 @@ input:focus {
         flex-direction: column;
         align-items: center;
         margin-top: 35px;
+    }
+
+    .instruction {
+        text-align: center;
     }
 }

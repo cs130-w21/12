@@ -21,7 +21,7 @@ const Profile = () => {
 
   return (
     <React.Fragment>
-      <div className="container-fluid">
+      <div className="container-fluid mb-3">
         <div className="profile-wrapper mt-5">
           <AccountCircleIcon style={{ fontSize: '100px' }} />
           {true && (
