@@ -9,6 +9,7 @@ import Snackbar from '@material-ui/core/Snackbar'
 import MuiAlert from '@material-ui/lab/Alert'
 // data
 import { diets, cuisines } from '../data/preferences'
+import { RecButton } from '../styles/styles'
 import UserInput from '../components/UserInput'
 import logo from '../assets/logo.png'
 import axios from 'axios'
@@ -18,27 +19,25 @@ const Alert = (props) => {
 }
 
 const Main = () => {
-  const InputStyles = {
-    borderRadius: '5px',
-    border: '1px solid rgba(235, 73, 23, 0.72)',
-    padding: '12px 50px 12px 15px',
-    width: '30vw',
-    minWidth: '150px',
-    display: 'block'
-  }
   const [ingredientOptions, setIngredientOptions] = useState([])
-  const [ingredientInput, setIngredientInput] = useState()
+  const [ingredientInput, setIngredientInput] = useState(null)
   const [ingredients, setIngredients] = useState([])
   const [preferences, setPreferences] = useState({ diet: null, cuisine: null, 'sort by': null })
   const [open, setOpen] = useState(false)
   const [alertMessage, setAlertMessage] = useState('')
 
+  // TODO: Find a better way to do this.
   useEffect(() => {
-    axios.get('http://localhost:8080/')
+    axios.get('https://api-cuisinemachine.herokuapp.com/')
       .then((res) => setIngredientOptions(res.data))
+      .catch((error) => {
+        // Dummy Data for Fallback
+        setIngredientOptions(['onion', 'garlic', 'ham', 'hot dog', 'turkey', 'steak'])
+        console.error(error)
+      })
   }, [])
 
-  const handleClick = () => { }
+  const handleClick = () => {}
   const handleDelete = (ingredient) => event => {
     setIngredients(ingredients.filter((ing) => ing !== ingredient))
   }
@@ -77,17 +76,16 @@ const Main = () => {
   return (
     <React.Fragment>
       <div
-          className="container-fluid"
-          style={{ display: 'flex', justifyContent: 'center', flexDirection: 'column', alignItems: 'center', marginTop: '30px' }}
+          className="container-fluid main-wrapper mt-3 mb-3"
       >
         <img src={logo} alt="Logo" width="140" height="140" />
-        <div className="main-wrapper">
-          <div className="left-wrapper mt-3">
+        <div className="main-mid-wrapper">
+          <div className="main-sub-wrapper mt-3">
             <form onSubmit={handlePushResult}>
-              <p className="section">ingredient list</p>
+              <p className="main-sect">ingredient list</p>
               <div className="input-group">
-                <UserInput styles={InputStyles} options={ingredientOptions} onChange={handleChange} placeholder="Enter Ingredient..." />
-                <IconButton type="button" onClick={handleAddIngredient} className="submit-btn">
+                <UserInput options={ingredientOptions} onChange={handleChange} placeholder="Enter Ingredient..." />
+                <IconButton type="button" onClick={handleAddIngredient} className="add-btn">
                   <AddIcon />
                 </IconButton>
               </div>
@@ -108,27 +106,28 @@ const Main = () => {
                 )
               }
             </div>
-            <div className="instruction mt-auto">
+            <div className="instruction md-xs-4 mt-md-auto">
               <Checkbox
                 color="default"
               />
-              include pantry?</div>
+              include pantry?
             </div>
-          <div className="right-wrapper mt-3">
+          </div>
+          <div className="main-sub-wrapper mt-3">
             <div>
-              <div className="section">preferences</div>
-              <div className="sub-section">diet</div>
-              <UserInput styles={InputStyles} options={diets} onChange={ (e) => handlePreferences('diet', e) } placeholder="search..." />
-              <div className="sub-section">cuisine</div>
-              <UserInput styles={InputStyles} options={cuisines} onChange={ (e) => handlePreferences('cuisine', e) } placeholder="search..." />
-              <div className="sub-section">sort by</div>
-              <UserInput styles={InputStyles} options={['Date', 'Rate', 'Calories']} onChange={ (e) => handlePreferences('sort by', e) } placeholder="search..." />
+              <div className="main-sect">preferences</div>
+              <div className="main-sub-section">diet</div>
+              <UserInput options={diets} onChange={ (e) => handlePreferences('diet', e) } placeholder="search..." />
+              <div className="main-sub-section">cuisine</div>
+              <UserInput options={cuisines} onChange={ (e) => handlePreferences('cuisine', e) } placeholder="search..." />
+              <div className="main-sub-section">sort by</div>
+              <UserInput options={['Date', 'Rate', 'Calories']} onChange={ (e) => handlePreferences('sort by', e) } placeholder="search..." />
             </div>
           </div>
         </div>
-        <div>
-          <button className="getrec" onClick={handleSubmit}>get recommendations</button>
-          <button className="lucky-btn ml-3">I am Feeling Lucky</button>
+        <div className="main-btn-wrapper">
+          <RecButton onClick={handleSubmit}>get recommendations</RecButton>
+          <RecButton className="ml-md-3" lucky>I am Feeling Lucky</RecButton>
         </div>
       </div>
 

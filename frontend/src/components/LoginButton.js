@@ -9,6 +9,7 @@ import {
 } from '@material-ui/core'
 import { AccountCircle } from '@material-ui/icons'
 import { withOktaAuth } from '@okta/okta-react'
+import { withRouter } from 'react-router'
 
 class LoginButton extends Component {
   state = {
@@ -39,6 +40,11 @@ class LoginButton extends Component {
     this.props.authService.logout('/')
   }
 
+  handleProfileClicked = () => {
+    this.handleMenuClose()
+    this.props.history.push('/profile')
+  }
+
   handleMenuOpen = event => this.setState({ menuAnchorEl: event.currentTarget })
   handleMenuClose = () => this.setState({ menuAnchorEl: null })
 
@@ -65,10 +71,15 @@ class LoginButton extends Component {
           open={!!menuAnchorEl}
           onClose={this.handleMenuClose}
         >
+          <MenuItem onClick={this.handleProfileClicked}>
+            <ListItemText
+              primary="Profile Page"
+              secondary={user && user.name}
+            />
+          </MenuItem>
           <MenuItem onClick={this.logout}>
             <ListItemText
               primary="Logout"
-              secondary={user && user.name}
             />
           </MenuItem>
         </Menu>
@@ -79,7 +90,8 @@ class LoginButton extends Component {
 
 LoginButton.propTypes = {
   authState: PropTypes.object,
-  authService: PropTypes.object
+  authService: PropTypes.object,
+  history: PropTypes.object
 }
 
-export default withOktaAuth(LoginButton)
+export default withRouter(withOktaAuth(LoginButton))
