@@ -4,6 +4,7 @@ const express = require('express');
 const cors = require('cors');
 
 const ingredients = require('./ingredients.json');
+const syncAllTables = require('./model/sync.js');
 
 const app = express();
 
@@ -15,6 +16,9 @@ app.get('/', (req, res) => {
 
 const port = 8080;
 
-app.listen(port, () => {
-  console.log(`Listening on port ${port}`); // eslint-disable-line no-console
-});
+(async () => {
+  await syncAllTables();
+  app.listen(port, () => {
+    console.log(`Listening on port ${port}`); // eslint-disable-line no-console
+  });
+})();
