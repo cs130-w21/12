@@ -63,6 +63,9 @@ const Main = () => {
   }
   const handlePreferences = (type, val) => {
     const newPreferences = preferences
+    if (val === 'No preference') {
+      val = null
+    }
     newPreferences[type] = val
     setPreferences(newPreferences)
   }
