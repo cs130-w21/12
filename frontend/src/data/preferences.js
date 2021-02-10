@@ -1,4 +1,5 @@
 export const diets = [
+  'No preference',
   'Ketogenic',
   'Paleo',
   'Primal',
@@ -8,6 +9,7 @@ export const diets = [
 ]
 
 export const cuisines = [
+  'No preference',
   'African',
   'American',
   'British',
