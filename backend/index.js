@@ -8,13 +8,25 @@ const syncAllTables = require('./model/sync.js');
 
 const app = express();
 
+app.use(
+  express.urlencoded({
+    extended: true,
+  }),
+);
+app.use(express.json());
 app.use(cors());
 
 app.get('/', (req, res) => {
   res.json(ingredients);
+  res.set('Content-Type', 'text/html');
+  res.end('something');
 });
 
-const port = 8080;
+app.post('/recipes', (req) => {
+  console.log(req.body);
+});
+
+const port = process.env.PORT || 8080;
 
 (async () => {
   await syncAllTables();

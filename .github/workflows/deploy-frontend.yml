@@ -3,11 +3,7 @@ name: deploy-frontend
 on:
   push:
     branches:
-      master
-  
-  pull_request:
-    branches:
-      master
+      - master
 
 jobs:
   build:
