@@ -1,0 +1,19 @@
+{
+  "backendURL": "http://localhost:8080/",
+  "frontendURL": "http://localhost:3000/",
+  "credentials": {
+    "auth": {
+
+    },
+    "database": {
+      "user": "ironchef",
+      "db": "cuisine",
+      "password": "superuser",
+      "host": "db-postgres",
+      "dialect": "postgres"
+    },
+    "storage": {
+
+    }
+  }
+}
