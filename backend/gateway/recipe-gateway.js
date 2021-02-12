@@ -3,7 +3,7 @@
 const https = require('https');
 
 const config = require('../config.js');
-const validator = require('../util/validation.js');
+const validator = require('../util/validator.js');
 
 const get = (url, reqType) => new Promise((resolve, reject) => {
   https.get(url, (res) => {
