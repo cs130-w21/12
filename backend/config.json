@@ -1,6 +1,7 @@
 {
   "backendURL": "http://localhost:8080/",
   "frontendURL": "http://localhost:3000/",
+  "logFile": "/var/log/cuisine-machine.log",
   "credentials": {
     "auth": {
 
@@ -11,6 +12,14 @@
       "password": "superuser",
       "host": "db-postgres",
       "dialect": "postgres"
+    },
+    "search": {
+      "url": "https://api.spoonacular.com/recipes/",
+      "apiKey": "79175a0f87fa412481e35f08bbb2bb6b",
+      "ingredientsEndpoint": "findByIngredients",
+      "complexSearchEndpoint": "complexSearch",
+      "informationBulkEndpoint": "informationBulk",
+      "instructionsEndpoint": "analyzedInstructions"
     },
     "storage": {
 

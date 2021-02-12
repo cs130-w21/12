@@ -5,6 +5,7 @@ const cors = require('cors');
 
 const ingredients = require('./ingredients.json');
 const syncAllTables = require('./model/sync.js');
+const searchRouter = require('./route/search.js');
 
 const app = express();
 
@@ -22,9 +23,7 @@ app.get('/', (req, res) => {
   res.end('something');
 });
 
-app.post('/recipes', (req) => {
-  console.log(req.body);
-});
+app.use('/recipes', searchRouter);
 
 const port = process.env.PORT || 8080;
 
