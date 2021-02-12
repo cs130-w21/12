@@ -18,7 +18,7 @@ const get = (url, reqType) => new Promise((resolve, reject) => {
         if (res.statusCode !== 200) {
           let errString = '';
           if (reqType === 1) {
-            errString = 'Error in finding recipes with complex requirements';
+            errString = 'Error in finding recipes';
           } else if (reqType === 2) {
             errString = 'Error in getting detailed recipe information';
           } else if (reqType === 3) {
@@ -57,15 +57,16 @@ const getRecipesInformation = (recipeIds) => get(
   2,
 );
 
-const getRandomRecipe = () => get(
+const getRandomRecipes = () => get(
   `${config.credentials.search.url}\
     ${config.credentials.search.randomEndpoint}\
-    ?apiKey=${config.credentials.search.apiKey}`.replace(/\s+/g, ''),
+    ?apiKey=${config.credentials.search.apiKey}\
+    &number=8`.replace(/\s+/g, ''),
   3,
 );
 
 module.exports = {
   findRecipes,
   getRecipesInformation,
-  getRandomRecipe,
+  getRandomRecipes,
 };
