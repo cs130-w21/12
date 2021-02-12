@@ -5,14 +5,7 @@ const https = require('https');
 const config = require('../config.js');
 const validator = require('../util/validation.js');
 
-const findRecipeByIngredients = (ingredients) => new Promise((resolve, reject) => {
-  const url = `${config.credentials.search.url}\
-    ${config.credentials.search.ingredientsEndpoint}\
-    ?apiKey=${config.credentials.search.apiKey}\
-    &ingredients=${ingredients.join(',+')}`.replace(/\s+/g, '');
-
-  console.log(`find by ingredients with ${url}`); // eslint-disable-line
-
+const get = (url, reqType) => new Promise((resolve, reject) => {
   https.get(url, (res) => {
     let raw = '';
 
@@ -23,7 +16,17 @@ const findRecipeByIngredients = (ingredients) => new Promise((resolve, reject) =
     res.on('end', () => {
       try {
         if (res.statusCode !== 200) {
-          return reject(new Error('Recipe API GET error: failed to find recipes by ingredients'));
+          let errString = '';
+          if (reqType === 1) {
+            errString = 'Error in finding recipes with complex requirements';
+          } else if (reqType === 2) {
+            errString = 'Error in getting detailed recipe information';
+          } else if (reqType === 3) {
+            errString = 'Error in getting random recipe';
+          } else {
+            errString = 'Unknown error';
+          }
+          return reject(new Error('Recipe API GET error: '.concat(errString)));
         }
         const data = JSON.parse(raw);
         return resolve(data);
@@ -36,40 +39,33 @@ const findRecipeByIngredients = (ingredients) => new Promise((resolve, reject) =
   });
 });
 
-const searchRecipeComplex = (ingredients, cuisine, diet) => new Promise((resolve, reject) => {
-  const url = `${config.credentials.search.url}\
-    ${config.credentials.search.complexSearchEndpoint}\
+const findRecipes = (ingredients, cuisine, diet) => get(
+  `${config.credentials.search.url}\
+    ${config.credentials.search.searchEndpoint}\
     ?apiKey=${config.credentials.search.apiKey}\
     &ingredients=${ingredients.join(',')}\
     ${validator.isEmpty(cuisine) ? '' : '&cuisine='.concat(cuisine)}\
-    ${validator.isEmpty(diet) ? '' : '&diet='.concat(diet)}`.replace(/\s+/g, '');
+    ${validator.isEmpty(diet) ? '' : '&diet='.concat(diet)}`.replace(/\s+/g, ''),
+  1,
+);
 
-  console.log(`search complex with ${url}`); // eslint-disable-line
+const getRecipesInformation = (recipeIds) => get(
+  `${config.credentials.search.url}\
+    ${config.credentials.search.informationEndpoint}\
+    ?apiKey=${config.credentials.search.apiKey}\
+    &ids=${recipeIds.join(',')}`.replace(/\s+/g, ''),
+  2,
+);
 
-  https.get(url, (res) => {
-    let raw = '';
-
-    res.on('data', (chunk) => {
-      raw += chunk;
-    });
-
-    res.on('end', () => {
-      try {
-        if (res.statusCode !== 200) {
-          return reject(new Error('Recipe API GET error: failed to find recipes by ingredients'));
-        }
-        const data = JSON.parse(raw);
-        return resolve(data);
-      } catch (e) {
-        return reject(e);
-      }
-    });
-  }).on('error', (e) => {
-    reject(e);
-  });
-});
+const getRandomRecipe = () => get(
+  `${config.credentials.search.url}\
+    ${config.credentials.search.randomEndpoint}\
+    ?apiKey=${config.credentials.search.apiKey}`.replace(/\s+/g, ''),
+  3,
+);
 
 module.exports = {
-  findRecipeByIngredients,
-  searchRecipeComplex,
+  findRecipes,
+  getRecipesInformation,
+  getRandomRecipe,
 };

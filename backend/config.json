@@ -16,10 +16,9 @@
     "search": {
       "url": "https://api.spoonacular.com/recipes/",
       "apiKey": "79175a0f87fa412481e35f08bbb2bb6b",
-      "ingredientsEndpoint": "findByIngredients",
-      "complexSearchEndpoint": "complexSearch",
-      "informationBulkEndpoint": "informationBulk",
-      "instructionsEndpoint": "analyzedInstructions"
+      "searchEndpoint": "complexSearch",
+      "informationEndpoint": "informationBulk",
+      "randomEndpoint": "random"
     },
     "storage": {
 
