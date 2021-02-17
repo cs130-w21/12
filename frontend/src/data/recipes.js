@@ -11,7 +11,7 @@ export const recipes = [
       }
     ],
     title: 'Pasta with Garlic, Scallions, Cauliflower & Breadcrumbs',
-    image: 'https://spoonacular.com/recipeImages/716429-556x370.jpg',
+    imageUrl: 'https://spoonacular.com/recipeImages/716429-556x370.jpg',
     summary: 'Pasta with Garlic, Scallions, Cauliflower & Breadcrumbs might be a good recipe to expand your main course repertoire.'
   },
   {
@@ -26,7 +26,7 @@ export const recipes = [
       }
     ],
     title: 'What to make for dinner tonight?? Bruschetta Style Pork & Pasta',
-    image: 'https://spoonacular.com/recipeImages/715538-312x231.jpg',
+    imageUrl: 'https://spoonacular.com/recipeImages/715538-312x231.jpg',
     summary: 'Pasta with Garlic, Scallions, Cauliflower & Breadcrumbs might be a good recipe to expand your main course repertoire.'
   },
   {
@@ -41,7 +41,7 @@ export const recipes = [
       }
     ],
     title: 'Pasta with Garlic, Scallions, Cauliflower & Breadcrumbs',
-    image: 'https://spoonacular.com/recipeImages/716429-556x370.jpg',
+    imageUrl: 'https://spoonacular.com/recipeImages/716429-556x370.jpg',
     summary: 'Pasta with Garlic, Scallions, Cauliflower & Breadcrumbs might be a good recipe to expand your main course repertoire.'
   },
   {
@@ -56,7 +56,7 @@ export const recipes = [
       }
     ],
     title: 'Pasta with Garlic, Scallions, Cauliflower & Breadcrumbs',
-    image: 'https://spoonacular.com/recipeImages/716429-556x370.jpg',
+    imageUrl: 'https://spoonacular.com/recipeImages/716429-556x370.jpg',
     summary: 'Pasta with Garlic, Scallions, Cauliflower & Breadcrumbs might be a good recipe to expand your main course repertoire.'
   },
   {
@@ -71,7 +71,7 @@ export const recipes = [
       }
     ],
     title: 'Pasta with Garlic, Scallions, Cauliflower & Breadcrumbs',
-    image: 'https://spoonacular.com/recipeImages/716429-556x370.jpg',
+    imageUrl: 'https://spoonacular.com/recipeImages/716429-556x370.jpg',
     summary: 'Pasta with Garlic, Scallions, Cauliflower & Breadcrumbs might be a good recipe to expand your main course repertoire.'
   },
   {
@@ -86,7 +86,7 @@ export const recipes = [
       }
     ],
     title: 'Pasta with Garlic, Scallions, Cauliflower & Breadcrumbs',
-    image: 'https://spoonacular.com/recipeImages/716429-556x370.jpg',
+    imageUrl: 'https://spoonacular.com/recipeImages/716429-556x370.jpg',
     summary: 'Pasta with Garlic, Scallions, Cauliflower & Breadcrumbs might be a good recipe to expand your main course repertoire.'
   }
 ]
