@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { makeStyles } from '@material-ui/core/styles'
 import RecipeCard from '../components/RecipeCard'
 import PropTypes from 'prop-types'
@@ -6,6 +6,7 @@ import {
   Grid,
   Link
 } from '@material-ui/core/'
+import axios from 'axios'
 import { recipes } from '../data/recipes'
 
 const useStyles = makeStyles(theme => ({
@@ -18,6 +19,20 @@ const useStyles = makeStyles(theme => ({
 const RecipeCollection = (props) => {
   const classes = useStyles()
   const isMyRecipe = props.isMyRecipe
+
+  useEffect(() => {
+    axios.post('http://localhost:8080/recipes', {
+      ingredients: [
+        'chicken',
+        'beef'
+      ],
+      cuisine: 'Chinese'
+    }).then((res) => {
+      console.log(res)
+    }).catch((err) => {
+      console.error(err)
+    })
+  }, [])
 
   return (
     <div className={classes.root}>
