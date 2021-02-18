@@ -6,6 +6,10 @@ const service = require('../service/recipe-service.js');
 
 const router = express.Router();
 
+/*
+POST /recipes
+This endpoint is used to search for recipes by ingredients and preferences
+*/
 router.post('/', async (req, res) => {
   try {
     const recipes = await service.findRecipes(
@@ -20,6 +24,11 @@ router.post('/', async (req, res) => {
   }
 });
 
+/*
+GET /recipes/{id}
+This endpoint is used to get information (ingredients, instructions, etc.) for a specific recipe
+given the recipe ID
+*/
 router.get('/:id', async (req, res) => {
   try {
     const recipeInfo = await service.getRecipeInfo(req.params.id);
@@ -30,6 +39,10 @@ router.get('/:id', async (req, res) => {
   }
 });
 
+/*
+GET /recipes/random
+This endpoint is used to get random recipes
+*/
 router.get('/random', async (req, res) => {
   try {
     const recipes = await service.getRandomRecipes();
