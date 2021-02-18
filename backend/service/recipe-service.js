@@ -2,36 +2,52 @@
 
 const recipeGateway = require('../gateway/recipe-gateway.js');
 
-const cleanUpRecipesInfo = (recipesInfo) => recipesInfo.map((r) => ({
+const cleanUpBulkRecipes = (recipes) => recipes.map((r) => ({
   id: r.id,
   title: r.title,
-  preparationTime: r.readyInMinutes,
-  servings: r.servings,
-  ingredients: r.extendedIngredients.map((i) => ({
+  imageUrl: r.image,
+}));
+
+const cleanUpRecipeInfo = (recipe) => ({
+  id: recipe.id,
+  title: recipe.title,
+  preparationTime: recipe.readyInMinutes,
+  servings: recipe.servings,
+  ingredients: recipe.extendedIngredients.map((i) => ({
     name: i.name,
     amount: i.amount,
     unit: i.measures,
   })),
-  summary: r.summary,
-  instructions: r.instructions,
-  analyzedInstructions: r.analyzedInstructions.map((i) => ({
+  summary: recipe.summary,
+  instructions: recipe.instructions,
+  analyzedInstructions: recipe.analyzedInstructions.map((i) => ({
     name: i.name,
     steps: i.steps,
   })),
-  url: r.spoonacularSourceUrl,
-  imageUrl: r.image,
-}));
+  tags: {
+    vegetarian: recipe.vegetarian,
+    vegan: recipe.vegan,
+    glutenFree: recipe.glutenFree,
+    dairyFree: recipe.dairyFree,
+    sustainable: recipe.sustainable,
+  },
+  url: recipe.spoonacularSourceUrl,
+  imageUrl: recipe.image,
+});
 
 const findRecipes = async (ingredients, cuisine, diet) => {
   const result = await recipeGateway.findRecipes(ingredients.map((i) => i.replace(/\s+/g, '+')), cuisine, diet);
-  const recipeIds = result.results.map((r) => r.id);
-  const recipesInfo = await recipeGateway.getRecipesInformation(recipeIds);
-  return cleanUpRecipesInfo(recipesInfo);
+  return cleanUpBulkRecipes(result.results);
+};
+
+const getRecipeInfo = async (recipeId) => {
+  const result = await recipeGateway.getRecipeInformation(recipeId);
+  return cleanUpRecipeInfo(result);
 };
 
 const getRandomRecipes = async () => {
-  const recipesInfo = await recipeGateway.getRandomRecipes();
-  return cleanUpRecipesInfo(recipesInfo.recipes);
+  const result = await recipeGateway.getRandomRecipes();
+  return cleanUpBulkRecipes(result.recipes);
 };
 
-module.exports = { findRecipes, getRandomRecipes };
+module.exports = { findRecipes, getRecipeInfo, getRandomRecipes };
