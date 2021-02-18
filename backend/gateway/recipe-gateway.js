@@ -49,11 +49,11 @@ const findRecipes = (ingredients, cuisine, diet) => get(
   1,
 );
 
-const getRecipesInformation = (recipeIds) => get(
+const getRecipeInformation = (recipeId) => get(
   `${config.credentials.search.url}\
+    ${recipeId}/\
     ${config.credentials.search.informationEndpoint}\
-    ?apiKey=${config.credentials.search.apiKey}\
-    &ids=${recipeIds.join(',')}`.replace(/\s+/g, ''),
+    ?apiKey=${config.credentials.search.apiKey}`.replace(/\s+/g, ''),
   2,
 );
 
@@ -67,6 +67,6 @@ const getRandomRecipes = () => get(
 
 module.exports = {
   findRecipes,
-  getRecipesInformation,
+  getRecipeInformation,
   getRandomRecipes,
 };
