@@ -10,7 +10,10 @@ const sequelize = new Sequelize(config.credentials.database.db,
     dialect: config.credentials.database.dialect,
     isolationLevel: Sequelize.Transaction.ISOLATION_LEVELS.SERIALIZABLE,
     dialectOptions: {
-      ssl: process.env.NODE_ENV === 'production',
+      ssl: {
+        require: process.env.NODE_ENV === 'production',
+        rejectUnauthorized: false,
+      },
     },
   });
 
