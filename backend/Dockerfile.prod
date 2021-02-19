@@ -7,4 +7,4 @@ RUN cd /opt/app && yarn
 WORKDIR /opt/app
 USER node
 EXPOSE 8080
-CMD ["NODE_ENV=production", "node", "index.js"]
+CMD ["node", "index.js"]
