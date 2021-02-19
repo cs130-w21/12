@@ -1,6 +1,6 @@
 {
-  "backendURL": "http://localhost:8080/",
-  "frontendURL": "http://localhost:3000/",
+  "backendURL": "https://api-cuisinemachine.herokuapp.com/",
+  "frontendURL": "https://cuisinemachine.herokuapp.com/",
   "logFile": "/var/log/cuisine-machine.log",
   "credentials": {
     "auth": {
