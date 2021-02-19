@@ -11,7 +11,7 @@ import LoginButton from './LoginButton'
 const AppHeader = () => {
   const history = useHistory()
 
-  function handleClickMain() {
+  const handleClickMain = () => {
     history.push('/')
   }
 

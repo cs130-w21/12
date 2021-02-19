@@ -48,7 +48,7 @@ const RecipeCard = (props) => {
       >
         <CardMedia
           className={classes.media}
-          image={recipe.image}
+          image={recipe.imageUrl}
           title={recipe.title}
         />
         <CardContent>
