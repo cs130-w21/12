@@ -40,10 +40,10 @@ router.get('/:id', async (req, res) => {
 });
 
 /*
-GET /recipes/random
+GET /recipes
 This endpoint is used to get random recipes
 */
-router.get('/random', async (req, res) => {
+router.get('/', async (req, res) => {
   try {
     const recipes = await service.getRandomRecipes();
     res.status(200).json({ recipes });
