@@ -9,6 +9,9 @@ const sequelize = new Sequelize(config.credentials.database.db,
     host: config.credentials.database.host,
     dialect: config.credentials.database.dialect,
     isolationLevel: Sequelize.Transaction.ISOLATION_LEVELS.SERIALIZABLE,
+    dialectOptions: {
+      ssl: process.env.NODE_ENV === 'production',
+    },
   });
 
 exports.sequelize = sequelize;
