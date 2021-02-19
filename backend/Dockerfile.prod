@@ -6,5 +6,6 @@ COPY . /opt/app/
 RUN cd /opt/app && yarn
 WORKDIR /opt/app
 USER node
+ENV NODE_ENV production
 EXPOSE 8080
 CMD ["node", "index.js"]
