@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react'
+import { useHistory } from 'react-router-dom'
 import '../styles/Main.css'
 // Material UI Imports
 import Chip from '@material-ui/core/Chip'
@@ -25,6 +26,7 @@ const Main = () => {
   const [preferences, setPreferences] = useState({ diet: null, cuisine: null, 'sort by': null })
   const [open, setOpen] = useState(false)
   const [alertMessage, setAlertMessage] = useState('')
+  const history = useHistory()
 
   // TODO: Find a better way to do this.
   useEffect(() => {
@@ -69,11 +71,14 @@ const Main = () => {
     newPreferences[type] = val
     setPreferences(newPreferences)
   }
-  const handleSubmit = (event) => {
-    axios.post('http://localhost:8080/recipes', {
-      ingredients: ingredients,
-      preferences: preferences
-    }).catch((error) => console.error(error))
+  const handleSubmit = () => {
+    history.push({
+      pathname: '/search_results',
+      state: {
+        ingredients: ingredients,
+        cuisine: preferences.cuisine
+      }
+    })
   }
 
   return (

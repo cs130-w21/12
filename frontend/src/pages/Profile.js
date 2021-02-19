@@ -19,37 +19,35 @@ const Profile = () => {
   }, [authState, authService])
 
   return (
-    <React.Fragment>
-      <div className="container-fluid mb-3">
-        <div className="profile-wrapper mt-5">
-          <AccountCircleIcon style={{ fontSize: '100px' }} />
-          {userInfo && (
-            <div className="profile-sub-wrapper mt-3 mb-3">
-              <div className="profile-sect">
-                <label className="my-2">User Name</label>
-                <input className="profile-input" value="Jakin" readOnly />
-              </div>
-              <div className="profile-sect">
-                <label className="my-2">Phone Number</label>
-                <input className="profile-input" value="123456789" readOnly />
-              </div>
-              <div className="profile-sect">
-                <label className="my-2">Preference</label>
-                <input className="profile-input" value="Vegetarian" readOnly />
-              </div>
-              <div className="profile-sect">
-                <label className="my-2">Email</label>
-                <input className="profile-input" value="test@gmail.com" readOnly />
-              </div>
+    <div className="container-fluid mb-3">
+      <div className="profile-wrapper mt-5">
+        <AccountCircleIcon style={{ fontSize: '100px' }} />
+        {userInfo && (
+          <div className="profile-sub-wrapper mt-3 mb-3">
+            <div className="profile-sect">
+              <label className="my-2">User Name</label>
+              <input className="profile-input" value="Jakin" readOnly />
             </div>
-          )}
+            <div className="profile-sect">
+              <label className="my-2">Phone Number</label>
+              <input className="profile-input" value="123456789" readOnly />
+            </div>
+            <div className="profile-sect">
+              <label className="my-2">Preference</label>
+              <input className="profile-input" value="Vegetarian" readOnly />
+            </div>
+            <div className="profile-sect">
+              <label className="my-2">Email</label>
+              <input className="profile-input" value="test@gmail.com" readOnly />
+            </div>
+          </div>
+        )}
 
-          <RecButton>
-            Save Changes
+        <RecButton>
+          Save Changes
           </RecButton>
-        </div>
       </div>
-    </React.Fragment>
+    </div>
   )
 }
 
