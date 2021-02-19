@@ -26,6 +26,8 @@ const useStyles = makeStyles((theme) => ({
   }
 }))
 
+// TODO: make everything orange
+// TODO: put a container to make it look good when it's full screen
 const RecipeCard = (props) => {
   const classes = useStyles()
   const [bookmarked, setBookmarked] = React.useState(false)
@@ -33,6 +35,7 @@ const RecipeCard = (props) => {
 
   const handleBookmarkClick = () => {
     setBookmarked(!bookmarked)
+    // API logic: call backend endpoint to update the database (bookmark)
   }
 
   const recipe = props.recipe
@@ -55,6 +58,7 @@ const RecipeCard = (props) => {
         </CardContent>
       </ButtonBase>
       <CardActions disableSpacing>
+        {/* TODO: you should not be able to bookmark if you have not authenticated */}
         <IconButton
           aria-label="add to favorites"
           onClick={handleBookmarkClick}
