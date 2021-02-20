@@ -4,6 +4,8 @@ const express = require('express');
 const cors = require('cors');
 
 const ingredients = require('./ingredients.json');
+const syncAllTables = require('./model/sync.js');
+const searchRouter = require('./route/search.js');
 
 const app = express();
 
@@ -21,12 +23,13 @@ app.get('/', (req, res) => {
   res.end('something');
 });
 
-app.post('/recipes', (req) => {
-  console.log(req.body);
-});
+app.use('/recipes', searchRouter);
 
 const port = process.env.PORT || 8080;
 
-app.listen(port,'0.0.0.0', () => {
-  console.log(`Listening on port ${port}`); // eslint-disable-line no-console
-});
+(async () => {
+  await syncAllTables();
+  app.listen(port, () => {
+    console.log(`Listening on port ${port}`); // eslint-disable-line no-console
+  });
+})();
