@@ -1,15 +1,15 @@
-export const diets = [
-  'No preference',
+'use strict';
+
+const diets = [
   'Ketogenic',
   'Paleo',
   'Primal',
   'Vegan',
   'Vegetarian',
-  'Whole30'
-]
+  'Whole30',
+];
 
-export const cuisines = [
-  'No preference',
+const cuisines = [
   'African',
   'American',
   'British',
@@ -33,10 +33,7 @@ export const cuisines = [
   'Southern',
   'Spanish',
   'Thai',
-  'Vietnamese'
-]
+  'Vietnamese',
+];
 
-export default {
-  diets,
-  cuisines
-}
+module.exports = { diets, cuisines };
