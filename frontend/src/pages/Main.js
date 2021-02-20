@@ -78,11 +78,9 @@ const Main = () => {
       ingredients: ingredients,
       preferences: preferences
     }).then(res => {
-      console.log(res)
       setRecipes(res.data.recipes)
-    })
-      .catch((error) => console.error(error))
-    history.push('/search_results')
+      history.push('/search_results')
+    }).catch((error) => console.error(error))
   }
 
   return (
