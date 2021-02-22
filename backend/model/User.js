@@ -21,6 +21,7 @@ User.init({
   },
   diet_preference: { type: Sequelize.DataTypes.ENUM(preferences.diets) },
   cuisine_preference: { type: Sequelize.DataTypes.ENUM(preferences.cuisines) },
+  avatar: { type: Sequelize.DataTypes.STRING },
 }, {
   sequelize,
   modelName: 'user',
