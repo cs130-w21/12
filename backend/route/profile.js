@@ -2,7 +2,7 @@
 
 const express = require('express');
 
-const service = require('../service/query-service.js');
+const service = require('../service/profile-service.js');
 
 const router = express.Router();
 
