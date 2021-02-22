@@ -3,8 +3,8 @@
 const queryGateway = require('../gateway/query-gateway.js');
 
 const getUserInfo = async (userId) => {
-  const result = await queryGateway.getUserInfo(userId);
-  return result;
+  const user = await queryGateway.getUserInfo(userId);
+  return user.avatar;
 };
 
 module.exports = { getUserInfo };
