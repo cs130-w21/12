@@ -8,13 +8,13 @@ const getBookmarks = async (userId) => {
 };
 
 const addBookmark = async (userId, recipeId) => {
-  const user = await queryGateway.addBookmark(userId, recipeId);
-  return 
+  const f = await queryGateway.addBookmark(userId, recipeId);
+  return f;
 };
 
 const deleteBookmark = async (userId, recipeId) => {
-  const user = await queryGateway.deleteBookmark(userId, recipeId);
-  return 
+  const deletedRows = await queryGateway.deleteBookmark(userId, recipeId);
+  return deletedRows;
 };
 
 module.exports = { getBookmarks, addBookmark, deleteBookmark };
