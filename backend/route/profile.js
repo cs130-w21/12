@@ -20,4 +20,14 @@ router.get('/', async (req, res) => {
   }
 });
 
+router.post('/', async (req, res) => {
+  try {
+    await service.createNewUser(req.get('userId'));
+    res.status(200).json({ message: 'OK' });
+  } catch (err) {
+    console.log(err); // eslint-disable-line no-console
+    res.status(500).json({ message: 'Server error' });
+  }
+});
+
 module.exports = router;

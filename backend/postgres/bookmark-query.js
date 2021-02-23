@@ -8,6 +8,11 @@ const getBookmarks = (userId) => sequelize.transaction((t) => Bookmark.findAll({
   transaction: t,
 }));
 
+const getBookmarkByIds = (userId, recipeId) => sequelize.transaction((t) => Bookmark.findOne({
+  where: { userId, recipeId },
+  transaction: t,
+}));
+
 const deleteBookmark = (userId, recipeId) => sequelize.transaction((t) => Bookmark.destroy({
   where: { userId, recipeId },
   transaction: t,
@@ -20,6 +25,7 @@ const addBookmark = (userId, recipeId) => sequelize.transaction((t) => Bookmark.
 
 module.exports = {
   getBookmarks,
+  getBookmarkByIds,
   deleteBookmark,
   addBookmark,
 };

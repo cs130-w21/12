@@ -14,11 +14,6 @@ User.init({
     unique: true,
     allowNull: false,
   },
-  email: {
-    type: Sequelize.DataTypes.STRING,
-    unique: true,
-    allowNull: false,
-  },
   diet_preference: { type: Sequelize.DataTypes.ENUM(preferences.diets) },
   cuisine_preference: { type: Sequelize.DataTypes.ENUM(preferences.cuisines) },
   avatar: { type: Sequelize.DataTypes.STRING },
