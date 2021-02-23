@@ -6,8 +6,8 @@ const { sequelize } = require('./database.js');
 class Recipe extends Sequelize.Model {}
 
 Recipe.init({
-  uuid: {
-    type: Sequelize.DataTypes.UUID,
+  id: {
+    type: Sequelize.DataTypes.INTEGER,
     primaryKey: true,
     unique: true,
     allowNull: false,
