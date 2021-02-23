@@ -43,10 +43,8 @@ const RecipeCard = (props) => {
 
   const recipe = props.recipe
 
-  const recipe = props.recipe
-
   return (
-    <Card className={classes.root}>
+    <Card className={classes.root} onClick={handleCardClick}>
       <ButtonBase
         className={classes.cardAction}
         onClick={event => console.log('clicked')}
