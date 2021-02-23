@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useContext, useEffect } from 'react'
 import { useHistory } from 'react-router-dom'
 import '../styles/Main.css'
 // Material UI Imports
@@ -14,6 +14,9 @@ import { RecButton } from '../styles/styles'
 import UserInput from '../components/UserInput'
 import logo from '../assets/logo.png'
 import axios from 'axios'
+import { API_URL } from '../constants'
+// contexts
+import { preferenceContext, ingredientContext, recipeContext } from '../contexts/contexts'
 
 const Alert = (props) => {
   return <MuiAlert style={{ color: 'white' }} elevation={6} variant="filled" {...props} />
@@ -21,14 +24,20 @@ const Alert = (props) => {
 
 const Main = () => {
   const [ingredientOptions, setIngredientOptions] = useState([])
+  const { ingredients, setIngredients } = useContext(ingredientContext)
+  const { preferences, setPreferences } = useContext(preferenceContext)
+  const { setRecipes } = useContext(recipeContext)
   const [ingredientInput, setIngredientInput] = useState(null)
-  const [ingredients, setIngredients] = useState([])
-  const [preferences, setPreferences] = useState({ diet: null, cuisine: null, 'sort by': null })
   const [open, setOpen] = useState(false)
   const [alertMessage, setAlertMessage] = useState('')
   const history = useHistory()
 
-  // TODO: Find a better way to do this.
+  const handleClick = () => { }
+  const handleDelete = (ingredient) => event => {
+    setIngredients(ingredients.filter((ing) => ing !== ingredient))
+  }
+
+  // TODO: we don't support ingredient options to be delivered from our backend, change this
   useEffect(() => {
     axios.get('https://api-cuisinemachine.herokuapp.com/')
       .then((res) => setIngredientOptions(res.data))
@@ -39,10 +48,6 @@ const Main = () => {
       })
   }, [])
 
-  const handleClick = () => {}
-  const handleDelete = (ingredient) => event => {
-    setIngredients(ingredients.filter((ing) => ing !== ingredient))
-  }
   const handleAddIngredient = () => {
     const emptyInput = (ingredientInput === null)
     const duplicateInput = ingredients.includes(ingredientInput)
@@ -72,19 +77,19 @@ const Main = () => {
     setPreferences(newPreferences)
   }
   const handleSubmit = () => {
-    history.push({
-      pathname: '/search_results',
-      state: {
-        ingredients: ingredients,
-        cuisine: preferences.cuisine
-      }
-    })
+    axios.post(`${API_URL}/recipes`, {
+      ingredients: ingredients,
+      preferences: preferences
+    }).then(res => {
+      setRecipes(res.data.recipes)
+      history.push('/search_results')
+    }).catch((error) => console.error(error))
   }
 
   return (
     <React.Fragment>
       <div
-          className="container-fluid main-wrapper mt-3 mb-3"
+        className="container-fluid main-wrapper mt-3 mb-3"
       >
         <img src={logo} alt="Logo" width="140" height="140" />
         <div className="main-mid-wrapper">
@@ -125,11 +130,11 @@ const Main = () => {
             <div>
               <div className="main-sect">preferences</div>
               <div className="main-sub-section">diet</div>
-              <UserInput options={diets} onChange={ (e) => handlePreferences('diet', e) } placeholder="search..." />
+              <UserInput options={diets} onChange={(e) => handlePreferences('diet', e)} placeholder="search..." />
               <div className="main-sub-section">cuisine</div>
-              <UserInput options={cuisines} onChange={ (e) => handlePreferences('cuisine', e) } placeholder="search..." />
+              <UserInput options={cuisines} onChange={(e) => handlePreferences('cuisine', e)} placeholder="search..." />
               <div className="main-sub-section">sort by</div>
-              <UserInput options={['Date', 'Rate', 'Calories']} onChange={ (e) => handlePreferences('sort by', e) } placeholder="search..." />
+              <UserInput options={['Date', 'Rate', 'Calories']} onChange={(e) => handlePreferences('sort by', e)} placeholder="search..." />
             </div>
           </div>
         </div>
