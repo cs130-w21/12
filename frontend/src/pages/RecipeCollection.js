@@ -8,8 +8,7 @@ import {
   Grid,
   Link
 } from '@material-ui/core/'
-import axios from 'axios'
-import { recipes } from '../data/recipes'
+// import { recipes } from '../data/recipes'
 
 const useStyles = makeStyles(theme => ({
   root: {
