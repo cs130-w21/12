@@ -12,11 +12,7 @@ Recipe.init({
     unique: true,
     allowNull: false,
   },
-  url: {
-    type: Sequelize.DataTypes.STRING,
-    unique: true,
-    allowNull: false,
-  },
+  title: Sequelize.DataTypes.STRING,
   image_url: Sequelize.DataTypes.STRING,
 }, {
   sequelize,

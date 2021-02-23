@@ -1,6 +1,7 @@
 'use strict';
 
 const recipeGateway = require('../gateway/recipe-gateway.js');
+const recipeQuery = require('../postgres/recipe-query.js');
 
 const cleanUpBulkRecipes = (recipes) => recipes.map((r) => ({
   id: r.id,
@@ -37,7 +38,11 @@ const cleanUpRecipeInfo = (recipe) => ({
 
 const findRecipes = async (ingredients, cuisine, diet) => {
   const result = await recipeGateway.findRecipes(ingredients.map((i) => i.replace(/\s+/g, '+')), cuisine, diet);
-  return cleanUpBulkRecipes(result.results);
+  const recipes = cleanUpBulkRecipes(result.results);
+  for (const recipe of recipes) {
+    await recipeQuery.ensureRecipe(recipe); // eslint-disable-line no-await-in-loop
+  }
+  return recipes;
 };
 
 const getRecipeInfo = async (recipeId) => {
@@ -47,7 +52,11 @@ const getRecipeInfo = async (recipeId) => {
 
 const getRandomRecipes = async () => {
   const result = await recipeGateway.getRandomRecipes();
-  return cleanUpBulkRecipes(result.recipes);
+  const recipes = cleanUpBulkRecipes(result.recipes);
+  for (const recipe of recipes) {
+    await recipeQuery.ensureRecipe(recipe); // eslint-disable-line no-await-in-loop
+  }
+  return recipes;
 };
 
 module.exports = { findRecipes, getRecipeInfo, getRandomRecipes };
