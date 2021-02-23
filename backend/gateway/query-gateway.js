@@ -9,6 +9,19 @@ const getUserInfo = (userId) => sequelize.transaction((t) => User.findOne({
   transaction: t,
 }));
 
+const getBookmarks = (userId) => sequelize.transaction((t) => User.findOne({
+  where: { uuid: userId },
+  transaction: t,
+}));
+
+const addBookmark = (userId) => sequelize.transaction((t) => User.findOne({
+
+}));
+
+const deleteBookmark = (userId) => sequelize.transaction((t) => User.findOne({
+
+}));
+
 module.exports = {
-  getUserInfo,
+  getUserInfo, getBookmarks, addBookmark, deleteBookmark
 };
