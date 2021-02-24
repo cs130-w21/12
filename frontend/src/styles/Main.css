@@ -46,6 +46,7 @@
     flex-wrap: wrap;
     width: 30vw;
     min-width: 150px;
+    max-width: 450px;
 }
   
 .chip {
@@ -74,9 +75,14 @@
 .instruction {
     width: 30vw;
     min-width: 150px;
+    max-width: 475px;
 }
 
 @media only screen and (max-width: 768px) {
+    .chip-area {
+        width: 70vw;
+    }
+
     .main-mid-wrapper {
        flex-direction: column;
        width: 100%;
