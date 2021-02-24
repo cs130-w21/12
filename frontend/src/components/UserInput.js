@@ -20,6 +20,7 @@ const UserInput = (props) => {
       )}
       getOptionLabel={(option) => option}
       onChange={handleChange}
+      freeSolo
       renderInput={(params) => (
         <div ref={params.InputProps.ref}>
             <StyledInput type="text" {...params.inputProps} placeholder={placeholder} required />
