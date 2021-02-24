@@ -181,7 +181,6 @@ const RecipeDetails = () => {
 
           <Grid item xs={8}>
             <h3 className={classes.root}> <LocalPharmacyIcon/> Nutrition Facts </h3>
-            <GetNutritionFacts />
           </Grid>
 
         </Grid>
