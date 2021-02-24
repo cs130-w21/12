@@ -11,7 +11,7 @@ import BookmarkBorderIcon from '@material-ui/icons/BookmarkBorder'
 import ArrowBackIcon from '@material-ui/icons/ArrowBack'
 import CheckIcon from '@material-ui/icons/Check'
 
-// import Typography from '@material-ui/core/Typography'
+import Typography from '@material-ui/core/Typography'
 import Grid from '@material-ui/core/Grid'
 import Paper from '@material-ui/core/Paper'
 import Link from '@material-ui/core/Link'
@@ -27,22 +27,6 @@ const useStyles = makeStyles(theme => ({
 const pathArray = window.location.pathname.split('/')
 const recipeID = pathArray[2]
 const RecipeDetails = () => {
-  const GetInstruction = () => {
-    return (
-      <React.Fragment>
-        <h5>Step 1</h5>
-        <p>
-        test </p>
-
-        <h5>Step 2</h5>
-        <p>
-          Add some salt and oregano.
-        </p>
-
-      </React.Fragment>
-    )
-  }
-
   const [recipeInfo, readRecipeData] = useState({})
 
   useEffect(() => {
@@ -103,16 +87,29 @@ const RecipeDetails = () => {
 
           <Grid item xs={8}>
             <h3 className={classes.root}> <KitchenIcon/> Ingredients </h3>
+            <Typography>
             {recipeInfo.ingredients &&
               recipeInfo.ingredients.map(r => (
                 <p key={r.id}>{r.unit.us.amount + ' ' + r.unit.us.unitShort + ' ' + r.name}</p>
               ))
             }
+          </Typography>
+
           </Grid>
 
           <Grid item xs={8}>
             <h3 className={classes.root}> <FastfoodIcon/> Instructions </h3>
-            <GetInstruction />
+            {recipeInfo.analyzedInstructions &&
+              recipeInfo.analyzedInstructions.map(r => (
+                r.steps.map(j => (
+                  <div key={j.id}>
+                  <h5>{j.number}</h5>
+                  <p>{j.step}</p>
+                  </div>
+                ))
+              ))
+            }
+            {recipeInfo.analyzedInstructions && console.log(recipeInfo.analyzedInstructions.steps)}
             <Link target="_blank" href={recipeInfo.url}>
               Read the detailed instructions
             </Link>
