@@ -20,6 +20,7 @@ router.get('/', async (req, res) => {
   }
 });
 
+// GET /user/bookmarks/{recipeId}
 router.get('/:id', async (req, res) => {
   try {
     const userId = req.get('userId');
@@ -32,10 +33,11 @@ router.get('/:id', async (req, res) => {
   }
 });
 
-router.post('/', async (req, res) => {
+// POST /user/bookmarks/{recipeId}
+router.post('/:id', async (req, res) => {
   try {
     const userId = req.get('userId');
-    await service.addBookmark(userId, req.body.recipeId);
+    await service.addBookmark(userId, req.params.id);
     res.status(200).json({ message: 'OK' });
   } catch (err) {
     console.log(err); // eslint-disable-line no-console
@@ -43,10 +45,11 @@ router.post('/', async (req, res) => {
   }
 });
 
-router.delete('/', async (req, res) => {
+// DELETE /user/bookmarks/{recipeId}
+router.delete('/:id', async (req, res) => {
   try {
     const userId = req.get('userId');
-    await service.deleteBookmark(userId, req.body.recipeId);
+    await service.deleteBookmark(userId, req.params.id);
     res.status(200).json({ message: 'OK' });
   } catch (err) {
     console.log(err); // eslint-disable-line no-console
