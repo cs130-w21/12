@@ -104,11 +104,11 @@ const Main = () => {
               </div>
             </form>
 
-            <div className="chip-area">
+            <div className="chip-area my-3">
               {
                 ingredients.map(ingredient =>
                   <Chip
-                    className="mr-2 my-2 capitalize"
+                    className="mx-1 my-1 capitalize"
                     variant="outlined"
                     key={ingredient}
                     label={`${ingredient}`}
