@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react'
 import { makeStyles } from '@material-ui/core/styles'
 import axios from 'axios'
 
-import LocalPharmacyIcon from '@material-ui/icons/LocalPharmacy'
 import ScheduleIcon from '@material-ui/icons/Schedule'
 import KitchenIcon from '@material-ui/icons/Kitchen'
 import FastfoodIcon from '@material-ui/icons/Fastfood'
@@ -54,69 +53,12 @@ const RecipeDetails = () => {
     )
   }
 
-  // const GetNutritionFacts = () => {
-  //   return (
-  //     <React.Fragment>
-  //       <p>
-  //       calories: 316<br/>
-  //       carbs: 49g<br/>
-  //       fat: 12g<br/>
-  //       protein: 3g<br/>
-  //       </p>
-  //     </React.Fragment>
-  //   )
-  // }
-
-  const CheckGlutenFree = (glutenFree) => {
-    if (glutenFree) {
-      return (
-        <React.Fragment>
-          <p> <CheckIcon/> Gluten Free</p>
-        </React.Fragment>
-      )
-    } else {
-      return (
-        <React.Fragment>
-        </React.Fragment>
-      )
-    }
-  }
-  const CheckVegan = (vegan) => {
-    if (vegan) {
-      return (
-        <React.Fragment>
-          <p> <CheckIcon/> Vegan</p>
-        </React.Fragment>
-      )
-    } else {
-      return (
-        <React.Fragment>
-
-        </React.Fragment>
-      )
-    }
-  }
-  const CheckVegetarian = (vegetarian) => {
-    if (vegetarian) {
-      return (
-        <React.Fragment>
-          <p> <CheckIcon/> Vegetarian</p>
-        </React.Fragment>
-      )
-    } else {
-      return (
-        <React.Fragment>
-
-        </React.Fragment>
-      )
-    }
-  }
-  const [recipeInfo, readRecipeData] = useState([])
+  const [recipeInfo, readRecipeData] = useState({})
 
   useEffect(() => {
     axios.get(`https://api-cuisinemachine.herokuapp.com/recipes/${recipeID}`).then((res) => {
       readRecipeData(res.data.recipeInfo)
-      console.log(recipeInfo.tags)
+      console.log(recipeInfo)
     }).catch((err) => {
       console.error(err)
       console.log(location.state)
@@ -156,9 +98,11 @@ const RecipeDetails = () => {
               </h2>
               <p> <ScheduleIcon/> Ready in {recipeInfo.preparationTime} mins
                   <PeopleIcon/> Servings: {recipeInfo.servings}</p>
-              <p>{recipeInfo.tags && <CheckGlutenFree glutenFree={String(recipeInfo.tags.glutenFree)} />}</p>
-              <p>{recipeInfo.tags && <CheckVegan vegan={String(recipeInfo.tags.vegan)} />}</p>
-              <p>{recipeInfo.tags && <CheckVegetarian vegetarian={String(recipeInfo.tags.vegetarian)} />}</p>
+              {(recipeInfo.tags && recipeInfo.tags.glutenFree) ? <p> <CheckIcon/> Gluten Free</p> : ''}
+              {(recipeInfo.tags && recipeInfo.tags.vegan) ? <p> <CheckIcon/> Vegan</p> : ''}
+              {(recipeInfo.tags && recipeInfo.tags.vegetarian) ? <p> <CheckIcon/> Vegetarian</p> : ''}
+              {(recipeInfo.tags && recipeInfo.tags.dairyFree) ? <p> <CheckIcon/> Dairy Free</p> : ''}
+              {(recipeInfo.tags && recipeInfo.tags.sustainable) ? <p> <CheckIcon/> Sustainable</p> : ''}
             </Grid>
             <Grid item xs={4}>
               <Paper variant="outlined" elevation={5}>
@@ -178,10 +122,6 @@ const RecipeDetails = () => {
             <Link target="_blank" href={recipeInfo.url}>
               Read the detailed instructions
             </Link>
-          </Grid>
-
-          <Grid item xs={8}>
-            <h3 className={classes.root}> <LocalPharmacyIcon/> Nutrition Facts </h3>
           </Grid>
 
         </Grid>
