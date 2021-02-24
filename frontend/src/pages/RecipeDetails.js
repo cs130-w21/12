@@ -11,7 +11,7 @@ import BookmarkBorderIcon from '@material-ui/icons/BookmarkBorder'
 import ArrowBackIcon from '@material-ui/icons/ArrowBack'
 import CheckIcon from '@material-ui/icons/Check'
 
-import Typography from '@material-ui/core/Typography'
+// import Typography from '@material-ui/core/Typography'
 import Grid from '@material-ui/core/Grid'
 import Paper from '@material-ui/core/Paper'
 import Link from '@material-ui/core/Link'
@@ -103,14 +103,11 @@ const RecipeDetails = () => {
 
           <Grid item xs={8}>
             <h3 className={classes.root}> <KitchenIcon/> Ingredients </h3>
-            <Typography>
-            {recipeInfo.ingredients.map(r => (
-              <div key={r.id}>
-              <p> {r.unit.us.amount + ' ' + r.unit.us.unitShort + ' ' + r.name} </p>
-              </div>
-            ))
+            {recipeInfo.ingredients &&
+              recipeInfo.ingredients.map(r => (
+                <p key={r.id}>{r.unit.us.amount + ' ' + r.unit.us.unitShort + ' ' + r.name}</p>
+              ))
             }
-            </Typography>
           </Grid>
 
           <Grid item xs={8}>
