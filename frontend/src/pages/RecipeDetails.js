@@ -67,8 +67,8 @@ const RecipeDetails = () => {
   //   )
   // }
 
-  const CheckGlutenFree = (e) => {
-    if (e.glutenFree == null) {
+  const CheckGlutenFree = (glutenFree) => {
+    if (glutenFree) {
       return (
         <React.Fragment>
           <p> <CheckIcon/> Gluten Free</p>
@@ -116,6 +116,7 @@ const RecipeDetails = () => {
   useEffect(() => {
     axios.get(`https://api-cuisinemachine.herokuapp.com/recipes/${recipeID}`).then((res) => {
       readRecipeData(res.data.recipeInfo)
+      console.log(recipeInfo.tags)
     }).catch((err) => {
       console.error(err)
       console.log(location.state)
@@ -155,7 +156,7 @@ const RecipeDetails = () => {
               </h2>
               <p> <ScheduleIcon/> Ready in {recipeInfo.preparationTime} mins
                   <PeopleIcon/> Servings: {recipeInfo.servings}</p>
-              <p>{recipeInfo.tags && <CheckGlutenFree e={recipeInfo.tags} />}</p>
+              <p>{recipeInfo.tags && <CheckGlutenFree glutenFree={String(recipeInfo.tags.glutenFree)} />}</p>
               <p>{recipeInfo.tags && <CheckVegan vegan={String(recipeInfo.tags.vegan)} />}</p>
               <p>{recipeInfo.tags && <CheckVegetarian vegetarian={String(recipeInfo.tags.vegetarian)} />}</p>
             </Grid>
