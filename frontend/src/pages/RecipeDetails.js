@@ -27,16 +27,6 @@ const useStyles = makeStyles(theme => ({
 const pathArray = window.location.pathname.split('/')
 const recipeID = pathArray[2]
 const RecipeDetails = () => {
-  const GetIngredients = () => {
-    return (
-      <React.Fragment>
-        <Typography>
-        <p> {recipeInfo.title} </p>
-        </Typography>
-      </React.Fragment>
-    )
-  }
-
   const GetInstruction = () => {
     return (
       <React.Fragment>
@@ -113,7 +103,14 @@ const RecipeDetails = () => {
 
           <Grid item xs={8}>
             <h3 className={classes.root}> <KitchenIcon/> Ingredients </h3>
-            <GetIngredients />
+            <Typography>
+            {recipeInfo.ingredients.map(r => (
+              <div key={r.id}>
+              <p> {r.unit.us.amount + ' ' + r.unit.us.unitShort + ' ' + r.name} </p>
+              </div>
+            ))
+            }
+            </Typography>
           </Grid>
 
           <Grid item xs={8}>
