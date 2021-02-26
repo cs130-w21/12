@@ -7,12 +7,18 @@ import {
   Link
 } from '@material-ui/core'
 import LoginButton from './LoginButton'
+import { useOktaAuth } from '@okta/okta-react'
 
 const AppHeader = () => {
   const history = useHistory()
+  const { authState } = useOktaAuth()
 
   const handleClickMain = () => {
     history.push('/')
+  }
+
+  const handleClickMyRecipes = () => {
+    history.push('/my_recipes')
   }
 
   return (
@@ -24,6 +30,13 @@ const AppHeader = () => {
           </Link>
         </Typography>
         <div style={{ flex: 1 }} />
+        {authState.isAuthenticated &&
+          <Typography variant='body1' color='inherit' style={{ fontFamily: 'Roboto Condensed' }}>
+            <Link component='button' color='inherit' onClick={handleClickMyRecipes}>
+              My Recipes
+          </Link>
+          </Typography>
+        }
         <LoginButton />
       </Toolbar>
     </AppBar >

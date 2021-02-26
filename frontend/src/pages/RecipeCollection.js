@@ -28,6 +28,7 @@ const RecipeCollection = (props) => {
   const [bookmarkedRecipeIds, setBookmarkedRecipeIds] = useState([])
   const history = useHistory()
   const { authState, authService } = useOktaAuth()
+  /* eslint-disable no-unused-vars */
   const [userInfo, setUserInfo] = useState(null)
   const [reqConfig, setReqConfig] = useState(null)
   const { ingredients } = useContext(ingredientContext)
@@ -37,31 +38,33 @@ const RecipeCollection = (props) => {
     if (!authState.isAuthenticated) {
       setUserInfo(null)
     } else {
-      authService.getUser().then(info => {
-        setUserInfo(info)
-        setReqConfig({
-          headers: {
-            userId: userInfo.sub,
-            authorization: `Bearer ${authState.accessToken.accessToken}`
+      authService.getUser()
+        .then(info => {
+          setUserInfo(info)
+          setReqConfig({
+            headers: {
+              userId: info.sub,
+              authorization: `Bearer ${authState.accessToken.accessToken}`
+            }
+          })
+          if (isMyRecipe) {
+            axios.get(`${API_URL}/user/bookmarks/`, reqConfig)
+              .then((res) => {
+                const { bookmarks } = res.data
+                setBookmarkedRecipeIds(bookmarks.map(b => b.id))
+                setRecipes(bookmarks)
+              })
+              .catch(err => console.log(err))
           }
         })
-      })
-      if (isMyRecipe) {
-        axios.get(`${API_URL}/user/bookmarks/`, reqConfig)
-          .then((res) => {
-            const { bookmarks } = res.data
-            setBookmarkedRecipeIds(bookmarks.map(b => b.id))
-            setRecipes(bookmarks)
-          })
-          .catch(err => console.log(err))
-      } else {
-        axios.post(`${API_URL}/recipes`, {
-          ingredients: ingredients,
-          preferences: preferences
-        }).then(res => {
-          setRecipes(res.data.recipes)
-        }).catch((error) => console.error(error))
-      }
+    }
+    if (!isMyRecipe) {
+      axios.post(`${API_URL}/recipes`, {
+        ingredients: ingredients,
+        preferences: preferences
+      }).then(res => {
+        setRecipes(res.data.recipes)
+      }).catch((error) => console.error(error))
     }
   }, [authState, authService])
 
