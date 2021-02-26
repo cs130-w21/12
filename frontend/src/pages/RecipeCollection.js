@@ -2,7 +2,7 @@ import React, { useContext, useState, useEffect } from 'react'
 import { makeStyles } from '@material-ui/core/styles'
 import RecipeCard from '../components/RecipeCard'
 import PropTypes from 'prop-types'
-import { recipeContext } from '../contexts/contexts'
+import { preferenceContext, ingredientContext, recipeContext } from '../contexts/contexts'
 import { useHistory } from 'react-router-dom'
 import axios from 'axios'
 import {
@@ -24,12 +24,14 @@ const useStyles = makeStyles(theme => ({
 const RecipeCollection = (props) => {
   const classes = useStyles()
   const isMyRecipe = props.isMyRecipe
-  const { recipes } = useContext(recipeContext)
+  const { recipes, setRecipes } = useContext(recipeContext)
   const [bookmarkedRecipeIds, setBookmarkedRecipeIds] = useState([])
   const history = useHistory()
   const { authState, authService } = useOktaAuth()
   const [userInfo, setUserInfo] = useState(null)
   const [reqConfig, setReqConfig] = useState(null)
+  const { ingredients } = useContext(ingredientContext)
+  const { preferences } = useContext(preferenceContext)
 
   useEffect(() => {
     if (!authState.isAuthenticated) {
@@ -49,8 +51,16 @@ const RecipeCollection = (props) => {
           .then((res) => {
             const { bookmarks } = res.data
             setBookmarkedRecipeIds(bookmarks.map(b => b.id))
+            setRecipes(bookmarks)
           })
           .catch(err => console.log(err))
+      } else {
+        axios.post(`${API_URL}/recipes`, {
+          ingredients: ingredients,
+          preferences: preferences
+        }).then(res => {
+          setRecipes(res.data.recipes)
+        }).catch((error) => console.error(error))
       }
     }
   }, [authState, authService])
