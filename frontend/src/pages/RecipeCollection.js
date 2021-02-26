@@ -28,6 +28,7 @@ const RecipeCollection = (props) => {
   const history = useHistory()
   const { authState, authService } = useOktaAuth()
   const [userInfo, setUserInfo] = useState(null)
+  const [reqConfig, setReqConfig] = useState(null)
 
   useEffect(() => {
     if (!authState.isAuthenticated) {
@@ -35,15 +36,17 @@ const RecipeCollection = (props) => {
     } else {
       authService.getUser().then(info => {
         setUserInfo(info)
+        setReqConfig({
+          headers: {
+            userId: userInfo.sub,
+            authorization: `Bearer ${authState.accessToken.accessToken}`
+          }
+        })
       })
       if (isMyRecipe) {
-        axios.get(`API_URL/user/bookmarks/`).then((res) => {
-          const { bookmarks } = res.data
-          setBookmarkedRecipeIds(bookmarks.map(b => b.ID))
-
-        }).catch((err) => {
-          console.error(err)
-        })
+        const response = await axios.get(`${API_URL}/user/bookmarks/`, reqConfig)
+        const { bookmarks } = response.data
+        setBookmarkedRecipeIds(bookmarks.map(b => b.id))
       }
     }
   }, [authState, authService])
@@ -53,14 +56,12 @@ const RecipeCollection = (props) => {
   }
 
   const handleBookmarkClick = (recipeId) => {
-    const userId = userInfo.sub
-    console.log(userId)
     if (bookmarkedRecipeIds.includes(recipeId)) {
       setBookmarkedRecipeIds(bookmarkedRecipeIds.filter(rid => rid !== recipeId))
-      // call backend API to call DELETE bookmark
+      await axios.delete(`${API_URL}/user/bookmarks`, { ...reqConfig, params: { id: recipeId } })
     } else {
       setBookmarkedRecipeIds([...bookmarkedRecipeIds, recipeId])
-      // call backend API to call POST bookmark
+      await axios.post(`${API_URL}/user/bookmarks`, { ...reqConfig, params: { id: recipeId } })
     }
   }
 
