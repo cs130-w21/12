@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react'
+import React, { useContext, useState, useEffect } from 'react'
 import { makeStyles } from '@material-ui/core/styles'
 import RecipeCard from '../components/RecipeCard'
 import PropTypes from 'prop-types'
@@ -8,6 +8,7 @@ import {
   Grid,
   Link
 } from '@material-ui/core/'
+import { useOktaAuth } from '@okta/okta-react'
 // import { recipes } from '../data/recipes'
 
 const useStyles = makeStyles(theme => ({
@@ -22,22 +23,32 @@ const RecipeCollection = (props) => {
   const classes = useStyles()
   const isMyRecipe = props.isMyRecipe
   const { recipes } = useContext(recipeContext)
-  const [bookmarkedRecipeIds, setBookmarkedRecipeIds] = React.useState([])
+  const [bookmarkedRecipeIds, setBookmarkedRecipeIds] = useState([])
   const history = useHistory()
+  const { authState, authService } = useOktaAuth()
+  const [userInfo, setUserInfo] = useState(null)
+
+  useEffect(() => {
+    if (!authState.isAuthenticated) {
+      setUserInfo(null)
+    } else {
+      authService.getUser().then(info => {
+        setUserInfo(info)
+      })
+    }
+  }, [authState, authService])
 
   const handleClickMain = () => {
     history.push('/')
   }
 
   const handleBookmarkClick = (recipeId) => {
+    const userId = userInfo.sub
     if (bookmarkedRecipeIds.includes(recipeId)) {
       setBookmarkedRecipeIds(bookmarkedRecipeIds.filter(r => r.id !== recipeId))
-      // call backend API to call DELETE bookmark
-    }
-    else {
+    } else {
       setBookmarkedRecipeIds([...bookmarkedRecipeIds, recipeId])
-      // call backend API to call POST bookmark
-    }
+    }// call backend API to call POST bookmark
   }
 
   const handleGetMoreRecipes = () => {
