@@ -44,11 +44,14 @@ const RecipeCollection = (props) => {
 
   const handleBookmarkClick = (recipeId) => {
     const userId = userInfo.sub
+    console.log(userId)
     if (bookmarkedRecipeIds.includes(recipeId)) {
-      setBookmarkedRecipeIds(bookmarkedRecipeIds.filter(r => r.id !== recipeId))
+      setBookmarkedRecipeIds(bookmarkedRecipeIds.filter(rid => rid !== recipeId))
+      // call backend API to call DELETE bookmark
     } else {
       setBookmarkedRecipeIds([...bookmarkedRecipeIds, recipeId])
-    }// call backend API to call POST bookmark
+      // call backend API to call POST bookmark
+    }
   }
 
   const handleGetMoreRecipes = () => {

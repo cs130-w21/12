@@ -10,7 +10,14 @@ import ShareIcon from '@material-ui/icons/Share'
 import PropTypes from 'prop-types'
 import BookmarkIcon from '@material-ui/icons/Bookmark'
 import BookmarkBorderIcon from '@material-ui/icons/BookmarkBorder'
+import Dialog from '@material-ui/core/Dialog'
+import DialogActions from '@material-ui/core/DialogActions'
+import DialogContent from '@material-ui/core/DialogContent'
+import DialogContentText from '@material-ui/core/DialogContentText'
+import DialogTitle from '@material-ui/core/DialogTitle'
+import Button from '@material-ui/core/Button'
 import { useHistory } from 'react-router-dom'
+import { useOktaAuth } from '@okta/okta-react'
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -48,7 +55,28 @@ const useStyles = makeStyles((theme) => ({
 const RecipeCard = (props) => {
   const classes = useStyles()
   const history = useHistory()
-  const { isBookmarked, handleBookmarkClick, isAuthenticated } = props
+  const { isBookmarked, isAuthenticated } = props
+  const { authService } = useOktaAuth()
+  const [open, setOpen] = React.useState(false)
+
+  const handleCloseDialog = (e) => {
+    e.stopPropagation()
+    setOpen(false)
+  }
+
+  const handleClickLogin = (e) => {
+    e.stopPropagation()
+    authService.login('/')
+  }
+
+  const handleBookmarkClick = (e) => {
+    e.stopPropagation()
+    if (!isAuthenticated) {
+      setOpen(true)
+    } else {
+      props.handleBookmarkClick(recipe.id)
+    }
+  }
 
   const handleLabelClick = (e) => {
     e.stopPropagation()
@@ -61,31 +89,54 @@ const RecipeCard = (props) => {
   const recipe = props.recipe
 
   return (
-    <Card className={classes.root} onClick={handleCardClick}>
-      <CardMedia
-        className={classes.media}
-        image={recipe.imageUrl}
-        title={recipe.title}
-      />
-      <CardContent>
-        <Typography gutterBottom variant="body2" color="textPrimary" className={classes.title} component="p">
-          {recipe.title}
-        </Typography>
-      </CardContent>
-      <CardActions disableSpacing>
-        <IconButton
-          aria-label="add to favorites"
-          onClick={handleBookmarkClick}
-        >
-          {isBookmarked && isAuthenticated && <BookmarkIcon />}
-          {!isBookmarked && isAuthenticated && <BookmarkBorderIcon />}
-        </IconButton>
-        <IconButton aria-label="share" onClick={handleLabelClick}>
-          <ShareIcon />
-        </IconButton>
+    <React.Fragment>
+      <Card className={classes.root} onClick={handleCardClick}>
+        <CardMedia
+          className={classes.media}
+          image={recipe.imageUrl}
+          title={recipe.title}
+        />
+        <CardContent>
+          <Typography gutterBottom variant='body2' color='textPrimary' className={classes.title} component='p'>
+            {recipe.title}
+          </Typography>
+        </CardContent>
+        <CardActions disableSpacing>
+          <IconButton
+            aria-label='add to favorites'
+            onClick={handleBookmarkClick}
+          >
+            {isBookmarked && <BookmarkIcon />}
+            {!isBookmarked && <BookmarkBorderIcon />}
+          </IconButton>
+          <IconButton aria-label='share' onClick={handleLabelClick}>
+            <ShareIcon />
+          </IconButton>
 
-      </CardActions>
-    </Card>
+        </CardActions>
+      </Card>
+      <Dialog
+        open={open}
+        onClose={handleCloseDialog}
+        aria-labelledby='alert-dialog-title'
+        aria-describedby='alert-dialog-description'
+      >
+        <DialogTitle id='alert-dialog-title'>{'Sign in to enable recipe bookmarks?'}</DialogTitle>
+        <DialogContent>
+          <DialogContentText id='alert-dialog-description'>
+            You need to sign in to bookmark a recipe
+      </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleCloseDialog} color='primary'>
+            Cancel
+      </Button>
+          <Button onClick={handleClickLogin} color='primary' autoFocus>
+            Sign in / Sign up
+      </Button>
+        </DialogActions>
+      </Dialog>
+    </React.Fragment>
   )
 }
 
@@ -93,7 +144,8 @@ RecipeCard.propTypes = {
   recipe: PropTypes.object,
   isBookmarked: PropTypes.bool,
   handleBookmarkClick: PropTypes.func,
-  isAuthenticated: PropTypes.bool
+  isAuthenticated: PropTypes.bool,
+  authService: PropTypes.object
 }
 
 export default RecipeCard
