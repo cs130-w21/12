@@ -4,6 +4,7 @@ import RecipeCard from '../components/RecipeCard'
 import PropTypes from 'prop-types'
 import { recipeContext } from '../contexts/contexts'
 import { useHistory } from 'react-router-dom'
+import axios from 'axios'
 import {
   Grid,
   Link
@@ -35,6 +36,15 @@ const RecipeCollection = (props) => {
       authService.getUser().then(info => {
         setUserInfo(info)
       })
+      if (isMyRecipe) {
+        axios.get(`API_URL/user/bookmarks/`).then((res) => {
+          const { bookmarks } = res.data
+          setBookmarkedRecipeIds(bookmarks.map(b => b.ID))
+
+        }).catch((err) => {
+          console.error(err)
+        })
+      }
     }
   }, [authState, authService])
 

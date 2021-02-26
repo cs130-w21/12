@@ -124,7 +124,7 @@ const RecipeCard = (props) => {
         <DialogTitle id='alert-dialog-title'>{'Sign in to enable recipe bookmarks?'}</DialogTitle>
         <DialogContent>
           <DialogContentText id='alert-dialog-description'>
-            You need to sign in to bookmark a recipe
+            You need to sign in to bookmark a recipe.
       </DialogContentText>
         </DialogContent>
         <DialogActions>
