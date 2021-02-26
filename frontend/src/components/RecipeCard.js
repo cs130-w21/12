@@ -48,7 +48,7 @@ const useStyles = makeStyles((theme) => ({
 const RecipeCard = (props) => {
   const classes = useStyles()
   const history = useHistory()
-  const { isBookmarked, handleBookmarkClick } = props
+  const { isBookmarked, handleBookmarkClick, isAuthenticated } = props
 
   const handleLabelClick = (e) => {
     e.stopPropagation()
@@ -77,8 +77,8 @@ const RecipeCard = (props) => {
           aria-label="add to favorites"
           onClick={handleBookmarkClick}
         >
-          {isBookmarked && <BookmarkIcon />}
-          {!isBookmarked && <BookmarkBorderIcon />}
+          {isBookmarked && isAuthenticated && <BookmarkIcon />}
+          {!isBookmarked && isAuthenticated && <BookmarkBorderIcon />}
         </IconButton>
         <IconButton aria-label="share" onClick={handleLabelClick}>
           <ShareIcon />
@@ -92,7 +92,8 @@ const RecipeCard = (props) => {
 RecipeCard.propTypes = {
   recipe: PropTypes.object,
   isBookmarked: PropTypes.bool,
-  handleBookmarkClick: PropTypes.func
+  handleBookmarkClick: PropTypes.func,
+  isAuthenticated: PropTypes.bool
 }
 
 export default RecipeCard
