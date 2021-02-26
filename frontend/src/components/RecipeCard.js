@@ -47,14 +47,9 @@ const useStyles = makeStyles((theme) => ({
 
 const RecipeCard = (props) => {
   const classes = useStyles()
-  const [bookmarked, setBookmarked] = React.useState(false)
   const history = useHistory()
-  // TODO: this should later be coming from context API, and calling setbookmark on our database
+  const { isBookmarked, handleBookmarkClick } = props
 
-  const handleBookmarkClick = (e) => {
-    e.stopPropagation()
-    setBookmarked(!bookmarked)
-  }
   const handleLabelClick = (e) => {
     e.stopPropagation()
     console.log('Label Clicked')
@@ -82,8 +77,8 @@ const RecipeCard = (props) => {
           aria-label="add to favorites"
           onClick={handleBookmarkClick}
         >
-          {bookmarked && <BookmarkIcon />}
-          {!bookmarked && <BookmarkBorderIcon />}
+          {isBookmarked && <BookmarkIcon />}
+          {!isBookmarked && <BookmarkBorderIcon />}
         </IconButton>
         <IconButton aria-label="share" onClick={handleLabelClick}>
           <ShareIcon />
@@ -95,7 +90,9 @@ const RecipeCard = (props) => {
 }
 
 RecipeCard.propTypes = {
-  recipe: PropTypes.object
+  recipe: PropTypes.object,
+  isBookmarked: PropTypes.bool,
+  handleBookmarkClick: PropTypes.func
 }
 
 export default RecipeCard

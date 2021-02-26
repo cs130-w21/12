@@ -1,4 +1,4 @@
-import React, { useContext } from 'react'
+import React, { useContext, useState } from 'react'
 import { makeStyles } from '@material-ui/core/styles'
 import RecipeCard from '../components/RecipeCard'
 import PropTypes from 'prop-types'
@@ -22,10 +22,22 @@ const RecipeCollection = (props) => {
   const classes = useStyles()
   const isMyRecipe = props.isMyRecipe
   const { recipes } = useContext(recipeContext)
+  const [bookmarkedRecipeIds, setBookmarkedRecipeIds] = React.useState([])
   const history = useHistory()
 
   const handleClickMain = () => {
     history.push('/')
+  }
+
+  const handleBookmarkClick = (recipeId) => {
+    if (bookmarkedRecipeIds.includes(recipeId)) {
+      setBookmarkedRecipeIds(bookmarkedRecipeIds.filter(r => r.id !== recipeId))
+      // call backend API to call DELETE bookmark
+    }
+    else {
+      setBookmarkedRecipeIds([...bookmarkedRecipeIds, recipeId])
+      // call backend API to call POST bookmark
+    }
   }
 
   const handleGetMoreRecipes = () => {
@@ -48,7 +60,7 @@ const RecipeCollection = (props) => {
       >
         {recipes.map(r => (
           <Grid item xs={12} sm={6} md={3} key={r.id}>
-            <RecipeCard recipe={r} />
+            <RecipeCard recipe={r} isBookmarked={bookmarkedRecipeIds.includes(r.id)} handleBookmarkClick={handleBookmarkClick} />
           </Grid>
         ))
         }
