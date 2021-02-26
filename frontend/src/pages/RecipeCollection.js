@@ -10,6 +10,7 @@ import {
   Link
 } from '@material-ui/core/'
 import { useOktaAuth } from '@okta/okta-react'
+import { API_URL } from '../constants'
 // import { recipes } from '../data/recipes'
 
 const useStyles = makeStyles(theme => ({
@@ -44,9 +45,12 @@ const RecipeCollection = (props) => {
         })
       })
       if (isMyRecipe) {
-        const response = await axios.get(`${API_URL}/user/bookmarks/`, reqConfig)
-        const { bookmarks } = response.data
-        setBookmarkedRecipeIds(bookmarks.map(b => b.id))
+        axios.get(`${API_URL}/user/bookmarks/`, reqConfig)
+          .then((res) => {
+            const { bookmarks } = res.data
+            setBookmarkedRecipeIds(bookmarks.map(b => b.id))
+          })
+          .catch(err => console.log(err))
       }
     }
   }, [authState, authService])
@@ -58,10 +62,14 @@ const RecipeCollection = (props) => {
   const handleBookmarkClick = (recipeId) => {
     if (bookmarkedRecipeIds.includes(recipeId)) {
       setBookmarkedRecipeIds(bookmarkedRecipeIds.filter(rid => rid !== recipeId))
-      await axios.delete(`${API_URL}/user/bookmarks`, { ...reqConfig, params: { id: recipeId } })
+      axios.delete(`${API_URL}/user/bookmarks`, { ...reqConfig, params: { id: recipeId } })
+        .then(console.log('delete bookmark success'))
+        .catch(err => console.log(err))
     } else {
       setBookmarkedRecipeIds([...bookmarkedRecipeIds, recipeId])
-      await axios.post(`${API_URL}/user/bookmarks`, { ...reqConfig, params: { id: recipeId } })
+      axios.post(`${API_URL}/user/bookmarks`, { ...reqConfig, params: { id: recipeId } })
+        .then(console.log('add bookmark success'))
+        .catch(err => console.log(err))
     }
   }
 
