@@ -18,8 +18,6 @@ export const RecButton = styled.button`
         margin-top: 10px;
     }
 
-  /* The GitHub button is a primary button
-   * edit this to target it specifically! */
   ${props => props.lucky && css`
         background: white;
         border: 1px solid rgba(235, 72, 23);
@@ -28,6 +26,9 @@ export const RecButton = styled.button`
             background: rgb(235, 72, 23);
             color: white !important;
         }
+  `}
+  ${props => props.small && css`
+        font-size: 16px;
   `}
 `
 
