@@ -1,17 +1,15 @@
 import React, { useContext, useState, useEffect } from 'react'
-import { makeStyles } from '@material-ui/core/styles'
-import RecipeCard from '../components/RecipeCard'
-import PropTypes from 'prop-types'
-import { preferenceContext, ingredientContext, recipeContext } from '../contexts/contexts'
 import { useHistory } from 'react-router-dom'
+import PropTypes from 'prop-types'
 import axios from 'axios'
-import {
-  Grid,
-  Link
-} from '@material-ui/core/'
-import { useOktaAuth } from '@okta/okta-react'
+
+import RecipeCard from '../components/RecipeCard'
+import { preferenceContext, ingredientContext, recipeContext } from '../contexts/contexts'
 import { API_URL } from '../constants'
-// import { recipes } from '../data/recipes'
+
+import { makeStyles } from '@material-ui/core/styles'
+import { Grid, Link } from '@material-ui/core/'
+import { useOktaAuth } from '@okta/okta-react'
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -28,19 +26,14 @@ const RecipeCollection = (props) => {
   const [bookmarkedRecipeIds, setBookmarkedRecipeIds] = useState([])
   const history = useHistory()
   const { authState, authService } = useOktaAuth()
-  /* eslint-disable no-unused-vars */
-  const [userInfo, setUserInfo] = useState(null)
   const [reqConfig, setReqConfig] = useState(null)
   const { ingredients } = useContext(ingredientContext)
   const { preferences } = useContext(preferenceContext)
 
   useEffect(() => {
-    if (!authState.isAuthenticated) {
-      setUserInfo(null)
-    } else {
+    if (authState.isAuthenticated) {
       authService.getUser()
         .then(info => {
-          setUserInfo(info)
           setReqConfig({
             headers: {
               userId: info.sub,
@@ -106,7 +99,7 @@ const RecipeCollection = (props) => {
       >
         {recipes.map(r => (
           <Grid item xs={12} sm={6} md={3} key={r.id}>
-            <RecipeCard recipe={r} isAuthenticated={authState.isAuthenticated} isBookmarked={bookmarkedRecipeIds.includes(r.id)} handleBookmarkClick={handleBookmarkClick} />
+            <RecipeCard recipe={r} isBookmarked={bookmarkedRecipeIds.includes(r.id)} handleBookmarkClick={handleBookmarkClick} />
           </Grid>
         ))
         }
