@@ -1,15 +1,30 @@
+/**
+ * This module contains the endpoints for /user
+ * @module route/profile
+ * @requires express
+ */
+
 'use strict';
 
 const express = require('express');
 
 const service = require('../service/profile-service.js');
 
+/**
+ * @type {object}
+ * @const
+ * @namespace router
+ */
 const router = express.Router();
 
 /**
- * GET /user
+ * @function GET/user/
+ * @memberof module:route/profile~router
+ * @inner
+ * @param {string} path - Express path
+ * @param {callback} middleware - Express middleware
  *
- * This is the endpoint for getting a user.
+ * This specifies the endpoint for getting a user.
  */
 router.get('/', async (req, res) => {
   try {

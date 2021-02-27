@@ -1,15 +1,31 @@
+/**
+ * This module contains the endpoints for /recipes
+ * @module route/search
+ * @requires express
+ */
+
 'use strict';
 
 const express = require('express');
 
 const service = require('../service/recipe-service.js');
 
+/**
+ * @type {object}
+ * @const
+ * @namespace router
+ */
 const router = express.Router();
 
-/*
-GET /recipes
-This endpoint is used to get random recipes
-*/
+/**
+ * @function GET/recipes/
+ * @memberof module:route/search~router
+ * @inner
+ * @param {string} path - Express path
+ * @param {callback} middleware - Express middleware
+ *
+ * This specifies the endpoint for getting a random recipe.
+ */
 router.get('/', async (req, res) => {
   try {
     const recipes = await service.getRandomRecipes();
@@ -20,10 +36,15 @@ router.get('/', async (req, res) => {
   }
 });
 
-/*
-POST /recipes
-This endpoint is used to search for recipes by ingredients and preferences
-*/
+/**
+ * @function POST/recipes/
+ * @memberof module:route/search~router
+ * @inner
+ * @param {string} path - Express path
+ * @param {callback} middleware - Express middleware
+ *
+ * This specifies the endpoint for searching for recipes by ingredients and preferences.
+ */
 router.post('/', async (req, res) => {
   try {
     const recipes = await service.findRecipes(
@@ -38,11 +59,15 @@ router.post('/', async (req, res) => {
   }
 });
 
-/*
-GET /recipes/{id}
-This endpoint is used to get information (ingredients, instructions, etc.) for a specific recipe
-given the recipe ID
-*/
+/**
+ * @function GET/recipes/:recipeID
+ * @memberof module:route/search~router
+ * @inner
+ * @param {string} path - Express path
+ * @param {callback} middleware - Express middleware
+ *
+ * This specifies the endpoint for getting the detailed information of a recipe.
+ */
 router.get('/:id', async (req, res) => {
   try {
     const recipeInfo = await service.getRecipeInfo(req.params.id);
