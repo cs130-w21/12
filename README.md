@@ -3,92 +3,41 @@
 [![Build Status](https://travis-ci.org/cs130-w21/template.svg?branch=master)](https://travis-ci.org/cs130-w21/template)
 [![Release](https://img.shields.io/github/v/release/cs130-w21/template?label=release)](https://github.com/cs130-w21/template/releases/latest)
 
-Cuisine Machine is a web application that generates a list of recipes based on a user's ingredients andd dietary preferences.
+Cuisine Machine is a web application that generates a list of recipes based on a user's ingredients andd dietary preferences. A user will be able to create a profile and bookmark recipes that they enjoy and/or that catch their eye. 
 
-## Issues
+## The User Experience
 
-An issue is a unit of tracking work. Issues can be classified into different classes using `labels`. This can be used to classify issues in the scrum process as follows.
+### Home
+At the homepage, the user will enter their ingredents and specify their dietary preferences. 
 
-### Epic
+On the left side of the page, there is a search box where the user will enter their ingredients. The user will type in an ingredient and select it from the autocomplete menu either clicking the plus button or pressing the enter button on their keyboard. The ingredient will then show up under the search bar as a part of the user's ingredient list. The user can remnove the ingredient by clicking the x next to the ingredient name. The 'include pantry?' option allows the user to include common ingredients (e.g., flour, sugar, salt) without typing them all out individually.  
 
-An [epic](https://dev.to/jorenrui/a-look-into-how-i-manage-my-personal-projects-my-git-github-workflow-1e7h#epic-issue) is an issue with the label `epic`. It represents a large story that can be broken into stories, which can be addressed over multiple sprints. An epic issue references its story issues as a task list in its description. A Github action has been added to automatically check/uncheck the story task items when they get closed/reopened.
+To specify their dietary preferences, the user will move on to the right side of the page. The user will be able to specify their desired diet and cuisine, as well as how the recipe list will be sorted. Similar to how the ingredent search bar autocompleted the user's input, the diet, cuisine, and sort by search bars do the same. The user can scroll through all of the options or type in a few letters to get to their desired option.
 
-### Story
+Finally, the user will click on the 'get recommendations' button which will bring them to a page with a list of generated recipes based on the user's ingredent and dietary information.
 
-A [story](https://www.atlassian.com/agile/project-management/epics-stories-themes) is an issue with the label `story`. It may represents a new feature, or an enhancement to an existing feature. A story issue can be broken into sub tasks, which are added as a task list in the description of the story issue. These sub task items can be checked manually by the developer to indicate completion.
+The user can also click on the 'i am feeling lucky' button to get a random recipe.
 
-### Bug
+There is a login/sign up button in the top right corner of the page that the user can click on to log into or create an account. It will bring them to a page hosted by Okta. From this page, the user can either create a new profile or log into an existng account. The user can also resolve any login issues by clicking on the 'Need help signing in?' button.
 
-A bug is an issue with the label `bug`. It represents a problem with the existing code that needs to be fixed.
+### Generate Recipes
 
-### Question
+Upon clicking the 'generate receipes' button, the user will be brought to a page with a list of generated recipes based on the user's ingredent and dietary information. 
 
-A question is an issue with the label `question`. It represents a question raised by any one and that may get converted into other types of issues.
+From here, the user can click on a recipe card to view the recipe's information and instructions. The user can also click 'go back to ingredient list' to modify their ingredient list and dietary preferences. Or, the user can click on 'more recipes' to view more recipes that use their ingredients and abide by their dietary preferences.
 
-## Labels
+### Recipe Details
 
-In addition to the [standard labels](https://docs.github.com/en/free-pro-team@latest/github/managing-your-work-on-github/managing-labels#about-default-labels) above, you can add new labels to issues to classify them into different classes like `documentation`, `frontend`, etc, or to add metadata like `duplicate`, `invalid` etc.
+After the user selects a recipe from their list of generated recipes, they will be directed to another page that contains the detailed information of the recipe. The user can see specific measuremens and instructions of the recipe, as well as go to the original website where the recipe actually resides. 
 
-## Milestones
+### User Profile
 
-A [milestone](https://docs.github.com/en/free-pro-team@latest/github/managing-your-work-on-github/tracking-the-progress-of-your-work-with-milestones) groups issues that are expected to be delivered at some point in time. It also allows ordering (prioritizing) theses issues and tracking their progress (percentage of issues completed so far). In the scrum context, a milestone can be used as a sprint. So, you can create your sprints and give them names like Sprint1, Sprint2, etc. and set their due dates respectively.
+After logging in, the user will see an avatar in the top right corner of the page (instead of the 'login/signup' button). The user can click on this button to view their profile or logout of their profile. 
 
-## Projects
+On the profile page, the user will see their name, phone number, email, and avatar, all of which the user will be able to change by clicking on their corresponding 'change' buttons. 
 
-A [project](https://docs.github.com/en/free-pro-team@latest/github/managing-your-work-on-github/tracking-the-progress-of-your-work-with-project-boards) is a kanban-style board that can aggregate a set of issues for any purpose. In the scrum context, we can create one project called `Scrum Board` and choose its template as `Automated kanban with reviews`. (This will create a set of initial notes that you can delete).
+### Bookmarked Recipes
 
-## Branches
+A user who has logged into an account will be able to bookmark recipes by clicking on the bookmark icon on the recipe card in the list of generated recipes or the bookmark icon on the recipe details page. The user will be able to access their bookmarked recipes by clicking on the 'my recipes' button next to the avatar in the top right corner of the page. 
 
-The `master` branch is the main branch used for releases. Other branches can be created. For example, a branch called `gh-pages` is often used to create a website for the repository (for more information check this [link](https://pages.github.com/)). Other branches can be created to address the issues of the repository, one branch per issue (called an `issue` branch). Such branches can then be used to create pull requests, where they get peer reviewed and eventually merged into the `master` branch. For more information on branches, check this [link](https://docs.github.com/en/free-pro-team@latest/github/collaborating-with-issues-and-pull-requests/about-branches).
-
-## Pull Requests
-
-A [pull request](https://docs.github.com/en/free-pro-team@latest/github/collaborating-with-issues-and-pull-requests/about-pull-requests) is a request to merge commits from one branch to another branch. This is typically used to merge commits from an `issue` branch into the `master` branch. A pull request is how the process of peer review is carried. Reviewers can comment on the code changes to show approval or request changes (which will need to be addressed by additional commits to the `issue` branch). When a CI pipeline is configured for a repository (see below), it will run on any `issue` branch that is part of a pull request. When the peer review process has concluded, the new commits can merged into the `master` branch. The recommended merge option is `Squash and merge`, (i.e., squash all commits into a single commit), since it makes the repository's history simple and linear.
-
-## Tags
-
-Tags can be used to mark release points in a repository's commit history. Typically, after some work goal has been achieved, with a set of commits, a tag (typically a version number like 1.0.0, 1.0.1, etc.) is [pushed to the respository](https://stackoverflow.com/questions/18216991/create-a-tag-in-a-github-repository) to mark this point. This results in the tag showing up in the repository's [tags page](https://docs.github.com/en/free-pro-team@latest/github/administering-a-repository/viewing-your-repositorys-releases-and-tags).
-
-## Workflows
-
-### Creating issues
-
-An issue can be created from the `issues` tab of a repository. An issue type (bug, story, epic, question) is first chosen then its corresponding template can be sufficiently filled.
-
-### Triaging issues
-
-The Product Owner goes frequently to the `Scrum Board` project and clicks on the `Add Cards` link to triage new issues in the repository to the board's `To do` column, which acts here as the `Product Backlog`. Product Owner can also added unbaked ideas to the `To do` column as notes, which are placeholders that can later be converted into issues. Issues and notes can then be ordered in the `To do` column to show their priority.
-
-### Planning sprints
-
-The Scrum Master creates a new milestone and gives it a suitable name (e.g., Sprint1) and a due date. Then, in the `Scrum Board`, issues from the top of the `To do` column (assuming they have been ordered based on priority) can be assigned to that milestone and to the developers who will work on them.
-
-### Working on issues
-
-Developers go to the `Scrum Board` where they can filter it for the issues assigned to them in a given milestone. They can pick ones to work on by moving them to the `In progress` column (this is important since this is not automated).
-
-### Reviewing progress
-
-In the daily standup, the `Scrum Master` can review progress by going to the `Scrum Board` and filtering it by the current milestone (sprint). Developers can then reference issues in the various columns when they answer the usual standup questions, e.g., isses they work on (`In progress`), finsihed (`Done`) or yet to work on (`To do`).
-
-### Working with issue branches
-
-Before developers can work on an issue, they should checkout and pull the `master` branch to ensure that they have all the latest commits locally. Then, they should create a new local `issue` branch and name it `issue-[number]` (replacing `[number]` by the issue number). Several `issue` branches can be created concurrently, one for each issue, but it is important to make them independent from each other by checking out the `master` branch before creating each of them. This allows them to be pushed and merged independently from each other (and with the least conflicts).
-
-Each `issue` branch can accumulate commits to address the issue. When ready, it can then be pushed to a corresponding remote branch that can then be used to create a pull request into the `master` branch. The pull request template needs to be filled at this point. Once created, a pull request can be reviewed by a peer reviewer who may request changes. These changes can be made using new commits in the local `issue` branch that can subsequently be pushed to the corresponding remote `issue` branch. When all peer reviews have concluded, the pull request can then be `squash merged` into the `master` branch ([read more here](https://docs.github.com/en/free-pro-team@latest/github/collaborating-with-issues-and-pull-requests/about-pull-request-merges#squash-and-merge-your-pull-request-commits)), and the `issue` branch [can be deleted](https://docs.github.com/en/free-pro-team@latest/github/administering-a-repository/managing-the-automatic-deletion-of-branches). If the pull request description includes the words `fixes #[number]` (where `[number]` is an issue number), the issue with that number will [automatically be closed](https://docs.github.com/en/free-pro-team@latest/github/managing-your-work-on-github/linking-a-pull-request-to-an-issue#linking-a-pull-request-to-an-issue-using-a-keyword).
-
-> it is recommeded to not push commits to the master branch directly but to always go through a peer review process using an `issue` branch.
-
-### Creating releases
-
-It is recommended to [create periodic releases](https://docs.github.com/en/free-pro-team@latest/github/administering-a-repository/managing-releases-in-a-repository#creating-a-release) from a repository, at least at the end of each sprint but can be more frequent. These releases should be working versions of the component(s) being developed in the repository. To create such releases, a new tag representing a version number (e.g., 1.0.0) is added to the local `master` branch then pushed to the remote `master` branch. A new release can then be created in Github using this tag.
-
-### Using a CI/CD pipeline
-
-Every repository needs to have a way to build its artifacts headlessly. It is a good idea to run tests as part of such build. Instructions on how to build the components in a repository needs to be documented in the repository's README.md.
-
-A repository can also be setup to build continuously whenever a commit is pushed to the `master` branch by setting up a CI script (e.g., [Travis CI](https://www.travis-ci.com/)) in its root folder. Such script will configure the build environment (as a virtual machine) and invoke the build script on the `master` branch. If the script fails for some reason, the committer will be notified to fix it. It is a good practice to add a build [badge](https://shields.io/category/version) to the README.md file to visibly indicate the status of the last CI build (Travis CI provides such badges). 
-
-The CI script will also be run when a new pull request is created or when more commits are pushed to its linked `issue` branch. Such build assures peer reviewers that the new commits when accepted will not break the build. In fact, a successful CI build can be a prerequisute for peer reviewers to look at the changes.
-
-When a tag is pushed to the `master` branch, the CI script will additionally deliver and/or deploy the built artifact(s). The script can also be configured to create a Github release based on the tag.
+## How to Deploy/Install
