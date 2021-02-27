@@ -3,6 +3,7 @@ import { makeStyles } from '@material-ui/core/styles'
 import axios from 'axios'
 import { useOktaAuth } from '@okta/okta-react'
 import LoginRequireDialog from '../components/LoginRequireDialog'
+import PropTypes from 'prop-types'
 
 import ScheduleIcon from '@material-ui/icons/Schedule'
 import KitchenIcon from '@material-ui/icons/Kitchen'
@@ -27,7 +28,7 @@ const useStyles = makeStyles(theme => ({
   }
 }))
 
-const RecipeDetails = () => {
+const RecipeDetails = (props) => {
   const classes = useStyles()
   const [recipeInfo, setRecipeData] = useState({})
   const [bookmarked, setBookmarked] = React.useState(false)
@@ -74,6 +75,13 @@ const RecipeDetails = () => {
     }
   }
 
+  const handleBackClick = () => {
+    if (props.isMyRecipe)
+      history.push('/my_recipes')
+    else
+      history.push('/search_results')
+  }
+
   return (
     <React.Fragment>
       <Grid container>
@@ -81,7 +89,9 @@ const RecipeDetails = () => {
         <Grid item xs={10} container direction="column" spacing={4}>
           <Grid item xs={10}></Grid>
           <Grid item xs={10}>
-            <Link>  <ArrowBackIcon /> back to recipes </Link>
+            <Link color='inherit' component='button' onCLick={handleBackClick}>
+              <ArrowBackIcon /> back to recipes
+            </Link>
           </Grid>
 
           <Grid item container direction="row">
@@ -147,6 +157,10 @@ const RecipeDetails = () => {
       <LoginRequireDialog open={openDialog} setOpen={setOpenDialog} />
     </React.Fragment>
   )
+}
+
+RecipeDetails.propTypes = {
+  isMyRecipe: PropTypes.bool
 }
 
 export default RecipeDetails
