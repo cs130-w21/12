@@ -1,10 +1,12 @@
 'use strict';
 
+const userQuery = require('../postgres/user-query.js');
 const bookmarkQuery = require('../postgres/bookmark-query.js');
 const recipeQuery = require('../postgres/recipe-query.js');
 const validator = require('../util/validator.js');
 
 const getBookmarks = async (userId) => {
+  await userQuery.ensureUser(userId);
   const bookmarks = await bookmarkQuery.getBookmarks(userId);
   const recipeIds = bookmarks.map((b) => b.recipeId);
   const recipePromises = [];
@@ -20,6 +22,7 @@ const getBookmarks = async (userId) => {
 };
 
 const getOneBookmark = async (userId, recipeId) => {
+  await userQuery.ensureUser(userId);
   const bookmark = await bookmarkQuery.getBookmarkByIds(userId, recipeId);
   if (validator.isEmpty(bookmark)) {
     return {};
@@ -28,11 +31,13 @@ const getOneBookmark = async (userId, recipeId) => {
 };
 
 const addBookmark = async (userId, recipeId) => {
+  await userQuery.ensureUser(userId);
   const f = await bookmarkQuery.addBookmark(userId, recipeId);
   return f;
 };
 
 const deleteBookmark = async (userId, recipeId) => {
+  await userQuery.ensureUser(userId);
   const deletedRows = await bookmarkQuery.deleteBookmark(userId, recipeId);
   return deletedRows;
 };

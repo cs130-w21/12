@@ -1,18 +1,16 @@
 'use strict';
 
-const queryGateway = require('../gateway/query-gateway.js');
 const userQuery = require('../postgres/user-query.js');
 
-const getUserInfo = async (userId) => {
-  const user = await queryGateway.getUserInfo(userId);
-  return user.avatar;
-};
-
-const createNewUser = async (userId) => {
+const getUserByUserId = async (userId) => {
   await userQuery.ensureUser(userId);
+  const user = await userQuery.getUserInfo(userId);
+  delete user.id;
+  delete user.createdAt;
+  delete user.updatedAt;
+  return user;
 };
 
 module.exports = {
-  getUserInfo,
-  createNewUser,
+  getUserByUserId,
 };
