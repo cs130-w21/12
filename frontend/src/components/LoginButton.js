@@ -12,10 +12,13 @@ import { withOktaAuth } from '@okta/okta-react'
 import { withRouter } from 'react-router'
 
 class LoginButton extends Component {
-  state = {
-    authenticated: null,
-    user: null,
-    menuAnchorEl: null
+  constructor(props) {
+    super(props)
+    this.state = {
+      authenticated: null,
+      user: null,
+      menuAnchorEl: null
+    }
   }
 
   componentDidUpdate() {
