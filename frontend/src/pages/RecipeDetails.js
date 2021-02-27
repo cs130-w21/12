@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react'
+import { useHistory } from 'react-router-dom'
 import { makeStyles } from '@material-ui/core/styles'
 import axios from 'axios'
 import { useOktaAuth } from '@okta/okta-react'
@@ -30,13 +31,14 @@ const useStyles = makeStyles(theme => ({
 
 const RecipeDetails = (props) => {
   const classes = useStyles()
+  const history = useHistory()
   const [recipeInfo, setRecipeData] = useState({})
   const [bookmarked, setBookmarked] = React.useState(false)
   const [openDialog, setOpenDialog] = React.useState(false)
-  const { authState } = useOktaAuth()
+  const { authState, authService } = useOktaAuth()
   const [reqConfig, setReqConfig] = useState(null)
   const pathArray = window.location.pathname.split('/')
-  const recipeId = pathArray[-1]
+  const recipeId = pathArray[pathArray.length - 1]
 
   useEffect(() => {
     if (authState.isAuthenticated) {
@@ -76,10 +78,11 @@ const RecipeDetails = (props) => {
   }
 
   const handleBackClick = () => {
-    if (props.isMyRecipe)
+    if (props.isMyRecipe) {
       history.push('/my_recipes')
-    else
+    } else {
       history.push('/search_results')
+    }
   }
 
   return (
@@ -89,7 +92,7 @@ const RecipeDetails = (props) => {
         <Grid item xs={10} container direction="column" spacing={4}>
           <Grid item xs={10}></Grid>
           <Grid item xs={10}>
-            <Link color='inherit' component='button' onCLick={handleBackClick}>
+            <Link color='inherit' component='button' onClick={handleBackClick}>
               <ArrowBackIcon /> back to recipes
             </Link>
           </Grid>

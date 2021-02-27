@@ -1,5 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import { useOktaAuth } from '@okta/okta-react'
 
 import Dialog from '@material-ui/core/Dialog'
 import DialogActions from '@material-ui/core/DialogActions'
@@ -10,6 +11,7 @@ import Button from '@material-ui/core/Button'
 
 const LoginRequireDialog = (props) => {
   const { open, setOpen } = props
+  const { authService } = useOktaAuth()
 
   const handleCloseDialog = () => {
     setOpen(false)

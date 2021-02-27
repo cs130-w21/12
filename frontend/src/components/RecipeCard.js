@@ -54,7 +54,8 @@ const RecipeCard = (props) => {
   const { authState } = useOktaAuth()
   const [openDialog, setOpenDialog] = React.useState(false)
 
-  const handleBookmarkClick = () => {
+  const handleBookmarkClick = (e) => {
+    e.stopPropagation()
     if (!authState.isAuthenticated) {
       setOpenDialog(true)
     } else {
@@ -63,10 +64,11 @@ const RecipeCard = (props) => {
   }
 
   const handleCardClick = () => {
-    if (isMyRecipe)
+    if (isMyRecipe) {
       history.push(`/my_recipe/${recipe.id}`)
-    else
+    } else {
       history.push(`/search_result/${recipe.id}`)
+    }
   }
 
   return (
@@ -90,7 +92,6 @@ const RecipeCard = (props) => {
             {isBookmarked && <BookmarkIcon />}
             {!isBookmarked && <BookmarkBorderIcon />}
           </IconButton>
-
         </CardActions>
       </Card>
       <LoginRequireDialog open={openDialog} setOpen={setOpenDialog} />
