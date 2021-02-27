@@ -13,7 +13,7 @@ const service = require('../service/bookmark-service.js');
 /**
  * @type {object}
  * @const
- * @namespace router
+ * @namespace bookmarkRouter
  */
 const router = express.Router();
 

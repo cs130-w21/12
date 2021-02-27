@@ -13,7 +13,7 @@ const service = require('../service/profile-service.js');
 /**
  * @type {object}
  * @const
- * @namespace router
+ * @namespace profileRouter
  */
 const router = express.Router();
 

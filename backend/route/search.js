@@ -13,7 +13,7 @@ const service = require('../service/recipe-service.js');
 /**
  * @type {object}
  * @const
- * @namespace router
+ * @namespace searchRouter
  */
 const router = express.Router();
 
