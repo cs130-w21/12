@@ -35,7 +35,7 @@ const RecipeDetails = () => {
   const { authState } = useOktaAuth()
   const [reqConfig, setReqConfig] = useState(null)
   const pathArray = window.location.pathname.split('/')
-  const recipeId = pathArray[2]
+  const recipeId = pathArray[-1]
 
   useEffect(() => {
     if (authState.isAuthenticated) {

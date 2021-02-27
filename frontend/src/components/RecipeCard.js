@@ -11,7 +11,6 @@ import CardContent from '@material-ui/core/CardContent'
 import CardActions from '@material-ui/core/CardActions'
 import IconButton from '@material-ui/core/IconButton'
 import Typography from '@material-ui/core/Typography'
-import ShareIcon from '@material-ui/icons/Share'
 import BookmarkIcon from '@material-ui/icons/Bookmark'
 import BookmarkBorderIcon from '@material-ui/icons/BookmarkBorder'
 
@@ -51,7 +50,7 @@ const useStyles = makeStyles((theme) => ({
 const RecipeCard = (props) => {
   const classes = useStyles()
   const history = useHistory()
-  const { isBookmarked, recipe } = props
+  const { isBookmarked, recipe, isMyRecipe } = props
   const { authState } = useOktaAuth()
   const [openDialog, setOpenDialog] = React.useState(false)
 
@@ -63,11 +62,11 @@ const RecipeCard = (props) => {
     }
   }
 
-  const handleLabelClick = () => {
-    // TODO: label click should move the path to recipeDetails
-  }
   const handleCardClick = () => {
-    history.push(`/recipes/${recipe.id}`)
+    if (isMyRecipe)
+      history.push(`/my_recipe/${recipe.id}`)
+    else
+      history.push(`/search_result/${recipe.id}`)
   }
 
   return (
@@ -91,9 +90,6 @@ const RecipeCard = (props) => {
             {isBookmarked && <BookmarkIcon />}
             {!isBookmarked && <BookmarkBorderIcon />}
           </IconButton>
-          <IconButton aria-label='share' onClick={handleLabelClick}>
-            <ShareIcon />
-          </IconButton>
 
         </CardActions>
       </Card>
@@ -105,7 +101,8 @@ const RecipeCard = (props) => {
 RecipeCard.propTypes = {
   recipe: PropTypes.object,
   isBookmarked: PropTypes.bool,
-  handleBookmarkClick: PropTypes.func
+  handleBookmarkClick: PropTypes.func,
+  isMyRecipe: PropTypes.bool
 }
 
 export default RecipeCard

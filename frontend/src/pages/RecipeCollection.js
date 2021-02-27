@@ -99,7 +99,12 @@ const RecipeCollection = (props) => {
       >
         {recipes.map(r => (
           <Grid item xs={12} sm={6} md={3} key={r.id}>
-            <RecipeCard recipe={r} isBookmarked={bookmarkedRecipeIds.includes(r.id)} handleBookmarkClick={handleBookmarkClick} />
+            <RecipeCard
+              isMyRecipe={isMyRecipe}
+              recipe={r}
+              isBookmarked={bookmarkedRecipeIds.includes(r.id)}
+              handleBookmarkClick={handleBookmarkClick}
+            />
           </Grid>
         ))
         }
