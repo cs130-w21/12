@@ -1,7 +1,7 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { makeStyles } from '@material-ui/core/styles'
+import axios from 'axios'
 
-import LocalPharmacyIcon from '@material-ui/icons/LocalPharmacy'
 import ScheduleIcon from '@material-ui/icons/Schedule'
 import KitchenIcon from '@material-ui/icons/Kitchen'
 import FastfoodIcon from '@material-ui/icons/Fastfood'
@@ -24,81 +24,21 @@ const useStyles = makeStyles(theme => ({
   }
 }))
 
-const GetIngredients = () => {
-  return (
-    <React.Fragment>
-      <Typography>
-      <p> 1 Tbsp butter </p>
-      <p> 2 cups cauliflower florets </p>
-      <p> 2 tbsp grated cheese </p>
-      <p>1 Tbsp extra virgin olive oil</p>
-      <p>5 cloves garlic</p>
-      </Typography>
-    </React.Fragment>
-  )
-}
-
-const GetInstruction = () => {
-  return (
-    <React.Fragment>
-      <h5>Step 1</h5>
-      <p>
-        Put the garlic in a pan and then add the onion.
-      </p>
-
-      <h5>Step 2</h5>
-      <p>
-        Add some salt and oregano.
-      </p>
-
-    </React.Fragment>
-  )
-}
-
-const GetNutritionFacts = () => {
-  return (
-    <React.Fragment>
-      <p>
-      calories: 316<br/>
-      carbs: 49g<br/>
-      fat: 12g<br/>
-      protein: 3g<br/>
-      </p>
-    </React.Fragment>
-  )
-}
-
-const CheckGlutenFree = (glutenFree) => {
-  if (glutenFree) {
-    return (
-      <React.Fragment>
-        <p> <CheckIcon/> Gluten Free</p>
-      </React.Fragment>
-    )
-  }
-}
-
-const CheckVegan = (vegan) => {
-  if (vegan) {
-    return (
-      <React.Fragment>
-        <p> <CheckIcon/> Vegan</p>
-      </React.Fragment>
-    )
-  }
-}
-
-const CheckVegetarian = (vegetarian) => {
-  if (vegetarian) {
-    return (
-      <React.Fragment>
-        <p> <CheckIcon/> Vegetarian</p>
-      </React.Fragment>
-    )
-  }
-}
-
+const pathArray = window.location.pathname.split('/')
+const recipeID = pathArray[2]
 const RecipeDetails = () => {
+  const [recipeInfo, readRecipeData] = useState({})
+
+  useEffect(() => {
+    axios.get(`https://api-cuisinemachine.herokuapp.com/recipes/${recipeID}`).then((res) => {
+      readRecipeData(res.data.recipeInfo)
+      console.log(recipeInfo)
+    }).catch((err) => {
+      console.error(err)
+      console.log(location.state)
+    })
+  }, [])
+
   const classes = useStyles()
 
   const [bookmarked, setBookmarked] = React.useState(false)
@@ -120,7 +60,7 @@ const RecipeDetails = () => {
           <Grid item container direction="row">
             <Grid item xs={6}>
               <h2 className={classes.root}>
-                Pasta with Garlic, Scallions, Cauliflower & Breadcrumbs
+                {recipeInfo.title}
                 <IconButton
                   aria-label="add to favorites"
                   className={classes.root}
@@ -130,34 +70,49 @@ const RecipeDetails = () => {
                   {!bookmarked && <BookmarkBorderIcon />}
                 </IconButton>
               </h2>
-              <p> <ScheduleIcon/> Ready in 45 mins  <PeopleIcon/> Servings: 4</p>
-              <p> <CheckGlutenFree true/> </p>
-              <p> <CheckVegan false/> </p>
-              <p> <CheckVegetarian true/> </p>
+              <p> <ScheduleIcon/> Ready in {recipeInfo.preparationTime} mins
+                  <PeopleIcon/> Servings: {recipeInfo.servings}</p>
+              {(recipeInfo.tags && recipeInfo.tags.glutenFree) ? <p> <CheckIcon/> Gluten Free</p> : ''}
+              {(recipeInfo.tags && recipeInfo.tags.vegan) ? <p> <CheckIcon/> Vegan</p> : ''}
+              {(recipeInfo.tags && recipeInfo.tags.vegetarian) ? <p> <CheckIcon/> Vegetarian</p> : ''}
+              {(recipeInfo.tags && recipeInfo.tags.dairyFree) ? <p> <CheckIcon/> Dairy Free</p> : ''}
+              {(recipeInfo.tags && recipeInfo.tags.sustainable) ? <p> <CheckIcon/> Sustainable</p> : ''}
             </Grid>
             <Grid item xs={4}>
               <Paper variant="outlined" elevation={5}>
-                <img src="https://spoonacular.com/recipeImages/716429-556x370.jpg" width="100%" height="100%"/>
+                <img src={recipeInfo.imageUrl} width="100%" height="100%"/>
               </Paper>
             </Grid>
           </Grid>
 
           <Grid item xs={8}>
             <h3 className={classes.root}> <KitchenIcon/> Ingredients </h3>
-            <GetIngredients />
+            <Typography>
+            {recipeInfo.ingredients &&
+              recipeInfo.ingredients.map(r => (
+                <p key={r.id}>{r.unit.us.amount + ' ' + r.unit.us.unitShort + ' ' + r.name}</p>
+              ))
+            }
+          </Typography>
+
           </Grid>
 
           <Grid item xs={8}>
             <h3 className={classes.root}> <FastfoodIcon/> Instructions </h3>
-            <GetInstruction />
-            <Link target="_blank" href='http://fullbellysisters.blogspot.com/2012/06/pasta-with-garlic-scallions-cauliflower.html'>
+            {recipeInfo.analyzedInstructions &&
+              recipeInfo.analyzedInstructions.map(r => (
+                r.steps.map(j => (
+                  <div key={j.id}>
+                  <h5>{j.number}</h5>
+                  <p>{j.step}</p>
+                  </div>
+                ))
+              ))
+            }
+            {recipeInfo.analyzedInstructions && console.log(recipeInfo.analyzedInstructions.steps)}
+            <Link target="_blank" href={recipeInfo.url}>
               Read the detailed instructions
             </Link>
-          </Grid>
-
-          <Grid item xs={8}>
-            <h3 className={classes.root}> <LocalPharmacyIcon/> Nutrition Facts </h3>
-            <GetNutritionFacts />
           </Grid>
 
         </Grid>

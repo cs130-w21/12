@@ -2,7 +2,6 @@
 
 const Sequelize = require('sequelize');
 const { sequelize } = require('./database.js');
-const preferences = require('../constants/preferences.js');
 const Bookmark = require('./Bookmark.js');
 
 class User extends Sequelize.Model {}
@@ -14,13 +13,6 @@ User.init({
     unique: true,
     allowNull: false,
   },
-  email: {
-    type: Sequelize.DataTypes.STRING,
-    unique: true,
-    allowNull: false,
-  },
-  diet_preference: { type: Sequelize.DataTypes.ENUM(preferences.diets) },
-  cuisine_preference: { type: Sequelize.DataTypes.ENUM(preferences.cuisines) },
 }, {
   sequelize,
   modelName: 'user',

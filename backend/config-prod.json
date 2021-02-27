@@ -3,9 +3,6 @@
   "frontendURL": "https://cuisinemachine.herokuapp.com/",
   "logFile": "/var/log/cuisine-machine.log",
   "credentials": {
-    "auth": {
-
-    },
     "database": {
       "user": "ciudggkhymcacr",
       "db": "dbiblv3n23kqm1",
@@ -19,9 +16,6 @@
       "searchEndpoint": "complexSearch",
       "informationEndpoint": "information",
       "randomEndpoint": "random"
-    },
-    "storage": {
-
     }
   }
 }

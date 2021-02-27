@@ -3,9 +3,6 @@
   "frontendURL": "http://localhost:3000/",
   "logFile": "/var/log/cuisine-machine.log",
   "credentials": {
-    "auth": {
-
-    },
     "database": {
       "user": "ironchef",
       "db": "cuisine",
@@ -19,9 +16,6 @@
       "searchEndpoint": "complexSearch",
       "informationEndpoint": "information",
       "randomEndpoint": "random"
-    },
-    "storage": {
-
     }
   }
 }
