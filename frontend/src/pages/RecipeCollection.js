@@ -68,12 +68,12 @@ const RecipeCollection = (props) => {
   const handleBookmarkClick = (recipeId) => {
     if (bookmarkedRecipeIds.includes(recipeId)) {
       setBookmarkedRecipeIds(bookmarkedRecipeIds.filter(rid => rid !== recipeId))
-      axios.delete(`${API_URL}/user/bookmarks`, { ...reqConfig, params: { id: recipeId } })
+      axios.delete(`${API_URL}/user/bookmarks/${recipeId}`, reqConfig)
         .then(console.log('delete bookmark success'))
         .catch(err => console.log(err))
     } else {
       setBookmarkedRecipeIds([...bookmarkedRecipeIds, recipeId])
-      axios.post(`${API_URL}/user/bookmarks`, { ...reqConfig, params: { id: recipeId } })
+      axios.post(`${API_URL}/user/bookmarks/${recipeId}`, reqConfig)
         .then(console.log('add bookmark success'))
         .catch(err => console.log(err))
     }

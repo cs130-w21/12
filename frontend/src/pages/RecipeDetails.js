@@ -35,7 +35,7 @@ const RecipeDetails = () => {
   const { authState } = useOktaAuth()
   const [reqConfig, setReqConfig] = useState(null)
   const pathArray = window.location.pathname.split('/')
-  const recipeID = pathArray[2]
+  const recipeId = pathArray[2]
 
   useEffect(() => {
     if (authState.isAuthenticated) {
@@ -47,10 +47,12 @@ const RecipeDetails = () => {
               authorization: `Bearer ${authState.accessToken.accessToken}`
             }
           })
-          // TODO: axios request for this bookmark
+          axios.get(`${API_URL}/user/bookmarks/${recipeId}`, reqConfig)
+            .then(res => setBookmarked(res.data.bookmarks.recipeId !== null))
+            .catch(err => console.log(err))
         })
     }
-    axios.get(`${API_URL}/recipes/${recipeID}`)
+    axios.get(`${API_URL}/recipes/${recipeId}`)
       .then((res) => { setRecipeData(res.data.recipeInfo) })
       .catch(err => console.error(err))
   }, [])
@@ -59,6 +61,15 @@ const RecipeDetails = () => {
     if (!authState.isAuthenticated) {
       setOpenDialog(true)
     } else {
+      if (bookmarked) {
+        axios.delete(`${API_URL}/user/bookmarks/${recipeId}`, reqConfig)
+          .then(console.log('delete bookmark success'))
+          .catch(err => console.log(err))
+      } else {
+        axios.post(`${API_URL}/user/bookmarks/${recipeId}`, reqConfig)
+          .then(console.log('add bookmark success'))
+          .catch(err => console.log(err))
+      }
       setBookmarked(!bookmarked)
     }
   }
