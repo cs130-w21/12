@@ -14,9 +14,8 @@ import { RecButton } from '../styles/styles'
 import UserInput from '../components/UserInput'
 import logo from '../assets/logo.png'
 import axios from 'axios'
-import { API_URL } from '../constants'
 // contexts
-import { preferenceContext, ingredientContext, recipeContext } from '../contexts/contexts'
+import { preferenceContext, ingredientContext } from '../contexts/contexts'
 
 const Alert = (props) => {
   return <MuiAlert style={{ color: 'white' }} elevation={6} variant="filled" {...props} />
