@@ -17,10 +17,24 @@ import axios from 'axios'
 // contexts
 import { preferenceContext, ingredientContext } from '../contexts/contexts'
 
+/**
+ * Alert Component used for User communication
+ */
 const Alert = (props) => {
   return <MuiAlert style={{ color: 'white' }} elevation={6} variant="filled" {...props} />
 }
 
+/**
+ * Main page component used by users to enter/modify their ingredients and preference data for requesting recipe recommendation.
+ * Main page is created by the root route, /
+ * Contexts consumed: ingredientContext, preferenceContext
+ * component defined states:
+ *  ingredients(array): list of ingredients to be modified by users
+ *  ingredientInput(string): a variable to hold the temporary value of a single ingredient string entered by an user
+ *  preferences(array): list of preferences to be modified by users
+ *  open(bool): determined whether to show alert box
+ *  alertMessage(string): the message content of alert
+ */
 const Main = () => {
   const [ingredientOptions, setIngredientOptions] = useState([])
   const { ingredients, setIngredients } = useContext(ingredientContext)
@@ -35,7 +49,6 @@ const Main = () => {
     setIngredients(ingredients.filter((ing) => ing !== ingredient))
   }
 
-  // TODO: we don't support ingredient options to be delivered from our backend, change this
   useEffect(() => {
     axios.get('https://api-cuisinemachine.herokuapp.com/')
       .then((res) => setIngredientOptions(res.data))
@@ -46,7 +59,7 @@ const Main = () => {
       })
   }, [])
 
-  const handleAddIngredient = () => {
+  handleAddIngredient = () => {
     const emptyInput = (ingredientInput === null)
     const duplicateInput = ingredients.includes(ingredientInput)
     if (!emptyInput && !duplicateInput) {
@@ -56,17 +69,26 @@ const Main = () => {
       setOpen(true)
     }
   }
-  const handlePushResult = (e) => {
+
+
+  handlePushResult = (e) => {
     e.preventDefault()
     handleAddIngredient()
   }
-  const handleChange = (value) => {
+
+  /**
+   * handleChange function fires when the value of the user input box is changed
+   * @param value - a string value to be set for ingredient input data
+   */
+  handleChange = (value) => {
     value == null ? setIngredientInput(value) : setIngredientInput(value.toLowerCase())
   }
-  const handleClose = (event, reason) => {
+
+  handleClose = (event, reason) => {
     setOpen(false)
   }
-  const handlePreferences = (type, val) => {
+
+  handlePreferences = (type, val) => {
     const newPreferences = preferences
     if (val === 'No preference') {
       val = null
@@ -74,7 +96,8 @@ const Main = () => {
     newPreferences[type] = val
     setPreferences(newPreferences)
   }
-  const handleSubmit = () => {
+
+  handleSubmit = () => {
     history.push('/search_results')
   }
 

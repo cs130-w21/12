@@ -6,6 +6,9 @@ import RecipeDetails from './pages/RecipeDetails'
 const Main = lazy(() => import('./pages/Main'))
 const Profile = lazy(() => import('./pages/Profile'))
 
+/**
+ * This component is a wrapper or multiple routes
+ */
 const Routes = () => (
   <Switch>
     <Route exact path="/" component={Main} />

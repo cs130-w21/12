@@ -9,6 +9,10 @@ import DialogContentText from '@material-ui/core/DialogContentText'
 import DialogTitle from '@material-ui/core/DialogTitle'
 import Button from '@material-ui/core/Button'
 
+/**
+ * LoginRequireDialog is used to prompt users to log in when they are in unauthenticated state and attempt to access parts of the app that requires authentication.
+ * LoginRequireDialog is used by RecipeCard component and RecipeCollection page, and becomes visible when unauthenticated users attempt to bookmark a recipe
+ */
 const LoginRequireDialog = (props) => {
   const { open, setOpen } = props
   const { authService } = useOktaAuth()
@@ -47,7 +51,9 @@ const LoginRequireDialog = (props) => {
 }
 
 LoginRequireDialog.propTypes = {
+  /* a bool flag to control whether the dialog is open or closed */
   open: PropTypes.bool,
+  /* a function to set the dialog open control flag */
   setOpen: PropTypes.func
 }
 

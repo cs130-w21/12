@@ -4,9 +4,16 @@ import AccountCircleIcon from '@material-ui/icons/AccountCircle'
 import '../styles/Profile.css'
 import { RecButton } from '../styles/styles'
 
+/**
+ * Profile page is used for viewing the authenticated user data.
+ * Profile is created by the route /profile
+ * Component defined states:
+ *  userInfo: an object that holds user information data
+ */
 const Profile = () => {
   const { authState, authService } = useOktaAuth()
   const [userInfo, setUserInfo] = useState(null)
+
   useEffect(() => {
     if (!authState.isAuthenticated) {
       // When user isn't authenticated, forget any user info
@@ -17,6 +24,7 @@ const Profile = () => {
       })
     }
   }, [authState, authService])
+
   return (
     <div className="container-fluid mb-3">
       <div className="profile-wrapper mt-5">
