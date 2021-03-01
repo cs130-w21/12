@@ -1,9 +1,11 @@
 import React from 'react'
-import { MemoryRouter } from 'react-router-dom'
-import { render, within, fireEvent, queryByText, queryAllByText} from '@testing-library/react'
+import { MemoryRouter, BrowserRouter } from 'react-router-dom'
+import { screen, render, within, fireEvent, waitFor} from '@testing-library/react'
+import userEvent from '@testing-library/user-event'
 import '@testing-library/jest-dom/extend-expect'
 import Main from '../pages/Main'
 import UserInput from '../components/UserInput'
+import { RecButton } from '../styles/styles'
 
 test('check ingredients', async () => {
 
@@ -83,11 +85,27 @@ test('check preferences: sort by', async () => {
    expect(within(document.body).queryByText('Date')).toBeInTheDocument()
 })
 
-test('check page texts', async () => {
+test('calls correct function on click (get recommendations)', async () => {
+   const onClick = jest.fn()
+   const { getByText } = render(<RecButton onClick={onClick}>get recommendations</RecButton>)
+   fireEvent.click(getByText('get recommendations'))
+   expect(onClick).toHaveBeenCalled()
+})
+
+test('calls correct function on click (feeling lucky)', async () => {
+   const onClick = jest.fn()
+   const { getByText } = render(<RecButton onClick={onClick} lucky>I am Feeling Lucky</RecButton>)
+   fireEvent.click(getByText('I am Feeling Lucky'))
+   expect(onClick).toHaveBeenCalled()
+})
+
+test('check page elements', async () => {
    const { getByText } = render(<Main />, { wrapper: MemoryRouter })
    expect(getByText('ingredient list')).toBeInTheDocument()
    expect(getByText('preferences')).toBeInTheDocument()
    expect(getByText('diet')).toBeInTheDocument()
    expect(getByText('cuisine')).toBeInTheDocument()
    expect(getByText('sort by')).toBeInTheDocument()
+   expect(getByText('get recommendations')).toBeInTheDocument()
+   expect(getByText('I am Feeling Lucky')).toBeInTheDocument()
 })
