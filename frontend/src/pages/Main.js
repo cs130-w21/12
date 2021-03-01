@@ -14,9 +14,8 @@ import { RecButton } from '../styles/styles'
 import UserInput from '../components/UserInput'
 import logo from '../assets/logo.png'
 import axios from 'axios'
-import { API_URL } from '../constants'
 // contexts
-import { preferenceContext, ingredientContext, recipeContext } from '../contexts/contexts'
+import { preferenceContext, ingredientContext } from '../contexts/contexts'
 
 const Alert = (props) => {
   return <MuiAlert style={{ color: 'white' }} elevation={6} variant="filled" {...props} />
@@ -26,7 +25,6 @@ const Main = () => {
   const [ingredientOptions, setIngredientOptions] = useState([])
   const { ingredients, setIngredients } = useContext(ingredientContext)
   const { preferences, setPreferences } = useContext(preferenceContext)
-  const { setRecipes } = useContext(recipeContext)
   const [ingredientInput, setIngredientInput] = useState(null)
   const [open, setOpen] = useState(false)
   const [alertMessage, setAlertMessage] = useState('')
@@ -77,13 +75,7 @@ const Main = () => {
     setPreferences(newPreferences)
   }
   const handleSubmit = () => {
-    axios.post(`${API_URL}/recipes`, {
-      ingredients: ingredients,
-      preferences: preferences
-    }).then(res => {
-      setRecipes(res.data.recipes)
-      history.push('/search_results')
-    }).catch((error) => console.error(error))
+    history.push('/search_results')
   }
 
   return (

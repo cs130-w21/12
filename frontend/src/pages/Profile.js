@@ -16,7 +16,6 @@ const Profile = () => {
       })
     }
   }, [authState, authService])
-
   return (
     <div className="container-fluid mb-3">
       <div className="profile-wrapper mt-5">
