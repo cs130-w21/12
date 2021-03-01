@@ -13,7 +13,8 @@ const Routes = () => (
     <SecureRoute path="/profile" component={Profile} />
     <SecureRoute path="/my_recipes" component={() => <RecipeCollection isMyRecipe={true} />} />
     <Route path="/search_results" component={() => <RecipeCollection isMyRecipe={false} />} />
-    <Route path="/recipe" component={() => <RecipeDetails />} />
+    <Route path="/my_recipe" component={() => <RecipeDetails isMyRecipe={true} />} />
+    <Route path="/search_result" component={() => <RecipeDetails isMyRecipe={false} />} />
   </Switch>
 )
 

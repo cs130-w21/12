@@ -1,4 +1,9 @@
 import React from 'react'
+import { useHistory } from 'react-router-dom'
+import PropTypes from 'prop-types'
+import { useOktaAuth } from '@okta/okta-react'
+import LoginRequireDialog from './LoginRequireDialog'
+
 import { makeStyles } from '@material-ui/core/styles'
 import Card from '@material-ui/core/Card'
 import CardMedia from '@material-ui/core/CardMedia'
@@ -6,11 +11,8 @@ import CardContent from '@material-ui/core/CardContent'
 import CardActions from '@material-ui/core/CardActions'
 import IconButton from '@material-ui/core/IconButton'
 import Typography from '@material-ui/core/Typography'
-import ShareIcon from '@material-ui/icons/Share'
-import PropTypes from 'prop-types'
 import BookmarkIcon from '@material-ui/icons/Bookmark'
 import BookmarkBorderIcon from '@material-ui/icons/BookmarkBorder'
-import { useHistory } from 'react-router-dom'
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -47,55 +49,61 @@ const useStyles = makeStyles((theme) => ({
 
 const RecipeCard = (props) => {
   const classes = useStyles()
-  const [bookmarked, setBookmarked] = React.useState(false)
   const history = useHistory()
-  // TODO: this should later be coming from context API, and calling setbookmark on our database
+  const { isBookmarked, recipe, isMyRecipe } = props
+  const { authState } = useOktaAuth()
+  const [openDialog, setOpenDialog] = React.useState(false)
 
   const handleBookmarkClick = (e) => {
     e.stopPropagation()
-    setBookmarked(!bookmarked)
-  }
-  const handleLabelClick = (e) => {
-    e.stopPropagation()
-    console.log('Label Clicked')
-  }
-  const handleCardClick = () => {
-    history.push(`/recipes/${recipe.id}`)
+    if (!authState.isAuthenticated) {
+      setOpenDialog(true)
+    } else {
+      props.handleBookmarkClick(recipe.id)
+    }
   }
 
-  const recipe = props.recipe
+  const handleCardClick = () => {
+    if (isMyRecipe) {
+      history.push(`/my_recipe/${recipe.id}`)
+    } else {
+      history.push(`/search_result/${recipe.id}`)
+    }
+  }
 
   return (
-    <Card className={classes.root} onClick={handleCardClick}>
-      <CardMedia
-        className={classes.media}
-        image={recipe.imageUrl}
-        title={recipe.title}
-      />
-      <CardContent>
-        <Typography gutterBottom variant="body2" color="textPrimary" className={classes.title} component="p">
-          {recipe.title}
-        </Typography>
-      </CardContent>
-      <CardActions disableSpacing>
-        <IconButton
-          aria-label="add to favorites"
-          onClick={handleBookmarkClick}
-        >
-          {bookmarked && <BookmarkIcon />}
-          {!bookmarked && <BookmarkBorderIcon />}
-        </IconButton>
-        <IconButton aria-label="share" onClick={handleLabelClick}>
-          <ShareIcon />
-        </IconButton>
-
-      </CardActions>
-    </Card>
+    <React.Fragment>
+      <Card className={classes.root} onClick={handleCardClick}>
+        <CardMedia
+          className={classes.media}
+          image={recipe.imageUrl}
+          title={recipe.title}
+        />
+        <CardContent>
+          <Typography gutterBottom variant='body2' color='textPrimary' className={classes.title} component='p'>
+            {recipe.title}
+          </Typography>
+        </CardContent>
+        <CardActions disableSpacing>
+          <IconButton
+            aria-label='add to favorites'
+            onClick={handleBookmarkClick}
+          >
+            {isBookmarked && <BookmarkIcon />}
+            {!isBookmarked && <BookmarkBorderIcon />}
+          </IconButton>
+        </CardActions>
+      </Card>
+      <LoginRequireDialog open={openDialog} setOpen={setOpenDialog} />
+    </React.Fragment>
   )
 }
 
 RecipeCard.propTypes = {
-  recipe: PropTypes.object
+  recipe: PropTypes.object,
+  isBookmarked: PropTypes.bool,
+  handleBookmarkClick: PropTypes.func,
+  isMyRecipe: PropTypes.bool
 }
 
 export default RecipeCard
