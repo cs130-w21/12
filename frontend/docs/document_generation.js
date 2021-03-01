@@ -1,6 +1,6 @@
-let fs = require('fs')
-let docsToMarkdown = require('react-docs-markdown')
-let api = require('./documentation.json')
+const fs = require('fs')
+const docsToMarkdown = require('react-docs-markdown')
+const api = require('./documentation.json')
 
 // generate docs.md from the output of react-docgen(documentation.json)
 for (const key in api) {
