@@ -110,8 +110,9 @@ const RecipeDetails = (props) => {
                   {!bookmarked && <BookmarkBorderIcon />}
                 </IconButton>
               </h2>
-              <p> <ScheduleIcon /> Ready in {recipeInfo.preparationTime} mins
-                  <PeopleIcon /> Servings: {recipeInfo.servings}</p>
+              <p>
+                <ScheduleIcon /> Ready in {recipeInfo.preparationTime} mins <PeopleIcon /> Servings: {recipeInfo.servings}
+              </p>
               {(recipeInfo.tags && recipeInfo.tags.glutenFree) ? <p> <CheckIcon /> Gluten Free</p> : ''}
               {(recipeInfo.tags && recipeInfo.tags.vegan) ? <p> <CheckIcon /> Vegan</p> : ''}
               {(recipeInfo.tags && recipeInfo.tags.vegetarian) ? <p> <CheckIcon /> Vegetarian</p> : ''}
@@ -142,7 +143,7 @@ const RecipeDetails = (props) => {
               recipeInfo.analyzedInstructions.map(r => (
                 r.steps.map(j => (
                   <div key={j.id}>
-                    <h5>{j.number}</h5>
+                    <h5>Step {j.number}</h5>
                     <p>{j.step}</p>
                   </div>
                 ))
