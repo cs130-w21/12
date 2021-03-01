@@ -59,7 +59,7 @@ const Main = () => {
       })
   }, [])
 
-  handleAddIngredient = () => {
+  const handleAddIngredient = () => {
     const emptyInput = (ingredientInput === null)
     const duplicateInput = ingredients.includes(ingredientInput)
     if (!emptyInput && !duplicateInput) {
@@ -70,25 +70,20 @@ const Main = () => {
     }
   }
 
-
-  handlePushResult = (e) => {
+  const handlePushResult = (e) => {
     e.preventDefault()
     handleAddIngredient()
   }
 
-  /**
-   * handleChange function fires when the value of the user input box is changed
-   * @param value - a string value to be set for ingredient input data
-   */
-  handleChange = (value) => {
+  const handleChange = (value) => {
     value == null ? setIngredientInput(value) : setIngredientInput(value.toLowerCase())
   }
 
-  handleClose = (event, reason) => {
+  const handleClose = (event, reason) => {
     setOpen(false)
   }
 
-  handlePreferences = (type, val) => {
+  const handlePreferences = (type, val) => {
     const newPreferences = preferences
     if (val === 'No preference') {
       val = null
@@ -97,7 +92,7 @@ const Main = () => {
     setPreferences(newPreferences)
   }
 
-  handleSubmit = () => {
+  const handleSubmit = () => {
     history.push('/search_results')
   }
 
