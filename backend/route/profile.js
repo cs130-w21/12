@@ -1,7 +1,8 @@
 /**
- * This module contains the endpoints for /user
  * @module route/profile
  * @requires express
+ * @requires module:service/profile-service
+ * @description This module contains the endpoints for /user
  */
 
 'use strict';
@@ -19,12 +20,12 @@ const router = express.Router();
 
 /**
  * @function GET/user/
- * @memberof module:route/profile~router
+ * @memberof module:route/profile~profileRouter
  * @inner
  * @param {string} path - Express path
  * @param {callback} middleware - Express middleware
  *
- * This specifies the endpoint for getting a user.
+ * @description This specifies the endpoint for getting a user.
  */
 router.get('/', async (req, res) => {
   try {

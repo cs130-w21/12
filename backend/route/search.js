@@ -1,7 +1,8 @@
 /**
- * This module contains the endpoints for /recipes
  * @module route/search
  * @requires express
+ * @requires module:service/recipe-service
+ * @description This module contains the endpoints for /recipes
  */
 
 'use strict';
@@ -19,12 +20,12 @@ const router = express.Router();
 
 /**
  * @function GET/recipes/
- * @memberof module:route/search~router
+ * @memberof module:route/search~searchRouter
  * @inner
  * @param {string} path - Express path
  * @param {callback} middleware - Express middleware
  *
- * This specifies the endpoint for getting a random recipe.
+ * @description This specifies the endpoint for getting a random recipe.
  */
 router.get('/', async (req, res) => {
   try {
@@ -38,12 +39,13 @@ router.get('/', async (req, res) => {
 
 /**
  * @function POST/recipes/
- * @memberof module:route/search~router
+ * @memberof module:route/search~searchRouter
  * @inner
  * @param {string} path - Express path
  * @param {callback} middleware - Express middleware
  *
- * This specifies the endpoint for searching for recipes by ingredients and preferences.
+ * @description This specifies the endpoint for searching for recipes by ingredients
+ * and preferences.
  */
 router.post('/', async (req, res) => {
   try {
@@ -61,12 +63,12 @@ router.post('/', async (req, res) => {
 
 /**
  * @function GET/recipes/:recipeID
- * @memberof module:route/search~router
+ * @memberof module:route/search~searchRouter
  * @inner
  * @param {string} path - Express path
  * @param {callback} middleware - Express middleware
  *
- * This specifies the endpoint for getting the detailed information of a recipe.
+ * @description This specifies the endpoint for getting the detailed information of a recipe.
  */
 router.get('/:id', async (req, res) => {
   try {

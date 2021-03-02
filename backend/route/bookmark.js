@@ -1,7 +1,8 @@
 /**
- * This module contains the endpoints for /user/bookmarks
  * @module route/bookmark
  * @requires express
+ * @requires module:service/bookmark-service
+ * @description This module contains the endpoints for /user/bookmarks
  */
 
 'use strict';
@@ -19,12 +20,12 @@ const router = express.Router();
 
 /**
  * @function GET/user/bookmarks/
- * @memberof module:route/bookmark~router
+ * @memberof module:route/bookmark~bookmarkRouter
  * @inner
  * @param {string} path - Express path
  * @param {callback} middleware - Express middleware
  *
- * This specifies the endpoint for getting all of the bookmarks of a user.
+ * @description This specifies the endpoint for getting all of the bookmarks of a user.
  */
 router.get('/', async (req, res) => {
   try {
@@ -39,12 +40,12 @@ router.get('/', async (req, res) => {
 
 /**
  * @function GET/user/bookmarks/:recipeID
- * @memberof module:route/bookmark~router
+ * @memberof module:route/bookmark~bookmarkRouter
  * @inner
  * @param {string} path - Express path
  * @param {callback} middleware - Express middleware
  *
- * This specifies the endpoint for checking if a user bookmarked a recipe.
+ * @description This specifies the endpoint for checking if a user bookmarked a recipe.
  */
 router.get('/:id', async (req, res) => {
   try {
@@ -60,12 +61,12 @@ router.get('/:id', async (req, res) => {
 
 /**
  * @function POST/user/bookmarks/
- * @memberof module:route/bookmark~router
+ * @memberof module:route/bookmark~bookmarkRouter
  * @inner
  * @param {string} path - Express path
  * @param {callback} middleware - Express middleware
  *
- * This specifies the endpoint for adding a bookmark for a user.
+ * @description This specifies the endpoint for adding a bookmark for a user.
  */
 router.post('/:id', async (req, res) => {
   try {
@@ -80,12 +81,12 @@ router.post('/:id', async (req, res) => {
 
 /**
  * @function DELETE/user/bookmarks/
- * @memberof module:route/bookmark~router
+ * @memberof module:route/bookmark~bookmarkRouter
  * @inner
  * @param {string} path - Express path
  * @param {callback} middleware - Express middleware
  *
- * This specifies the endpoint for deleting a bookmark for a user.
+ * @description This specifies the endpoint for deleting a bookmark for a user.
  */
 router.delete('/:id', async (req, res) => {
   try {
