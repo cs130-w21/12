@@ -1,0 +1,12 @@
+{
+  "recurseDepth": 3,
+  "opts": {
+    "recurse": true
+  },
+  "source": {
+    "include": ["backend"],
+    "includePattern": ".+\\.js(doc|x)?$",
+    "excludePattern": "node_modules"
+  },
+  "sourceType": "module"
+}
