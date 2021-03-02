@@ -73,7 +73,7 @@ const findRecipes = (ingredients, cuisine, diet) => get(
   `${config.credentials.search.url}\
     ${config.credentials.search.searchEndpoint}\
     ?apiKey=${config.credentials.search.apiKey}\
-    &ingredients=${ingredients.join(',')}\
+    &includeIngredients=${ingredients.join(',')}\
     ${validator.isEmpty(cuisine) ? '' : '&cuisine='.concat(cuisine)}\
     ${validator.isEmpty(diet) ? '' : '&diet='.concat(diet)}`.replace(/\s+/g, ''),
   1,
