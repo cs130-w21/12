@@ -1,3 +1,10 @@
+/**
+ * @module index
+ * @requires module:route/profile
+ * @requires module:route/bookmark
+ * @requires module:route/search
+ */
+
 'use strict';
 
 const express = require('express');
