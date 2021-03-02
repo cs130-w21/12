@@ -1,7 +1,8 @@
 {
   "recurseDepth": 3,
   "opts": {
-    "recurse": true
+    "recurse": true,
+    "destination": "./docs_backend/"
   },
   "source": {
     "include": ["backend"],

@@ -19,4 +19,4 @@ yarn-error.log*
 access.log
 
 # JSDoc output
-out
+docs_backend
