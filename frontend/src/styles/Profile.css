@@ -2,45 +2,25 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+    justify-content: center;
 }
 
 .profile-wrapper *{
     color: rgba(235, 73, 23, 0.72);
+    font-size: 18px;
 }
 
 .profile-sub-wrapper {
-    width: 75%;
     display: flex;
+    flex-direction: column;
     flex-wrap: wrap;
 }
 
-label {
-    padding-left: 5px;
-}
-
-label, .profile-input {
-    width: 25vw;
-    min-width: 150px; 
-}
-
-.profile-input {
-    border-radius: 5px;
-    border: 1px solid rgba(235, 73, 23, 0.72);
-    padding: 8px 15px;
-}
-
-.profile-input:focus {
-    outline: none;
-    box-shadow: 0 0 8px rgba(235, 73, 23, 0.72);
-}
-
-.profile-sect {
-    margin-top: 1.5%;
-    margin-bottom: 1.5%;
-    width: 50%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+.profile-label {
+    color: #A19F9F;
+    width: 125px;
+    margin-right: 25px;
+    text-align: right;
 }
 
 @media only screen and (max-width: 768px) {
