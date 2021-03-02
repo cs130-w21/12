@@ -1,8 +1,19 @@
+/**
+ * @module model/database
+ * @description This module creates the sequelize object using the Sequelize ORM for the
+ * purpose of database connection.
+ * @requires module:sequelize
+ */
+
 'use strict';
 
 const Sequelize = require('sequelize');
 const config = require('../config.js');
 
+/**
+ * @type {object}
+ * @const
+ */
 const sequelize = process.env.NODE_ENV === 'production'
   ? new Sequelize(config.credentials.database.db,
     config.credentials.database.user,
