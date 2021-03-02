@@ -17,3 +17,6 @@ yarn-error.log*
 .vscode
 
 access.log
+
+# JSDoc output
+docs_backend
