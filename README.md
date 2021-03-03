@@ -58,7 +58,7 @@ A user who has logged into an account will be able to bookmark recipes by clicki
 ## How to Deploy/Install
 
 ### Run online
-Go to https://cuisine-machine-frontend.herokuapp.com/.
+Go to https://cuisinemachine.herokuapp.com.
 
 ### Run locally
 
