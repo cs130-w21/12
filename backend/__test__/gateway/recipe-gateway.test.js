@@ -5,7 +5,7 @@
 
 // 'use strict';
 
-// const api = require('../gateway/recipe-gateway');
+// const api = require('../../src/gateway/recipe-gateway');
 
 // const valid_recipe = {
 //   number: 10,
