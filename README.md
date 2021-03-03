@@ -41,3 +41,28 @@ On the profile page, the user will see their name, phone number, email, and avat
 A user who has logged into an account will be able to bookmark recipes by clicking on the bookmark icon on the recipe card in the list of generated recipes or the bookmark icon on the recipe details page. The user will be able to access their bookmarked recipes by clicking on the 'my recipes' button next to the avatar in the top right corner of the page. 
 
 ## How to Deploy/Install
+
+### Run online
+Go to https://cuisine-machine-frontend.herokuapp.com/.
+
+### Run locally
+
+Clone the project
+'''
+git clone https://github.com/cs130-w21/12.git
+cd 12
+'''
+
+Deploy the frontend:
+'''
+cd frontend
+yarn // install dependencies
+yarn start
+'''
+A window running localhost:3000 should open up in your local brower.
+
+Deploy the backend:
+'''
+docker-compose up --build
+'''
+Go to localhost:8080. 
