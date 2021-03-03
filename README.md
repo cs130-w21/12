@@ -8,6 +8,9 @@ Cuisine Machine is a web application that generates a list of recipes based on a
 ## The User Experience
 
 ### Home
+
+![Alt text](/readme-imgs/homepage.png?raw=true)
+
 At the homepage, the user will enter their ingredents and specify their dietary preferences. 
 
 On the left side of the page, there is a search box where the user will enter their ingredients. The user will type in an ingredient and select it from the autocomplete menu either clicking the plus button or pressing the enter button on their keyboard. The ingredient will then show up under the search bar as a part of the user's ingredient list. The user can remnove the ingredient by clicking the x next to the ingredient name. The 'include pantry?' option allows the user to include common ingredients (e.g., flour, sugar, salt) without typing them all out individually.  
@@ -34,7 +37,7 @@ After the user selects a recipe from their list of generated recipes, they will 
 
 After logging in, the user will see an avatar in the top right corner of the page (instead of the 'login/signup' button). The user can click on this button to view their profile or logout of their profile. 
 
-On the profile page, the user will see their name, phone number, email, and avatar, all of which the user will be able to change by clicking on their corresponding 'change' buttons. 
+On the profile page, the user will see their name, phone number, and email, all of which the user will be able to change by clicking on their corresponding 'change' buttons. 
 
 ### Bookmarked Recipes
 
@@ -48,21 +51,21 @@ Go to https://cuisine-machine-frontend.herokuapp.com/.
 ### Run locally
 
 Clone the project
-'''
+```
 git clone https://github.com/cs130-w21/12.git
 cd 12
-'''
+```
 
 Deploy the frontend:
-'''
+```
 cd frontend
 yarn // install dependencies
 yarn start
-'''
+```
 A window running localhost:3000 should open up in your local brower.
 
 Deploy the backend:
-'''
+```
 docker-compose up --build
-'''
+```
 Go to localhost:8080. 
