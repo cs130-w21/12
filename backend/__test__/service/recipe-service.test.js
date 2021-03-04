@@ -770,13 +770,17 @@ describe('Test get recipe detailed information', () => {
   });
 });
 
-// describe('Test get random recipe', () => {
-//   it('Should succeed', async () => {
-//     userQuery.ensureUser = jest.fn(() => Promise.resolve());
-//     bookmarkQuery.deleteBookmark = jest.fn(() => Promise.resolve());
+describe('Test get random recipe', () => {
+  it('Should succeed', async () => {
+    recipeGateway.getRandomRecipe = jest.fn(() => ({
+      recipes: [{
+        id: 640136,
+        title: 'Corned Beef And Cabbage With Irish Mustard Sauce',
+        image: 'https://spoonacular.com/recipeImages/640136-556x370.jpg',
+      }],
+    }));
 
-//     await recipeService.deleteBookmark('9f50a9ff-273b-42df-8438-9e5adb6c675e', 640136);
-//     expect(userQuery.ensureUser).toBeCalledTimes(1);
-//     expect(bookmarkQuery.deleteBookmark).toBeCalledTimes(1);
-//   });
-// });
+    await recipeService.getRandomRecipe();
+    expect(recipeGateway.getRandomRecipe).toBeCalledTimes(1);
+  });
+});
