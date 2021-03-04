@@ -9,6 +9,11 @@ import {
 import LoginButton from './LoginButton'
 import { useOktaAuth } from '@okta/okta-react'
 
+/**
+ * AppHeader component defines the styles and logic for the header portion of this app.
+ * AppHeader component is viewable in all routes.
+ * Includes the links to navigate to the mainpage, to the sign/in log in page, and to the my bookmarked recipes page
+ */
 const AppHeader = () => {
   const history = useHistory()
   const { authState } = useOktaAuth()
@@ -33,7 +38,7 @@ const AppHeader = () => {
         {authState.isAuthenticated &&
           <Typography variant='body1' color='inherit' style={{ fontFamily: 'Roboto Condensed' }}>
             <Link component='button' color='inherit' onClick={handleClickMyRecipes}>
-              My Recipes
+              My Bookmarked Recipes
           </Link>
           </Typography>
         }

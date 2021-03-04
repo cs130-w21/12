@@ -3,7 +3,6 @@ import { useHistory } from 'react-router-dom'
 import '../styles/Main.css'
 // Material UI Imports
 import Chip from '@material-ui/core/Chip'
-import Checkbox from '@material-ui/core/Checkbox'
 import IconButton from '@material-ui/core/IconButton'
 import AddIcon from '@material-ui/icons/Add'
 import Snackbar from '@material-ui/core/Snackbar'
@@ -16,17 +15,33 @@ import logo from '../assets/logo.png'
 import axios from 'axios'
 // contexts
 import { preferenceContext, ingredientContext } from '../contexts/contexts'
+import { API_URL } from '../constants'
 
+/**
+ * Alert Component used for User communication
+ */
 const Alert = (props) => {
   return <MuiAlert style={{ color: 'white' }} elevation={6} variant="filled" {...props} />
 }
 
+/**
+ * Main page component used by users to enter/modify their ingredients and preference data for requesting recipe recommendation.
+ * Main page is created by the root route, /
+ * Contexts consumed: ingredientContext, preferenceContext
+ * component defined states:
+ *  ingredients(array): list of ingredients to be modified by users
+ *  ingredientInput(string): a variable to hold the temporary value of a single ingredient string entered by an user
+ *  preferences(array): list of preferences to be modified by users
+ *  open(bool): determined whether to show alert box
+ *  alertMessage(string): the message content of alert
+ */
 const Main = () => {
   const [ingredientOptions, setIngredientOptions] = useState([])
   const { ingredients, setIngredients } = useContext(ingredientContext)
   const { preferences, setPreferences } = useContext(preferenceContext)
   const [ingredientInput, setIngredientInput] = useState(null)
   const [open, setOpen] = useState(false)
+  const [loading, setLoading] = useState(false)
   const [alertMessage, setAlertMessage] = useState('')
   const history = useHistory()
 
@@ -35,7 +50,6 @@ const Main = () => {
     setIngredients(ingredients.filter((ing) => ing !== ingredient))
   }
 
-  // TODO: we don't support ingredient options to be delivered from our backend, change this
   useEffect(() => {
     axios.get('https://api-cuisinemachine.herokuapp.com/')
       .then((res) => setIngredientOptions(res.data))
@@ -56,16 +70,20 @@ const Main = () => {
       setOpen(true)
     }
   }
+
   const handlePushResult = (e) => {
     e.preventDefault()
     handleAddIngredient()
   }
+
   const handleChange = (value) => {
     value == null ? setIngredientInput(value) : setIngredientInput(value.toLowerCase())
   }
+
   const handleClose = (event, reason) => {
     setOpen(false)
   }
+
   const handlePreferences = (type, val) => {
     const newPreferences = preferences
     if (val === 'No preference') {
@@ -74,8 +92,20 @@ const Main = () => {
     newPreferences[type] = val
     setPreferences(newPreferences)
   }
+
   const handleSubmit = () => {
     history.push('/search_results')
+  }
+  const handleLuckyClick = () => {
+    setLoading(true)
+    axios.get(`${API_URL}/recipes`)
+      .then((res) => {
+        setLoading(false)
+        history.push(`/my_recipes/${res.data.recipes[0].id}`)
+      })
+      .catch((error) => {
+        console.error(error)
+      })
   }
 
   return (
@@ -111,12 +141,6 @@ const Main = () => {
                 )
               }
             </div>
-            <div className="instruction md-xs-4 mt-md-auto">
-              <Checkbox
-                color="default"
-              />
-              include pantry?
-            </div>
           </div>
           <div className="main-sub-wrapper mt-3">
             <div>
@@ -131,8 +155,13 @@ const Main = () => {
           </div>
         </div>
         <div className="main-btn-wrapper">
-          <RecButton onClick={handleSubmit}>get recommendations</RecButton>
-          <RecButton className="ml-md-3" lucky>I am Feeling Lucky</RecButton>
+          {!loading
+            ? (<React.Fragment>
+                <RecButton onClick={handleSubmit}>get recommendations</RecButton>
+                <RecButton className="ml-md-3" lucky onClick={handleLuckyClick}>I am Feeling Lucky</RecButton>
+            </React.Fragment>)
+            : <div className="spinner-border"></div>
+          }
         </div>
       </div>
 

@@ -1,0 +1,224 @@
+{
+  "src/App.js": {
+    "description": "The entrypoint of this app\nThe context providers for ingredients, preferences, recipes are set up here, so that children components of App component can consume the contexts at any level.",
+    "displayName": "App",
+    "methods": []
+  },
+  "src/components/AppHeader.js": {
+    "description": "AppHeader component defines the styles and logic for the header portion of this app.\nAppHeader component is viewable in all routes.\nIncludes the links to navigate to the mainpage, to the sign/in log in page, and to the my bookmarked recipes page",
+    "displayName": "AppHeader",
+    "methods": []
+  },
+  "src/components/LoginButton.js": {
+    "description": "Login Buttom component is at the right top corner, inside the AppHeader component\nLoginButton is used for logging in and out, as well as navigating to the user profile page\nComponent defined states:\n authenticated(bool): true if and only if the current session is authenticated\n user(object): a variable to hold user information object data\n menuAnchorEl(bool): a variable to control to show the menu Anchor",
+    "displayName": "LoginButton",
+    "methods": [
+      {
+        "name": "checkAuthentication",
+        "docblock": null,
+        "modifiers": [
+          "async"
+        ],
+        "params": [],
+        "returns": null
+      },
+      {
+        "name": "login",
+        "docblock": null,
+        "modifiers": [],
+        "params": [],
+        "returns": null
+      },
+      {
+        "name": "logout",
+        "docblock": null,
+        "modifiers": [],
+        "params": [],
+        "returns": null
+      },
+      {
+        "name": "handleProfileClicked",
+        "docblock": null,
+        "modifiers": [],
+        "params": [],
+        "returns": null
+      },
+      {
+        "name": "handleMenuOpen",
+        "docblock": null,
+        "modifiers": [],
+        "params": [
+          {
+            "name": "event",
+            "type": null
+          }
+        ],
+        "returns": null
+      },
+      {
+        "name": "handleMenuClose",
+        "docblock": null,
+        "modifiers": [],
+        "params": [],
+        "returns": null
+      }
+    ],
+    "props": {
+      "authState": {
+        "type": {
+          "name": "object"
+        },
+        "required": false,
+        "description": "authState(object) represents current authentication state"
+      },
+      "authService": {
+        "type": {
+          "name": "object"
+        },
+        "required": false,
+        "description": "authService(object) provides multiple functions that are required for authentication service to work"
+      },
+      "history": {
+        "type": {
+          "name": "object"
+        },
+        "required": false,
+        "description": "history(object) used to manipulate the window location"
+      }
+    }
+  },
+  "src/components/LoginRequireDialog.js": {
+    "description": "LoginRequireDialog is used to prompt users to log in when they are in unauthenticated state and attempt to access parts of the app that requires authentication.\nLoginRequireDialog is used by RecipeCard component and RecipeCollection page, and becomes visible when unauthenticated users attempt to bookmark a recipe",
+    "displayName": "LoginRequireDialog",
+    "methods": [],
+    "props": {
+      "open": {
+        "type": {
+          "name": "bool"
+        },
+        "required": false,
+        "description": ""
+      },
+      "setOpen": {
+        "type": {
+          "name": "func"
+        },
+        "required": false,
+        "description": ""
+      }
+    }
+  },
+  "src/components/RecipeCard.js": {
+    "description": "RecipeCard Component is used to show a simplified information of recipe, including the image of the recipe.\nRecipeCard component is used inside /pages/recipeCollections page\nComponent defined states:\n openDialog(bool): the flag to control whether the dialog is open",
+    "displayName": "RecipeCard",
+    "methods": [],
+    "props": {
+      "recipe": {
+        "type": {
+          "name": "object"
+        },
+        "required": false,
+        "description": ""
+      },
+      "isBookmarked": {
+        "type": {
+          "name": "bool"
+        },
+        "required": false,
+        "description": ""
+      },
+      "handleBookmarkClick": {
+        "type": {
+          "name": "func"
+        },
+        "required": false,
+        "description": ""
+      },
+      "isMyRecipe": {
+        "type": {
+          "name": "bool"
+        },
+        "required": false,
+        "description": ""
+      }
+    }
+  },
+  "src/components/UserInput.js": {
+    "description": "User Input component is used to modify the ingredients.\nUser Input supports autocomplete feature.\nUsed inside /pages/Main",
+    "displayName": "UserInput",
+    "methods": [],
+    "props": {
+      "styles": {
+        "type": {
+          "name": "object"
+        },
+        "required": false,
+        "description": ""
+      },
+      "options": {
+        "type": {
+          "name": "array"
+        },
+        "required": false,
+        "description": ""
+      },
+      "placeholder": {
+        "type": {
+          "name": "string"
+        },
+        "required": false,
+        "description": ""
+      },
+      "onChange": {
+        "type": {
+          "name": "func"
+        },
+        "required": false,
+        "description": ""
+      }
+    }
+  },
+  "src/pages/Main.js": {
+    "description": "Main page component used by users to enter/modify their ingredients and preference data for requesting recipe recommendation.\nMain page is created by the root route, /\nContexts consumed: ingredientContext, preferenceContext\ncomponent defined states:\n ingredients(array): list of ingredients to be modified by users\n ingredientInput(string): a variable to hold the temporary value of a single ingredient string entered by an user\n preferences(array): list of preferences to be modified by users\n open(bool): determined whether to show alert box\n alertMessage(string): the message content of alert",
+    "displayName": "Main",
+    "methods": []
+  },
+  "src/pages/Profile.js": {
+    "description": "Profile page is used for viewing the authenticated user data.\nProfile is created by the route /profile\nComponent defined states:\n userInfo: an object that holds user information data",
+    "displayName": "Profile",
+    "methods": []
+  },
+  "src/pages/RecipeCollection.js": {
+    "description": "RecipeCollection page is used for showing multiple recipe cards for search results and bookmarked recipe.\nRecipeCollection page is created with Route /my_recipe, /search_results\nuseEffect fetches required data to create recipe cards and bookmark information\nContexts consumed: recipeContext, ingredientContext, preferenceContext\ncomponent defined states:\n bookmarkedRecipeIds(array): array of bookmarked recipe Ids\n reqConfig(object): HTTP request header to be used for backend endpoint calls",
+    "displayName": "RecipeCollection",
+    "methods": [],
+    "props": {
+      "isMyRecipe": {
+        "type": {
+          "name": "bool"
+        },
+        "required": false,
+        "description": "isMyRecipe: a bool prop that indicates whether this recipeCollection page is for viewing bookmarked recipes or viewing search results"
+      }
+    }
+  },
+  "src/pages/RecipeDetails.js": {
+    "description": "RecipeDetails page is used to view the detailed information about a recipe (e.g. detailed instruction, cooking time, serving size, etc)\nRecipeDetails page can be created by either /my_recipe or /search_result\nThe id of the recipe needs to be concatenated at the end of the route: e.g. /my_recipe/{id} or /search_result/{id}\nComponent defined states:\n recipeInfo(object): data object to hold recipe information data\n bookmarked(bool): a flag to indicate whether this recipe has been bookmarked by the currently authenticated user\n openDialog(bool): a flag that controls the dialog that prompts users to log in\n reqConfig(object): HTTP request header to be used for backend endpoint calls",
+    "displayName": "RecipeDetails",
+    "methods": [],
+    "props": {
+      "isMyRecipe": {
+        "type": {
+          "name": "bool"
+        },
+        "required": false,
+        "description": "isMyRecipe: a bool prop that indicates whether this recipeCollection page is for viewing bookmarked recipes or viewing search results"
+      }
+    }
+  },
+  "src/routes.js": {
+    "description": "This component is a wrapper or multiple routes",
+    "displayName": "Routes",
+    "methods": []
+  }
+}

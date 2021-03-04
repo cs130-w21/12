@@ -47,6 +47,12 @@ const useStyles = makeStyles((theme) => ({
   }
 }))
 
+/**
+ * RecipeCard Component is used to show a simplified information of recipe, including the image of the recipe.
+ * RecipeCard component is used inside /pages/recipeCollections page
+ * Component defined states:
+ *  openDialog(bool): the flag to control whether the dialog is open
+ */
 const RecipeCard = (props) => {
   const classes = useStyles()
   const history = useHistory()
@@ -100,9 +106,15 @@ const RecipeCard = (props) => {
 }
 
 RecipeCard.propTypes = {
+  /* object to hold recipe information */
   recipe: PropTypes.object,
+  /* flag to indicate whether the recipe is bookmarked */
   isBookmarked: PropTypes.bool,
+  /* function to handle the click bookmark event */
   handleBookmarkClick: PropTypes.func,
+  /* indicates whether the recipe Collection page,
+  the parent of recipeCard page,
+  is showing the bookmarked recipes or recipes from search results */
   isMyRecipe: PropTypes.bool
 }
 
