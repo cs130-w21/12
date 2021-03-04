@@ -17,10 +17,24 @@ import axios from 'axios'
 import { preferenceContext, ingredientContext } from '../contexts/contexts'
 import { API_URL } from '../constants'
 
+/**
+ * Alert Component used for User communication
+ */
 const Alert = (props) => {
   return <MuiAlert style={{ color: 'white' }} elevation={6} variant="filled" {...props} />
 }
 
+/**
+ * Main page component used by users to enter/modify their ingredients and preference data for requesting recipe recommendation.
+ * Main page is created by the root route, /
+ * Contexts consumed: ingredientContext, preferenceContext
+ * component defined states:
+ *  ingredients(array): list of ingredients to be modified by users
+ *  ingredientInput(string): a variable to hold the temporary value of a single ingredient string entered by an user
+ *  preferences(array): list of preferences to be modified by users
+ *  open(bool): determined whether to show alert box
+ *  alertMessage(string): the message content of alert
+ */
 const Main = () => {
   const [ingredientOptions, setIngredientOptions] = useState([])
   const { ingredients, setIngredients } = useContext(ingredientContext)
@@ -36,7 +50,6 @@ const Main = () => {
     setIngredients(ingredients.filter((ing) => ing !== ingredient))
   }
 
-  // TODO: we don't support ingredient options to be delivered from our backend, change this
   useEffect(() => {
     axios.get('https://api-cuisinemachine.herokuapp.com/')
       .then((res) => setIngredientOptions(res.data))
@@ -57,16 +70,20 @@ const Main = () => {
       setOpen(true)
     }
   }
+
   const handlePushResult = (e) => {
     e.preventDefault()
     handleAddIngredient()
   }
+
   const handleChange = (value) => {
     value == null ? setIngredientInput(value) : setIngredientInput(value.toLowerCase())
   }
+
   const handleClose = (event, reason) => {
     setOpen(false)
   }
+
   const handlePreferences = (type, val) => {
     const newPreferences = preferences
     if (val === 'No preference') {
@@ -75,6 +92,7 @@ const Main = () => {
     newPreferences[type] = val
     setPreferences(newPreferences)
   }
+
   const handleSubmit = () => {
     history.push('/search_results')
   }

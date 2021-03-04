@@ -4,6 +4,11 @@ import Autocomplete from '@material-ui/lab/Autocomplete'
 import '../styles/Main.css'
 import { StyledInput } from '../styles/styles'
 
+/**
+ * User Input component is used to modify the ingredients.
+ * User Input supports autocomplete feature.
+ * Used inside /pages/Main
+ */
 const UserInput = (props) => {
   const options = props.options
   const placeholder = props.placeholder
@@ -23,7 +28,7 @@ const UserInput = (props) => {
       freeSolo
       renderInput={(params) => (
         <div ref={params.InputProps.ref}>
-            <StyledInput type="text" {...params.inputProps} placeholder={placeholder} required />
+          <StyledInput type="text" {...params.inputProps} placeholder={placeholder} required />
         </div>
       )}
     />
@@ -31,9 +36,13 @@ const UserInput = (props) => {
 }
 
 UserInput.propTypes = {
+  /* defines styles for this component */
   styles: PropTypes.object,
+  /* represents options that match with the current user input for autocomplete */
   options: PropTypes.array,
+  /* represents the string that are used for placeholder in the input */
   placeholder: PropTypes.string,
+  /* represents the function to be fired when the input has changed */
   onChange: PropTypes.func
 }
 

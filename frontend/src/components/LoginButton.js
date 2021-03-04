@@ -11,6 +11,14 @@ import { AccountCircle } from '@material-ui/icons'
 import { withOktaAuth } from '@okta/okta-react'
 import { withRouter } from 'react-router'
 
+/**
+ * Login Buttom component is at the right top corner, inside the AppHeader component
+ * LoginButton is used for logging in and out, as well as navigating to the user profile page
+ * Component defined states:
+ *  authenticated(bool): true if and only if the current session is authenticated
+ *  user(object): a variable to hold user information object data
+ *  menuAnchorEl(bool): a variable to control to show the menu Anchor
+ */
 class LoginButton extends Component {
   constructor(props) {
     super(props)
@@ -92,8 +100,17 @@ class LoginButton extends Component {
 }
 
 LoginButton.propTypes = {
+  /**
+   * authState(object) represents current authentication state
+   */
   authState: PropTypes.object,
+  /**
+   * authService(object) provides multiple functions that are required for authentication service to work
+   */
   authService: PropTypes.object,
+  /**
+   * history(object) used to manipulate the window location
+   */
   history: PropTypes.object
 }
 
