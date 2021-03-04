@@ -13,7 +13,7 @@ const User = require('../model/User.js');
  * @async
  * @function getUserInfo
  * @param {UUID} userId - User ID
- * @returns {Promise} A Promise representing the result of the SQL transaction.
+ * @returns {Promise} A Promise representing the result of the SQL query.
  * @description This method gets exactly zero or one User object from the User table given the user
  * ID.
  */
@@ -25,7 +25,7 @@ const getUserInfo = (userId) => User.findOne({
  * @async
  * @function ensureUser
  * @param {UUID} userId - User ID
- * @returns {Promise} A Promise representing the result of the SQL transaction.
+ * @returns {Promise} A Promise representing the result of the SQL query.
  * @description This method checks if the given user ID exists in the User table. If it does not
  * exist, it will insert a new row into the User table that corresponds to a User object.
  */
