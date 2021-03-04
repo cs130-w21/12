@@ -15,6 +15,7 @@ import logo from '../assets/logo.png'
 import axios from 'axios'
 // contexts
 import { preferenceContext, ingredientContext } from '../contexts/contexts'
+import { API_URL } from '../constants'
 
 const Alert = (props) => {
   return <MuiAlert style={{ color: 'white' }} elevation={6} variant="filled" {...props} />
@@ -26,6 +27,7 @@ const Main = () => {
   const { preferences, setPreferences } = useContext(preferenceContext)
   const [ingredientInput, setIngredientInput] = useState(null)
   const [open, setOpen] = useState(false)
+  const [loading, setLoading] = useState(false)
   const [alertMessage, setAlertMessage] = useState('')
   const history = useHistory()
 
@@ -76,6 +78,17 @@ const Main = () => {
   const handleSubmit = () => {
     history.push('/search_results')
   }
+  const handleLuckyClick = () => {
+    setLoading(true)
+    axios.get(`${API_URL}/recipes`)
+      .then((res) => {
+        setLoading(false)
+        history.push(`/recipes/${res.data.recipes[0].id}`)
+      })
+      .catch((error) => {
+        console.error(error)
+      })
+  }
 
   return (
     <React.Fragment>
@@ -124,8 +137,13 @@ const Main = () => {
           </div>
         </div>
         <div className="main-btn-wrapper">
-          <RecButton onClick={handleSubmit}>get recommendations</RecButton>
-          <RecButton className="ml-md-3" lucky>I am Feeling Lucky</RecButton>
+          {!loading
+            ? (<React.Fragment>
+                <RecButton onClick={handleSubmit}>get recommendations</RecButton>
+                <RecButton className="ml-md-3" lucky onClick={handleLuckyClick}>I am Feeling Lucky</RecButton>
+            </React.Fragment>)
+            : <div className="spinner-border"></div>
+          }
         </div>
       </div>
 

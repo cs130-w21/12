@@ -8,7 +8,6 @@ export const RecButton = styled.button`
     padding: 5px 40px;
     font-size: 20px;
     font-weight: lighter;
-    margin-top: 75px;
 
     &:hover {
         background: rgb(206, 64, 20);
