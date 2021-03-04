@@ -15,8 +15,8 @@ const RecipeMock = DBConnectionMock.define('Recipe', {
   imageUrl: 'https://spoonacular.com/recipeImages/640136-556x370.jpg',
 });
 
-describe('Test Get User Info', () => {
-  it('Should get User uuid 9f50a9ff-273b-42df-8438-9e5adb6c675e', async () => {
+describe('Test Get Recipe By Recipe ID', () => {
+  it('Should get recipe with ID 640136', async () => {
     Recipe.findOne = jest.fn((id) => RecipeMock.findOne(id));
 
     const recipe = await recipeQuery.getRecipeByRecipeId(640136);
@@ -29,8 +29,8 @@ describe('Test Get User Info', () => {
   });
 });
 
-describe('Test Ensure User', () => {
-  it('Should succeed', async () => {
+describe('Test Ensure Recipe', () => {
+  it('Should succeed in adding new recipe', async () => {
     Recipe.findOrCreate = jest.fn(() => Promise.resolve());
 
     const r = {
