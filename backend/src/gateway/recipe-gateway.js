@@ -99,22 +99,22 @@ const getRecipeInformation = (recipeId) => get(
 
 /**
  * @async
- * @function getRandomRecipes
+ * @function getRandomRecipe
  * @returns {Promise} A JSON promise representing the response for the request. Evaluated by having
  * the caller await the call to this function.
  * @description This method issues a GET request to Spoonacular to get a random recipe. This method
  * wraps the functionality of the private function get(url : string, reqType : int).
  */
-const getRandomRecipes = () => get(
+const getRandomRecipe = () => get(
   `${config.credentials.search.url}\
     ${config.credentials.search.randomEndpoint}\
     ?apiKey=${config.credentials.search.apiKey}\
-    &number=8`.replace(/\s+/g, ''),
+    &number=1`.replace(/\s+/g, ''),
   3,
 );
 
 module.exports = {
   findRecipes,
   getRecipeInformation,
-  getRandomRecipes,
+  getRandomRecipe,
 };
