@@ -10,6 +10,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
+      - name: Predeploy -- React Testing
+        run: yarn --cwd "frontend/" test
       - name: 1 -- Login to Heroku
         env:
           HEROKU_API_KEY: ${{ secrets.HEROKU_FRONTEND_API_KEY }}
