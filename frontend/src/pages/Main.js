@@ -3,7 +3,6 @@ import { useHistory } from 'react-router-dom'
 import '../styles/Main.css'
 // Material UI Imports
 import Chip from '@material-ui/core/Chip'
-import Checkbox from '@material-ui/core/Checkbox'
 import IconButton from '@material-ui/core/IconButton'
 import AddIcon from '@material-ui/icons/Add'
 import Snackbar from '@material-ui/core/Snackbar'
@@ -110,12 +109,6 @@ const Main = () => {
                   />
                 )
               }
-            </div>
-            <div className="instruction md-xs-4 mt-md-auto">
-              <Checkbox
-                color="default"
-              />
-              include pantry?
             </div>
           </div>
           <div className="main-sub-wrapper mt-3">
