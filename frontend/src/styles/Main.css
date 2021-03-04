@@ -1,110 +1,114 @@
 .main-wrapper {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
-.main-wrapper *{
-    color: rgba(235, 73, 23, 0.72);
+.main-wrapper * {
+  color: rgba(235, 73, 23, 0.72);
 }
 
-.main-sect{
-    font-weight: 400;
-    font-size: 2rem;
+.main-sect {
+  font-weight: 400;
+  font-size: 2rem;
 }
 
 .main-sub-sect {
-    font-weight: 400;
-    font-size: 1.25rem;
-    color: #757575;
-    margin-bottom: 0;
+  font-weight: 400;
+  font-size: 1.25rem;
+  color: #757575;
+  margin-bottom: 0;
 }
 
 ::placeholder {
-    color: #ACB0AD;
+  color: #acb0ad;
 }
-  
+
 .add-btn {
-    background-color: transparent;
-    border: none;
-    outline: none;
-    position: absolute;
-  
-    height: 50px;
-    width: 50px;
-    padding: 10px;
-    right: 0;
+  background-color: transparent;
+  border: none;
+  outline: none;
+  position: absolute;
+
+  height: 50px;
+  width: 50px;
+  padding: 10px;
+  right: 0;
 }
-  
+
 .add-btn:focus {
-    outline: none;
+  outline: none;
 }
-  
+
 .chip-area {
-    display: flex;
-    justify-content: left;
-    flex-wrap: wrap;
-    width: 30vw;
-    min-width: 150px;
-    max-width: 450px;
+  display: flex;
+  justify-content: left;
+  flex-wrap: wrap;
+  width: 30vw;
+  min-width: 150px;
+  max-width: 450px;
 }
-  
+
 .chip {
-    background: transparent;
-    border: 1px solid rgba(235, 73, 23, 0.72);
+  background: transparent;
+  border: 1px solid rgba(235, 73, 23, 0.72);
 }
-  
+
 .capitalize {
-    text-transform: capitalize;
+  text-transform: capitalize;
 }
 
 .main-mid-wrapper {
-    width: 75%;
-    display: flex;
+  width: 75%;
+  display: flex;
 }
 
 .main-sub-wrapper {
-    width: 50%;
-    padding: 0 20px;
+  width: 50%;
+  padding: 0 20px;
 
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .instruction {
-    width: 30vw;
-    min-width: 150px;
-    max-width: 475px;
+  width: 30vw;
+  min-width: 150px;
+  max-width: 475px;
+}
+
+.main-btn-wrapper {
+  margin-top: 75px;
 }
 
 @media only screen and (max-width: 768px) {
-    .chip-area {
-        width: 70vw;
-    }
+  .chip-area {
+    width: 70vw;
+  }
 
-    .main-mid-wrapper {
-       flex-direction: column;
-       width: 100%;
-    }
+  .main-mid-wrapper {
+    flex-direction: column;
+    width: 100%;
+  }
 
-    .main-sect {
-        font-size: 1.75rem;
-    }
+  .main-sect {
+    font-size: 1.75rem;
+  }
 
-    .main-sub-wrapper {
-        width: 100%;
-    }
+  .main-sub-wrapper {
+    width: 100%;
+  }
 
-    .main-btn-wrapper {
-        width: 100%;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        margin-top: 35px;
-    }
+  .main-btn-wrapper {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 35px;
+  }
 
-    .instruction {
-        text-align: center;
-    }
+  .instruction {
+    text-align: center;
+  }
 }

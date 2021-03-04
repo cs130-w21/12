@@ -3,6 +3,10 @@ import React, { Suspense, useState } from 'react'
 import AppHeader from './components/AppHeader'
 import RouteContextProvider from './contexts/RouteContextProvider'
 
+/**
+ * The entrypoint of this app
+ * The context providers for ingredients, preferences, recipes are set up here, so that children components of App component can consume the contexts at any level.
+ */
 const App = () => {
   const [ingredients, setIngredients] = useState([])
   const [preferences, setPreferences] = useState({ diet: null, cuisine: null, 'sort by': null })

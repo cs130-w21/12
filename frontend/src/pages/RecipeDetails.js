@@ -29,6 +29,16 @@ const useStyles = makeStyles(theme => ({
   }
 }))
 
+/**
+ * RecipeDetails page is used to view the detailed information about a recipe (e.g. detailed instruction, cooking time, serving size, etc)
+ * RecipeDetails page can be created by either /my_recipe or /search_result
+ * The id of the recipe needs to be concatenated at the end of the route: e.g. /my_recipe/{id} or /search_result/{id}
+ * Component defined states:
+ *  recipeInfo(object): data object to hold recipe information data
+ *  bookmarked(bool): a flag to indicate whether this recipe has been bookmarked by the currently authenticated user
+ *  openDialog(bool): a flag that controls the dialog that prompts users to log in
+ *  reqConfig(object): HTTP request header to be used for backend endpoint calls
+ */
 const RecipeDetails = (props) => {
   const classes = useStyles()
   const history = useHistory()
@@ -164,6 +174,9 @@ const RecipeDetails = (props) => {
 }
 
 RecipeDetails.propTypes = {
+  /**
+   * isMyRecipe: a bool prop that indicates whether this recipeCollection page is for viewing bookmarked recipes or viewing search results
+   */
   isMyRecipe: PropTypes.bool
 }
 
