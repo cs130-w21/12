@@ -7,7 +7,6 @@
 
 'use strict';
 
-const { sequelize } = require('../model/database.js');
 const User = require('../model/User.js');
 
 /**
@@ -18,10 +17,9 @@ const User = require('../model/User.js');
  * @description This method gets exactly zero or one User object from the User table given the user
  * ID.
  */
-const getUserInfo = (userId) => sequelize.transaction((t) => User.findOne({
+const getUserInfo = (userId) => User.findOne({
   where: { uuid: userId },
-  transaction: t,
-}));
+});
 
 /**
  * @async
@@ -31,10 +29,9 @@ const getUserInfo = (userId) => sequelize.transaction((t) => User.findOne({
  * @description This method checks if the given user ID exists in the User table. If it does not
  * exist, it will insert a new row into the User table that corresponds to a User object.
  */
-const ensureUser = (userId) => sequelize.transaction((t) => User.findOrCreate({
+const ensureUser = (userId) => User.findOrCreate({
   where: { uuid: userId },
-  transaction: t,
-}));
+});
 
 module.exports = {
   getUserInfo,
