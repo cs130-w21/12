@@ -91,18 +91,16 @@ const getRecipeInfo = async (recipeId) => {
 
 /**
  * @async
- * @function getRandomRecipes
+ * @function getRandomRecipe
  * @returns {Recipe} A recipe object
  * @description This method uses the recipe gateway to get a random recipe, then ensures that the
  * recipe received from the gateway is stored in the database.
  */
-const getRandomRecipes = async () => {
-  const result = await recipeGateway.getRandomRecipes();
-  const recipes = cleanUpBulkRecipes(result.recipes);
-  for (const recipe of recipes) {
-    await recipeQuery.ensureRecipe(recipe); // eslint-disable-line no-await-in-loop
-  }
-  return recipes;
+const getRandomRecipe = async () => {
+  const result = await recipeGateway.getRandomRecipe();
+  const recipe = cleanUpBulkRecipes(result.recipes)[0];
+  await recipeQuery.ensureRecipe(recipe);
+  return recipe;
 };
 
-module.exports = { findRecipes, getRecipeInfo, getRandomRecipes };
+module.exports = { findRecipes, getRecipeInfo, getRandomRecipe };
