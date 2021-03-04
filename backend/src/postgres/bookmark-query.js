@@ -48,7 +48,7 @@ const deleteBookmark = (userId, recipeId) => Bookmark.destroy({
 
 /**
  * @async
- * @function deleteBookmark
+ * @function addBookmark
  * @param {UUID} userId - User ID
  * @param {int} recipeId - Recipe ID
  * @returns {Promise} A Promise representing the result of the SQL query.
