@@ -1,14 +1,35 @@
+/**
+ * @module service/recipe-service
+ * @description This module is an application service for interacting with the Recipe objects.
+ * @requires module:gateway/recipe-gateway
+ * @requires module:postgres/recipe-query
+ */
+
 'use strict';
 
 const recipeGateway = require('../gateway/recipe-gateway.js');
 const recipeQuery = require('../postgres/recipe-query.js');
 
+/**
+ * @private
+ * @function cleanUpBulkRecipes
+ * @param {object} recipes - An array of recipes
+ * @returns {Recipe[]} An array of recipes
+ * @description This is a utility function only accessible to other functions of this module.
+ */
 const cleanUpBulkRecipes = (recipes) => recipes.map((r) => ({
   id: r.id,
   title: r.title,
   imageUrl: r.image,
 }));
 
+/**
+ * @private
+ * @function cleanUpRecipeInfo
+ * @param {object} recipe - An object containing detailed recipe information
+ * @returns {object} A concise recipe detail JSON
+ * @description This is a utility function only accessible to other functions of this module.
+ */
 const cleanUpRecipeInfo = (recipe) => ({
   id: recipe.id,
   title: recipe.title,
@@ -36,6 +57,17 @@ const cleanUpRecipeInfo = (recipe) => ({
   imageUrl: recipe.image,
 });
 
+/**
+ * @async
+ * @function findRecipes
+ * @param {string[]} ingredients - An array of strings containing ingredients
+ * @param {string} cuisine - A string containing cuisine preference
+ * @param {string} diet - A string containing diet preference
+ * @returns {Recipe[]} An array of Recipe objects
+ * @description This method uses the recipe gateway to obtain recipes based on ingredients,
+ * cuisine preference, and diet preference, then ensures that all recipes received from the
+ * gateway is stored in the database.
+ */
 const findRecipes = async (ingredients, cuisine, diet) => {
   const result = await recipeGateway.findRecipes(ingredients.map((i) => i.replace(/\s+/g, '+')), cuisine, diet);
   const recipes = cleanUpBulkRecipes(result.results);
@@ -45,11 +77,25 @@ const findRecipes = async (ingredients, cuisine, diet) => {
   return recipes;
 };
 
+/**
+ * @async
+ * @function getRecipeInfo
+ * @param {int} recipeId - A unique integer representing a recipe ID
+ * @returns {object} A recipe detail JSON
+ * @description This method uses the recipe gateway to obtain detailed information of a recipe.
+ */
 const getRecipeInfo = async (recipeId) => {
   const result = await recipeGateway.getRecipeInformation(recipeId);
   return cleanUpRecipeInfo(result);
 };
 
+/**
+ * @async
+ * @function getRandomRecipes
+ * @returns {Recipe} A recipe object
+ * @description This method uses the recipe gateway to get a random recipe, then ensures that the
+ * recipe received from the gateway is stored in the database.
+ */
 const getRandomRecipes = async () => {
   const result = await recipeGateway.getRandomRecipes();
   const recipes = cleanUpBulkRecipes(result.recipes);

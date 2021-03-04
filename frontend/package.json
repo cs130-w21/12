@@ -11,11 +11,12 @@
     "@material-ui/lab": "^4.0.0-alpha.57",
     "@okta/okta-react": "3.0.8",
     "@testing-library/jest-dom": "^5.11.4",
-    "@testing-library/react": "^11.1.0",
+    "@testing-library/react": "^11.2.5",
     "@testing-library/user-event": "^12.1.10",
     "axios": "^0.21.1",
     "babel-eslint": "^10.1.0",
     "bootstrap": "^4.5.3",
+    "msw": "^0.27.0",
     "prop-types": "^15.7.2",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
@@ -58,6 +59,7 @@
     "eslint-plugin-promise": "^4.2.1",
     "eslint-plugin-react": "^7.22.0",
     "react-docgen": "^5.3.1",
-    "react-docs-markdown": "^0.8.0"
+    "react-docs-markdown": "^0.8.0",
+    "react-test-renderer": "^17.0.1"
   }
 }

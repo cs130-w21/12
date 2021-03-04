@@ -8,7 +8,6 @@ export const RecButton = styled.button`
     padding: 5px 40px;
     font-size: 20px;
     font-weight: lighter;
-    margin-top: 75px;
 
     &:hover {
         background: rgb(206, 64, 20);
@@ -18,8 +17,6 @@ export const RecButton = styled.button`
         margin-top: 10px;
     }
 
-  /* The GitHub button is a primary button
-   * edit this to target it specifically! */
   ${props => props.lucky && css`
         background: white;
         border: 1px solid rgba(235, 72, 23);
@@ -28,6 +25,9 @@ export const RecButton = styled.button`
             background: rgb(235, 72, 23);
             color: white !important;
         }
+  `}
+  ${props => props.small && css`
+        font-size: 16px;
   `}
 `
 
