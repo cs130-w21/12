@@ -178,8 +178,8 @@
 //   }
 // });
 
-// // testing getRandomRecipes
+// // testing getRandomRecipe
 
-// test('Valid Recipes are reproduced', () => api.getRandomRecipes().then((data) => {
+// test('Valid Recipes are reproduced', () => api.getRandomRecipe().then((data) => {
 //   expect(data).toStrictEqual(expect.anything());
 // }));
