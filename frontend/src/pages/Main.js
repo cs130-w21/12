@@ -101,7 +101,7 @@ const Main = () => {
     axios.get(`${API_URL}/recipes`)
       .then((res) => {
         setLoading(false)
-        history.push(`/recipes/${res.data.recipes[0].id}`)
+        history.push(`/my_recipes/${res.data.recipes[0].id}`)
       })
       .catch((error) => {
         console.error(error)
