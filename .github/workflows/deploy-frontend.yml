@@ -11,7 +11,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - name: Predeploy -- Frontend Testing
-        run: yarn && yarn test
+        run: yarn && yarn --cwd "frontend/" test
       - name: 1 -- Login to Heroku
         env:
           HEROKU_API_KEY: ${{ secrets.HEROKU_FRONTEND_API_KEY }}
