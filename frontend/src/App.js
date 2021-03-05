@@ -7,6 +7,7 @@ const App = () => {
   const [ingredients, setIngredients] = useState([])
   const [preferences, setPreferences] = useState({ diet: null, cuisine: null, 'sort by': null })
   const [recipes, setRecipes] = useState([])
+  const [querySent, setQuerySent] = useState(false)
 
   return (
     <React.Fragment>
@@ -19,6 +20,8 @@ const App = () => {
           setPreferences={setPreferences}
           recipes={recipes}
           setRecipes={setRecipes}
+          querySent={querySent}
+          setQuerySent={setQuerySent}
         />
       </Suspense>
     </React.Fragment>
