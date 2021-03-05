@@ -15,7 +15,7 @@ import UserInput from '../components/UserInput'
 import logo from '../assets/logo.png'
 import axios from 'axios'
 // contexts
-import { preferenceContext, ingredientContext } from '../contexts/contexts'
+import { preferenceContext, ingredientContext, recipeContext } from '../contexts/contexts'
 
 const Alert = (props) => {
   return <MuiAlert style={{ color: 'white' }} elevation={6} variant="filled" {...props} />
@@ -25,6 +25,7 @@ const Main = () => {
   const [ingredientOptions, setIngredientOptions] = useState([])
   const { ingredients, setIngredients } = useContext(ingredientContext)
   const { preferences, setPreferences } = useContext(preferenceContext)
+  const { setQuerySent } = useContext(recipeContext)
   const [ingredientInput, setIngredientInput] = useState(null)
   const [open, setOpen] = useState(false)
   const [alertMessage, setAlertMessage] = useState('')
@@ -76,6 +77,7 @@ const Main = () => {
   }
   const handleSubmit = () => {
     history.push('/search_results')
+    setQuerySent(true)
   }
 
   return (

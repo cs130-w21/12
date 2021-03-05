@@ -9,7 +9,10 @@ export const preferenceContext = createContext({
 })
 export const recipeContext = createContext({
   recipes: [],
+  querySent: false,
+  setQuerySent: () => { },
   setRecipes: () => { }
 })
+
 
 export default { ingredientContext, preferenceContext, recipeContext }

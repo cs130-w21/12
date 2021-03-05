@@ -22,7 +22,7 @@ const useStyles = makeStyles(theme => ({
 const RecipeCollection = (props) => {
   const classes = useStyles()
   const isMyRecipe = props.isMyRecipe
-  const { recipes, setRecipes } = useContext(recipeContext)
+  const { recipes, setRecipes, querySent, setQuerySent } = useContext(recipeContext)
   const [bookmarkedRecipeIds, setBookmarkedRecipeIds] = useState([])
   const history = useHistory()
   const { authState, authService } = useOktaAuth()
@@ -51,12 +51,13 @@ const RecipeCollection = (props) => {
           }
         })
     }
-    if (!isMyRecipe) {
+    if (!isMyRecipe && querySent) {
       axios.post(`${API_URL}/recipes`, {
         ingredients: ingredients,
         preferences: preferences
       }).then(res => {
         setRecipes(res.data.recipes)
+        setQuerySent(false)
       }).catch((error) => console.error(error))
     }
   }, [authState, authService])
