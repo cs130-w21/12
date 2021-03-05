@@ -75,7 +75,7 @@ const RecipeCollection = (props) => {
         setRecipes(res.data.recipes)
       }).catch((error) => console.error(error))
     }
-  }, [authState, authService])
+  }, [])
 
   const handleClickMain = () => {
     history.push('/')
