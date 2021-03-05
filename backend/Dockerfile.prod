@@ -1,10 +1,15 @@
-FROM node:12-buster
+FROM node:12-buster AS base
 
 RUN apt-get update && \
     rm -rf /var/lib/apt/lists/*
 COPY . /opt/app/
 RUN cd /opt/app && yarn
 WORKDIR /opt/app
+
+FROM base AS test
+RUN yarn run test
+
+FROM base AS prod
 USER node
 ENV NODE_ENV production
 EXPOSE 8080

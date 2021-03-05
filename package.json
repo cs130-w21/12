@@ -4,9 +4,11 @@
   "license": "UNLICENSED",
   "private": true,
   "scripts": {
+    "install": "touch access.log && cd backend && yarn && cd ../frontend && yarn",
     "lint": "eslint ."
   },
   "dependencies": {
+    "babel-eslint": "^10.1.0",
     "body-parser": "^1.19.0",
     "eslint": "^7.18.0",
     "eslint-config-airbnb-base": "^14.2.1",
