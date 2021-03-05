@@ -6,12 +6,11 @@
 const SequelizeMock = require('sequelize-mock');
 const User = require('../../src/model/User.js');
 const userQuery = require('../../src/postgres/user-query.js');
+const testCases = require('../test-cases.json');
 
 const DBConnectionMock = new SequelizeMock();
 
-const UserMock = DBConnectionMock.define('User', {
-  uuid: '9f50a9ff-273b-42df-8438-9e5adb6c675e',
-});
+const UserMock = DBConnectionMock.define('User', testCases.user['9f50a9ff-273b-42df-8438-9e5adb6c675e']);
 
 describe('Test Get User Info', () => {
   it('Should get User uuid 9f50a9ff-273b-42df-8438-9e5adb6c675e', async () => {
