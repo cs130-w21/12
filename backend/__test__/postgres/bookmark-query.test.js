@@ -6,14 +6,11 @@
 const SequelizeMock = require('sequelize-mock');
 const Bookmark = require('../../src/model/Bookmark.js');
 const bookmarkQuery = require('../../src/postgres/bookmark-query.js');
+const testCases = require('../test-cases.json');
 
 const DBConnectionMock = new SequelizeMock();
 
-const BookmarkMock = DBConnectionMock.define('Bookmark', {
-  id: 1,
-  userId: '9f50a9ff-273b-42df-8438-9e5adb6c675e',
-  recipeId: 716426,
-});
+const BookmarkMock = DBConnectionMock.define('Bookmark', testCases.bookmark['9f50a9ff-273b-42df-8438-9e5adb6c675e']);
 
 describe('Test Get All Bookmarks', () => {
   it('Should get all Bookmarks for User 9f50a9ff-273b-42df-8438-9e5adb6c675e', async () => {
@@ -24,7 +21,7 @@ describe('Test Get All Bookmarks', () => {
       where: { userId: '9f50a9ff-273b-42df-8438-9e5adb6c675e' },
     });
     expect(bookmarks[0].userId).toEqual('9f50a9ff-273b-42df-8438-9e5adb6c675e');
-    expect(bookmarks[0].recipeId).toEqual(716426);
+    expect(bookmarks[0].recipeId).toEqual(640136);
   });
 });
 
@@ -48,9 +45,9 @@ describe('Test Delete Bookmark', () => {
       where: { userId, recipeId },
     }));
 
-    const rowsDeleted = await bookmarkQuery.deleteBookmark('9f50a9ff-273b-42df-8438-9e5adb6c675e', 640136);
+    const rowsDeleted = await bookmarkQuery.deleteBookmark('9f50a9ff-273b-42df-8438-9e5adb6c675e', 716426);
     expect(Bookmark.destroy).toBeCalledWith({
-      where: { userId: '9f50a9ff-273b-42df-8438-9e5adb6c675e', recipeId: 640136 },
+      where: { userId: '9f50a9ff-273b-42df-8438-9e5adb6c675e', recipeId: 716426 },
     });
     expect(rowsDeleted).toBe(1);
   });

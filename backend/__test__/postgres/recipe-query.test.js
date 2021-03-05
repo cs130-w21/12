@@ -6,14 +6,11 @@
 const SequelizeMock = require('sequelize-mock');
 const Recipe = require('../../src/model/Recipe.js');
 const recipeQuery = require('../../src/postgres/recipe-query.js');
+const testCases = require('../test-cases.json');
 
 const DBConnectionMock = new SequelizeMock();
 
-const RecipeMock = DBConnectionMock.define('Recipe', {
-  id: 640136,
-  title: 'Corned Beef And Cabbage With Irish Mustard Sauce',
-  imageUrl: 'https://spoonacular.com/recipeImages/640136-556x370.jpg',
-});
+const RecipeMock = DBConnectionMock.define('Recipe', testCases.recipe[640136]);
 
 describe('Test Get Recipe By Recipe ID', () => {
   it('Should get recipe with ID 640136', async () => {
@@ -33,16 +30,13 @@ describe('Test Ensure Recipe', () => {
   it('Should succeed in adding new recipe', async () => {
     Recipe.findOrCreate = jest.fn(() => Promise.resolve());
 
-    const r = {
-      id: 655145,
-      title: 'Peach Pie',
-      imageUrl: 'https://spoonacular.com/recipeImages/655145-556x370.jpg',
-    };
-
-    await recipeQuery.ensureRecipe(r);
+    await recipeQuery.ensureRecipe(testCases.recipe[655145]);
     expect(Recipe.findOrCreate).toBeCalledWith({
       where: { id: 655145 },
-      defaults: { title: r.title, image_url: r.imageUrl },
+      defaults: {
+        title: testCases.recipe[655145].title,
+        image_url: testCases.recipe[655145].imageUrl,
+      },
     });
   });
 });
