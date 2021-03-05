@@ -37,30 +37,31 @@ const RecipeCollection = (props) => {
           setReqConfig({
             headers: {
               userId: info.sub,
-              authorization: `Bearer ${authState.accessToken.accessToken}`
+              authorization: `Bearer ${authState.accessToken}`
             }
           })
-          if (isMyRecipe) {
+          if (isMyRecipe && reqConfig !== null) {
             axios.get(`${API_URL}/user/bookmarks/`, reqConfig)
               .then((res) => {
                 const { bookmarks } = res.data
                 setBookmarkedRecipeIds(bookmarks.map(b => b.id))
                 setRecipes(bookmarks)
               })
-              .catch(err => console.log(err))
+              .catch(err => console.error(err))
           }
         })
     }
     if (!isMyRecipe && querySent) {
+      console.log('search recipe endpoint hit')
       axios.post(`${API_URL}/recipes`, {
         ingredients: ingredients,
         preferences: preferences
       }).then(res => {
         setRecipes(res.data.recipes)
         setQuerySent(false)
-      }).catch((error) => console.error(error))
+      }).catch(error => console.error(error))
     }
-  }, [authState, authService])
+  }, [authService, authState])
 
   const handleClickMain = () => {
     history.push('/')
@@ -78,10 +79,6 @@ const RecipeCollection = (props) => {
         .then(console.log('add bookmark success'))
         .catch(err => console.log(err))
     }
-  }
-
-  const handleGetMoreRecipes = () => {
-    // TODO: Clicking on this should handle getting more recipes
   }
 
   return (
@@ -110,11 +107,6 @@ const RecipeCollection = (props) => {
         ))
         }
       </Grid>
-      {!isMyRecipe &&
-        <Link color='inherit' component='button' onClick={handleGetMoreRecipes}>
-          more recipes
-        </Link>
-      }
     </div>
   )
 }

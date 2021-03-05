@@ -14,5 +14,4 @@ export const recipeContext = createContext({
   setRecipes: () => { }
 })
 
-
 export default { ingredientContext, preferenceContext, recipeContext }
