@@ -4,6 +4,7 @@
   "license": "UNLICENSED",
   "private": true,
   "scripts": {
+    "install": "touch access.log && cd backend && yarn && cd ../frontend && yarn",
     "lint": "eslint ."
   },
   "dependencies": {
