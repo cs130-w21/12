@@ -19,6 +19,15 @@ const useStyles = makeStyles(theme => ({
   }
 }))
 
+/**
+ * RecipeCollection page is used for showing multiple recipe cards for search results and bookmarked recipe.
+ * RecipeCollection page is created with Route /my_recipe, /search_results
+ * useEffect fetches required data to create recipe cards and bookmark information
+ * Contexts consumed: recipeContext, ingredientContext, preferenceContext
+ * component defined states:
+ *  bookmarkedRecipeIds(array): array of bookmarked recipe Ids
+ *  reqConfig(object): HTTP request header to be used for backend endpoint calls
+ */
 const RecipeCollection = (props) => {
   const classes = useStyles()
   const isMyRecipe = props.isMyRecipe
@@ -31,6 +40,9 @@ const RecipeCollection = (props) => {
   const { preferences } = useContext(preferenceContext)
 
   useEffect(() => {
+    /**
+     * if the current session is authenticated and this is for viewing bookmarked recipes, we fetch bookmarks from backend
+     */
     if (authState.isAuthenticated) {
       authService.getUser()
         .then(info => {
@@ -112,8 +124,10 @@ const RecipeCollection = (props) => {
 }
 
 RecipeCollection.propTypes = {
-  isMyRecipe: PropTypes.bool,
-  location: PropTypes.object
+  /**
+   * isMyRecipe: a bool prop that indicates whether this recipeCollection page is for viewing bookmarked recipes or viewing search results
+   */
+  isMyRecipe: PropTypes.bool
 }
 
 export default RecipeCollection
