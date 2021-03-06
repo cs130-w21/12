@@ -8,7 +8,7 @@
 
 const https = require('https');
 
-const config = require('../config.js');
+const config = require('../../config.js');
 const validator = require('../util/validator.js');
 
 /**

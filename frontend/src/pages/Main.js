@@ -14,9 +14,8 @@ import UserInput from '../components/UserInput'
 import logo from '../assets/logo.png'
 import axios from 'axios'
 // contexts
-import { preferenceContext, ingredientContext } from '../contexts/contexts'
+import { preferenceContext, ingredientContext, recipeContext } from '../contexts/contexts'
 import { API_URL } from '../constants'
-
 /**
  * Alert Component used for User communication
  */
@@ -39,6 +38,7 @@ const Main = () => {
   const [ingredientOptions, setIngredientOptions] = useState([])
   const { ingredients, setIngredients } = useContext(ingredientContext)
   const { preferences, setPreferences } = useContext(preferenceContext)
+  const { setQuerySent } = useContext(recipeContext)
   const [ingredientInput, setIngredientInput] = useState(null)
   const [open, setOpen] = useState(false)
   const [loading, setLoading] = useState(false)
@@ -95,6 +95,7 @@ const Main = () => {
 
   const handleSubmit = () => {
     history.push('/search_results')
+    setQuerySent(true)
   }
   const handleLuckyClick = () => {
     setLoading(true)
@@ -157,8 +158,8 @@ const Main = () => {
         <div className="main-btn-wrapper">
           {!loading
             ? (<React.Fragment>
-                <RecButton onClick={handleSubmit}>get recommendations</RecButton>
-                <RecButton className="ml-md-3" lucky onClick={handleLuckyClick}>I am Feeling Lucky</RecButton>
+              <RecButton onClick={handleSubmit}>get recommendations</RecButton>
+              <RecButton className="ml-md-3" lucky onClick={handleLuckyClick}>I am Feeling Lucky</RecButton>
             </React.Fragment>)
             : <div className="spinner-border"></div>
           }

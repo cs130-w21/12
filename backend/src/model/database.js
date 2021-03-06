@@ -8,7 +8,7 @@
 'use strict';
 
 const Sequelize = require('sequelize');
-const config = require('../config.js');
+const config = require('../../config.js');
 
 /**
  * @type {object}

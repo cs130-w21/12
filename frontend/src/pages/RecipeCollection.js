@@ -31,7 +31,7 @@ const useStyles = makeStyles(theme => ({
 const RecipeCollection = (props) => {
   const classes = useStyles()
   const isMyRecipe = props.isMyRecipe
-  const { recipes, setRecipes } = useContext(recipeContext)
+  const { recipes, setRecipes, querySent, setQuerySent } = useContext(recipeContext)
   const [bookmarkedRecipeIds, setBookmarkedRecipeIds] = useState([])
   const history = useHistory()
   const { authState, authService } = useOktaAuth()
@@ -49,33 +49,31 @@ const RecipeCollection = (props) => {
           setReqConfig({
             headers: {
               userId: info.sub,
-              authorization: `Bearer ${authState.accessToken.accessToken}`
+              authorization: `Bearer ${authState.accessToken}`
             }
           })
-          if (isMyRecipe) {
+          if (isMyRecipe && reqConfig !== null) {
             axios.get(`${API_URL}/user/bookmarks/`, reqConfig)
               .then((res) => {
                 const { bookmarks } = res.data
                 setBookmarkedRecipeIds(bookmarks.map(b => b.id))
                 setRecipes(bookmarks)
               })
-              .catch(err => console.log(err))
+              .catch(err => console.error(err))
           }
         })
     }
-
-    /**
-     * if this page is for viewing search results, call the backend endpoints to query based on the ingredients and preferences set by the main page
-     */
-    if (!isMyRecipe) {
+    if (!isMyRecipe && querySent) {
+      console.log('search recipe endpoint hit')
       axios.post(`${API_URL}/recipes`, {
         ingredients: ingredients,
         preferences: preferences
       }).then(res => {
         setRecipes(res.data.recipes)
-      }).catch((error) => console.error(error))
+        setQuerySent(false)
+      }).catch(error => console.error(error))
     }
-  }, [])
+  }, [authService, authState])
 
   const handleClickMain = () => {
     history.push('/')
