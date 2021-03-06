@@ -17,13 +17,13 @@ const Bookmark = require('./Bookmark.js');
  * @extends Sequelize.Model
  * @classdesc This class represents the Recipe table. Its attributes represent columns within
  * the table.
- * @property {UUID} uuid - A unique identifier (primary key) for a user
+ * @property {string} uuid - A unique identifier (primary key) for a user
  */
 class User extends Sequelize.Model {}
 
 User.init({
   uuid: {
-    type: Sequelize.DataTypes.UUID,
+    type: Sequelize.DataTypes.STRING,
     primaryKey: true,
     unique: true,
     allowNull: false,
@@ -37,7 +37,7 @@ User.hasMany(Bookmark, {
   as: 'bookmarks',
   foreignKey: {
     name: 'userId',
-    type: Sequelize.DataTypes.UUID,
+    type: Sequelize.DataTypes.STRING,
     allowNull: false,
   },
 });
