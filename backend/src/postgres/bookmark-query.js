@@ -1,4 +1,7 @@
 /**
+ * @author Jason Lai
+ * @author Mingchao Lian
+ *
  * @module postgres/bookmark-query
  * @description This module encapsulates database access to the Bookmark table.
  * @requires module:model/database

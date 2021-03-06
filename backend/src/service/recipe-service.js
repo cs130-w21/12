@@ -1,4 +1,6 @@
 /**
+ * @author Jason Lai
+ *
  * @module service/recipe-service
  * @description This module is an application service for interacting with the Recipe objects.
  * @requires module:gateway/recipe-gateway

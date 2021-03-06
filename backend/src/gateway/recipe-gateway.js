@@ -1,4 +1,6 @@
 /**
+ * @author Jason Lai
+ *
  * @module gateway/recipe-gateway
  * @description This module allows the web service to act as a gateway to Spoonacular, an
  * external recipe search service.

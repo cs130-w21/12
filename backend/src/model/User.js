@@ -1,4 +1,6 @@
 /**
+ * @author Jason Lai
+ *
  * @module model/User
  * @description This module contains the Javascript class representation of the User table
  * in the database.

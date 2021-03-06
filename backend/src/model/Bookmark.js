@@ -1,4 +1,6 @@
 /**
+ * @author Jason Lai
+ *
  * @module model/Bookmark
  * @description This module contains the Javascript class representation of the Bookmark table
  * in the database.

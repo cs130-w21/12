@@ -1,4 +1,6 @@
 /**
+ * @author Jason Lai
+ *
  * @module route/search
  * @requires express
  * @requires module:service/recipe-service
