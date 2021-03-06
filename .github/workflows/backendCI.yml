@@ -7,11 +7,5 @@ jobs:
     - uses: actions/checkout@v2
     - name: Install modules
       run: yarn
-    - name: Go to Backend Dir
-      run: cd backend/
-    - name: pwd dir
-      run: pwd
-    - name: Run yarn again
-      run: yarn
     - name: Run tests
-      run: yarn run test
+      run: yarn --cwd "backend" test
