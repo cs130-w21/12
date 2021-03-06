@@ -1,4 +1,6 @@
 /**
+ * @author Jason Lai
+ *
  * @module model/Bookmark
  * @description This module contains the Javascript class representation of the Bookmark table
  * in the database.
@@ -16,7 +18,7 @@ const { sequelize } = require('./database.js');
  * @extends Sequelize.Model
  * @classdesc This class represents the Bookmark table. Its attributes represent columns within
  * the table.
- * @property {UUID} userId  - The user corresponding to the bookmark
+ * @property {string} userId  - The user corresponding to the bookmark
  * @property {int} recipeId - The recipe bookmarked by the user
  */
 class Bookmark extends Sequelize.Model {}

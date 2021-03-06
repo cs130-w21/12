@@ -1,4 +1,7 @@
 /**
+ * @author Erika Shen
+ * @author Jason Lai
+ *
  * @module postgres/user-query
  * @description This module encapsulates database access to the User table.
  * @requires module:model/database

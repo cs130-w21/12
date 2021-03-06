@@ -1,4 +1,7 @@
 /**
+ * @author Erika Shen
+ * @author Jason Lai
+ *
  * @module route/profile
  * @requires express
  * @requires module:service/profile-service
