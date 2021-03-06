@@ -9,6 +9,8 @@ jobs:
       run: yarn
     - name: Go to Backend Dir
       run: cd backend/
+    - name: pwd dir
+      run: pwd
     - name: Run yarn again
       run: yarn
     - name: Run tests
