@@ -12,7 +12,7 @@
     },
     "search": {
       "url": "https://api.spoonacular.com/recipes/",
-      "apiKey": "7649927755ae42fe96a3136878c536d2",
+      "apiKey": "17649927755ae42fe96a3136878c536d2",
       "searchEndpoint": "complexSearch",
       "informationEndpoint": "information",
       "randomEndpoint": "random"
