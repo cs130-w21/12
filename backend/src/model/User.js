@@ -15,7 +15,7 @@ const Bookmark = require('./Bookmark.js');
 /**
  * @class
  * @extends Sequelize.Model
- * @classdesc This class represents the Recipe table. Its attributes represent columns within
+ * @classdesc This class represents the User table. Its attributes represent columns within
  * the table.
  * @property {string} uuid - A unique identifier (primary key) for a user
  */
