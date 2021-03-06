@@ -1,4 +1,6 @@
 /**
+ * @author Jason Lai
+ *
  * @module model/sync
  * @description This module synchronizes the connection to the database.
  * @requires module:model/database

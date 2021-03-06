@@ -1,4 +1,7 @@
 /**
+ * @author Jason Lai
+ * @author Mingchao Lian
+ *
  * @module route/bookmark
  * @requires express
  * @requires module:service/bookmark-service

@@ -1,4 +1,6 @@
 /**
+ * @author Jason Lai
+ *
  * @module postgres/recipe-query
  * @description This module encapsulates database access to the Recipe table.
  * @requires module:model/database

@@ -1,4 +1,6 @@
 /**
+ * @author Jason Lai
+ *
  * @module index
  * @requires module:route/profile
  * @requires module:route/bookmark

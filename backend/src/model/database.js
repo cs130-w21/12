@@ -1,4 +1,6 @@
 /**
+ * @author Jason Lai
+ *
  * @module model/database
  * @description This module creates the sequelize object using the Sequelize ORM for the
  * purpose of database connection.

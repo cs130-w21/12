@@ -1,4 +1,7 @@
 /**
+ * @author Erika Shen
+ * @author Jason Lai
+ *
  * @module service/profile-service
  * @description This module is an application service for interacting with the User objects.
  * @requires module:postgres/user-query
@@ -11,7 +14,7 @@ const userQuery = require('../postgres/user-query.js');
 /**
  * @async
  * @function getUserByUserId
- * @param {UUID} userId - User ID
+ * @param {string} userId - User ID
  * @returns {User} User object
  * @description This method gets a user from the database with a user ID.
  */

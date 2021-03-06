@@ -1,4 +1,6 @@
 /**
+ * @author Jason Lai
+ *
  * @module model/Recipe
  * @description This module contains the Javascript class representation of the Recipe table
  * in the database.
