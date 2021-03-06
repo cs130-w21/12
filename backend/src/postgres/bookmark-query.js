@@ -15,7 +15,7 @@ const Bookmark = require('../model/Bookmark.js');
 /**
  * @async
  * @function getBookmarks
- * @param {UUID} userId - User ID
+ * @param {string} userId - User ID
  * @returns {Promise} A Promise representing the result of the SQL query.
  * @description This method gets all of a user's bookmark from the Bookmark table.
  */
@@ -26,7 +26,7 @@ const getBookmarks = (userId) => Bookmark.findAll({
 /**
  * @async
  * @function getBookmarkByIds
- * @param {UUID} userId - User ID
+ * @param {string} userId - User ID
  * @param {int} recipeId - Recipe ID
  * @returns {Promise} A Promise representing the result of the SQL query.
  * @description This method gets exactly zero or one Bookmark object from the Bookmark table given
@@ -39,7 +39,7 @@ const getBookmarkByIds = (userId, recipeId) => Bookmark.findOne({
 /**
  * @async
  * @function deleteBookmark
- * @param {UUID} userId - User ID
+ * @param {string} userId - User ID
  * @param {int} recipeId - Recipe ID
  * @returns {Promise} A Promise representing the result of the SQL query.
  * @description This method deletes exactly zero or one Bookmark object from the Bookmark table
@@ -52,7 +52,7 @@ const deleteBookmark = (userId, recipeId) => Bookmark.destroy({
 /**
  * @async
  * @function addBookmark
- * @param {UUID} userId - User ID
+ * @param {string} userId - User ID
  * @param {int} recipeId - Recipe ID
  * @returns {Promise} A Promise representing the result of the SQL query.
  * @description This method inserts exactly one Bookmark object from the Bookmark table given the
