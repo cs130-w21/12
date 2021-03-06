@@ -7,7 +7,7 @@ RUN yarn install
 COPY . /app
 
 FROM base AS test
-RUN yarn test
+RUN yarn test --watchAll=false
 
 FROM base AS build
 RUN yarn run build
