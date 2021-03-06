@@ -10,4 +10,4 @@ jobs:
     - name: Go to Backend Dir
       run: cd backend/
     - name: Run tests
-      run: yarn test
+      run: yarn run test
