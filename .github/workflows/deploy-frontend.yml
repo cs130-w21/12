@@ -3,7 +3,7 @@ name: deploy-frontend
 on:
   push:
     branches:
-      - 17--AddFrontendTestingToDeployment
+      - master
 
 jobs:
   build:
