@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { useHistory } from 'react-router-dom'
 import {
   AppBar,
@@ -8,6 +8,7 @@ import {
 } from '@material-ui/core'
 import LoginButton from './LoginButton'
 import { useOktaAuth } from '@okta/okta-react'
+import { recipeContext } from '../contexts/contexts'
 
 /**
  * AppHeader component defines the styles and logic for the header portion of this app.
@@ -17,6 +18,7 @@ import { useOktaAuth } from '@okta/okta-react'
 const AppHeader = () => {
   const history = useHistory()
   const { authState } = useOktaAuth()
+  const { setQuerySent } = useContext(recipeContext)
 
   const handleClickMain = () => {
     history.push('/')
@@ -24,6 +26,7 @@ const AppHeader = () => {
 
   const handleClickMyRecipes = () => {
     history.push('/my_recipes')
+    setQuerySent(true)
   }
 
   return (
