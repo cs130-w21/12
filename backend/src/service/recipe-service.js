@@ -65,6 +65,7 @@ const cleanUpRecipeInfo = (recipe) => ({
  * @param {string[]} ingredients - An array of strings containing ingredients
  * @param {string} cuisine - A string containing cuisine preference
  * @param {string} diet - A string containing diet preference
+ * @param {string} sort - A string contating sorting preference
  * @returns {Recipe[]} An array of Recipe objects
  * @description This method uses the recipe gateway to obtain recipes based on ingredients,
  * cuisine preference, and diet preference, then ensures that all recipes received from the

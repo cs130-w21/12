@@ -65,6 +65,7 @@ const get = (url, reqType) => new Promise((resolve, reject) => {
  * search on
  * @param {string} cuisine - A string representing cuisine preference
  * @param {string} diet - A string representing diet preference
+ * @param {string} sort - A string representing sorting preference
  * @returns {Promise} A JSON promise representing the response for the request. Evaluated by having
  * the caller await the call to this function.
  * @description This method issues a GET request to Spoonacular to search recipes by ingredients,
