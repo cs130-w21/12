@@ -1,6 +1,5 @@
 # Cuisine Machine
 
-[![Build Status](https://travis-ci.org/cs130-w21/template.svg?branch=master)](https://travis-ci.org/cs130-w21/template)
 [![Release](https://img.shields.io/github/v/release/cs130-w21/template?label=release)](https://github.com/cs130-w21/template/releases/latest)
 
 Cuisine Machine is a web application that generates a list of recipes based on a user's ingredients andd dietary preferences. A user will be able to create a profile and bookmark recipes that they enjoy and/or that catch their eye. 
@@ -59,3 +58,18 @@ docker push registry.heroku.com/${{ secrets.HEROKU_FRONTEND_NAME }}/web:latest
 ```
 heroku container:release web -a ${{ secrets.HEROKU_FRONTEND_NAME }}
 ```
+
+### backend
+
+Similar to the frontend, the backend will automatically build, test, and deploy once any changes are pushed to the master. The steps are as follows once something is pushed to the master. 
+
+1. The Github Workflow script https://github.com/cs130-w21/12/blob/master/.github/workflows/backendCI.yml will detect a push on master and create an Ubuntu container that will test the push through running the commands:
+```
+yarn 
+yarn --cwd "backend" test
+```
+2. Heroku will notice that a push on master has successfully passed all tests and will begin to build. Heroku will start building the backend by inspecting app.json to set our Heroku environment to a container. Then it will automatically build the Dockerfile listed inside of heroku.yml.
+
+3. Once built, the app will be automatically be deployed at our staging app at https://apitest-cuisinemachine.herokuapp.com/ 
+
+4. Once ready, the changes can be manually promoted to our production app at https://cuisinemachine.herokuapp.com via the Heroku dashboard.
