@@ -43,6 +43,8 @@ const RecipeCollection = (props) => {
     /**
      * if the current session is authenticated and this is for viewing bookmarked recipes, we fetch bookmarks from backend
      */
+    console.log(recipes)
+    console.log(ingredients)
     if (authState.isAuthenticated) {
       authService.getUser()
         .then(info => {
@@ -64,10 +66,12 @@ const RecipeCollection = (props) => {
         })
     }
     if (!isMyRecipe && querySent) {
-      console.log('search recipe endpoint hit')
+      console.log(preferences)
       axios.post(`${API_URL}/recipes`, {
         ingredients: ingredients,
-        preferences: preferences
+        diet: preferences.diet,
+        cuisine: preferences.cuisine,
+        'sort by': preferences['sort by']
       }).then(res => {
         setRecipes(res.data.recipes)
         setQuerySent(false)

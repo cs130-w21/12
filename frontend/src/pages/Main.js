@@ -38,6 +38,7 @@ const Main = () => {
   const [ingredientOptions, setIngredientOptions] = useState([])
   const { ingredients, setIngredients } = useContext(ingredientContext)
   const { preferences, setPreferences } = useContext(preferenceContext)
+  const { setRecipes } = useContext(recipeContext)
   const { setQuerySent } = useContext(recipeContext)
   const [ingredientInput, setIngredientInput] = useState(null)
   const [open, setOpen] = useState(false)
@@ -95,6 +96,7 @@ const Main = () => {
 
   const handleSubmit = () => {
     history.push('/search_results')
+    setRecipes([])
     setQuerySent(true)
   }
   const handleLuckyClick = () => {
@@ -120,7 +122,7 @@ const Main = () => {
             <form onSubmit={handlePushResult}>
               <p className="main-sect">ingredient list</p>
               <div className="input-group">
-                <UserInput options={ingredientOptions} onChange={handleChange} placeholder="Enter Ingredient..." />
+                <UserInput inputValue={ingredientInput} options={ingredientOptions} onChange={handleChange} placeholder="Enter Ingredient..." />
                 <IconButton type="button" onClick={handleAddIngredient} className="add-btn">
                   <AddIcon />
                 </IconButton>
@@ -147,11 +149,11 @@ const Main = () => {
             <div>
               <div className="main-sect">preferences</div>
               <div className="main-sub-section">diet</div>
-              <UserInput options={diets} onChange={(e) => handlePreferences('diet', e)} placeholder="search..." />
+              <UserInput options={diets} inputValue={preferences.diet} onChange={(e) => handlePreferences('diet', e)} placeholder="search..." />
               <div className="main-sub-section">cuisine</div>
-              <UserInput options={cuisines} onChange={(e) => handlePreferences('cuisine', e)} placeholder="search..." />
+              <UserInput options={cuisines} inputValue={preferences.cuisine} onChange={(e) => handlePreferences('cuisine', e)} placeholder="search..." />
               <div className="main-sub-section">sort by</div>
-              <UserInput options={['Date', 'Rate', 'Calories']} onChange={(e) => handlePreferences('sort by', e)} placeholder="search..." />
+              <UserInput options={['Time', 'Popularity', 'Calories']} inputValue={preferences['sort by']} onChange={(e) => handlePreferences('sort by', e)} placeholder="search..." />
             </div>
           </div>
         </div>
