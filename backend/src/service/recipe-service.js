@@ -65,13 +65,14 @@ const cleanUpRecipeInfo = (recipe) => ({
  * @param {string[]} ingredients - An array of strings containing ingredients
  * @param {string} cuisine - A string containing cuisine preference
  * @param {string} diet - A string containing diet preference
+ * @param {string} sort - A string contating sorting preference
  * @returns {Recipe[]} An array of Recipe objects
  * @description This method uses the recipe gateway to obtain recipes based on ingredients,
  * cuisine preference, and diet preference, then ensures that all recipes received from the
  * gateway is stored in the database.
  */
-const findRecipes = async (ingredients, cuisine, diet) => {
-  const result = await recipeGateway.findRecipes(ingredients.map((i) => i.replace(/\s+/g, '+')), cuisine, diet);
+const findRecipes = async (ingredients, cuisine, diet, sort) => {
+  const result = await recipeGateway.findRecipes(ingredients.map((i) => i.replace(/\s+/g, '+')), cuisine, diet, sort);
   const recipes = cleanUpBulkRecipes(result.results);
   for (const recipe of recipes) {
     await recipeQuery.ensureRecipe(recipe); // eslint-disable-line no-await-in-loop

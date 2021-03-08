@@ -139,22 +139,22 @@ const recipe_info1 = {
 // testing the findRecipes function
 
 // testing with valid recipe
-test('The test results in a valid recipe', () => api.findRecipes(['chicken', 'garlic'], '', '').then((data) => {
+test('The test results in a valid recipe', () => api.findRecipes(['chicken', 'garlic'], '', '', '').then((data) => {
   expect(data).toStrictEqual(valid_recipe);
 }));
 
 // testing chicken with chinese
-test('The test results in a valid recipe', () => api.findRecipes(['chicken'], 'Chinese', '').then((data) => {
+test('The test results in a valid recipe', () => api.findRecipes(['chicken'], 'Chinese', '', '').then((data) => {
   expect(data).toStrictEqual(chicken_chinese_recipe);
 }));
 
 // testing what will give zero found ingredients
-test('The test results yeild no recipes', () => api.findRecipes(['pork', 'spinach'], 'Chinese', '').then((data) => {
+test('The test results yeild no recipes', () => api.findRecipes(['pork', 'spinach'], 'Chinese', '', '').then((data) => {
   expect(data).toStrictEqual(empty_recipe);
 }));
 
 // testing with all three parameters
-test('Valid Recipes are reproduced', () => api.findRecipes(['spinach', 'carrot'], '', 'vegan').then((data) => {
+test('Valid Recipes are reproduced', () => api.findRecipes(['spinach', 'carrot'], '', 'vegan', '').then((data) => {
   expect(data).toStrictEqual(vegan_recipe);
 }));
 
