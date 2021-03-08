@@ -55,6 +55,7 @@ router.post('/', async (req, res) => {
       req.body.ingredients,
       req.body.cuisine,
       req.body.diet,
+      req.body.sort,
     );
     res.status(200).json({ recipes });
   } catch (err) {

@@ -70,8 +70,8 @@ const cleanUpRecipeInfo = (recipe) => ({
  * cuisine preference, and diet preference, then ensures that all recipes received from the
  * gateway is stored in the database.
  */
-const findRecipes = async (ingredients, cuisine, diet) => {
-  const result = await recipeGateway.findRecipes(ingredients.map((i) => i.replace(/\s+/g, '+')), cuisine, diet);
+const findRecipes = async (ingredients, cuisine, diet, sort) => {
+  const result = await recipeGateway.findRecipes(ingredients.map((i) => i.replace(/\s+/g, '+')), cuisine, diet, sort);
   const recipes = cleanUpBulkRecipes(result.results);
   for (const recipe of recipes) {
     await recipeQuery.ensureRecipe(recipe); // eslint-disable-line no-await-in-loop

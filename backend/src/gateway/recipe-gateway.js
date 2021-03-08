@@ -71,13 +71,14 @@ const get = (url, reqType) => new Promise((resolve, reject) => {
  * cuisine preference, and diet preference. This method wraps the functionality of the private
  * function get(url : string, reqType : int).
  */
-const findRecipes = (ingredients, cuisine, diet) => get(
+const findRecipes = (ingredients, cuisine, diet, sort) => get(
   `${config.credentials.search.url}\
     ${config.credentials.search.searchEndpoint}\
     ?apiKey=${config.credentials.search.apiKey}\
     &includeIngredients=${ingredients.join(',')}\
     ${validator.isEmpty(cuisine) ? '' : '&cuisine='.concat(cuisine)}\
-    ${validator.isEmpty(diet) ? '' : '&diet='.concat(diet)}`.replace(/\s+/g, ''),
+    ${validator.isEmpty(diet) ? '' : '&diet='.concat(diet)}\
+    ${validator.isEmpty(sort) ? '' : '&sort='.concat(sort)}`.replace(/\s+/g, ''),
   1,
 );
 
