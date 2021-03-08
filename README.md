@@ -36,7 +36,7 @@ Go to localhost:8080.
 
 ### frontend
 
-The Github Workflow contains a scrips such that when every changes are being pushed to the master, it will trigger a automatic deploy.
+The Github Workflow contains a scrips such that when any changes are being pushed to the master, it will trigger a automatic deploy.
 
 The deployment works as follows:
 
