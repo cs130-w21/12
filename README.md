@@ -31,3 +31,31 @@ Deploy the backend:
 docker-compose up --build
 ```
 Go to localhost:8080. 
+
+## How CI/CD Works
+
+### frontend
+
+The Github Workflow contains a scrips such that when every changes are being pushed to the master, it will trigger a automatic deploy.
+
+The deployment works as follows:
+
+1. Login to heroku
+```
+heroku container:login
+```
+
+2. Build a Docker Image using a Dockerfile in the frontend directory
+```
+docker build -f frontend/Dockerfile -t registry.heroku.com/${{ secrets.HEROKU_FRONTEND_NAME }}/web ./frontend
+```
+
+3. Push our Docker Image to the heroku registry
+```
+docker push registry.heroku.com/${{ secrets.HEROKU_FRONTEND_NAME }}/web:latest
+```
+
+4. Release the Docker Image
+```
+heroku container:release web -a ${{ secrets.HEROKU_FRONTEND_NAME }}
+```
