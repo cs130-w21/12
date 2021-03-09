@@ -112,7 +112,7 @@ const RecipeCollection = (props) => {
         alignItems="center"
       >
         {recipes.map(r => (
-          <Grid item xs={12} sm={6} md={3} key={r.id}>
+          <Grid item xs={12} sm={6} md={3} lg={2} key={r.id}>
             <RecipeCard
               isMyRecipe={isMyRecipe}
               recipe={r}
