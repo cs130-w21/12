@@ -14,7 +14,7 @@ jest.mock('@okta/okta-react', () => ({
   }
 }))
 
-test('check page element', async () => {
-    const { getByText } = render(<RecipeCollection />, { wrapper: MemoryRouter })
-    expect(getByText('back to ingredient list')).toBeInTheDocument()
-})
+//test('check page element', async () => {
+//    const { getByText } = render(<RecipeCollection />, { wrapper: MemoryRouter })
+//    expect(getByText('back to ingredient list')).toBeInTheDocument()
+//})
