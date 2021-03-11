@@ -42,7 +42,8 @@ const Main = () => {
   const { setQuerySent } = useContext(recipeContext)
   const [ingredientInput, setIngredientInput] = useState(null)
   const [open, setOpen] = useState(false)
-  const [loading, setLoading] = useState(false)
+  const [loadingIngredients, setLoadingIngredients] = useState(true)
+  const [loadingLucky, setLoadingLucky] = useState(false)
   const [alertMessage, setAlertMessage] = useState('')
   const history = useHistory()
 
@@ -53,7 +54,10 @@ const Main = () => {
 
   useEffect(() => {
     axios.get('https://api-cuisinemachine.herokuapp.com/')
-      .then((res) => setIngredientOptions(res.data))
+      .then((res) => {
+        setIngredientOptions(res.data)
+        setLoadingIngredients(false)
+      })
       .catch((error) => {
         // Dummy Data for Fallback
         setIngredientOptions(['onion', 'garlic', 'ham', 'hot dog', 'turkey', 'steak'])
@@ -100,10 +104,10 @@ const Main = () => {
     setQuerySent(true)
   }
   const handleLuckyClick = () => {
-    setLoading(true)
+    setLoadingLucky(true)
     axios.get(`${API_URL}/recipes`)
       .then((res) => {
-        setLoading(false)
+        setLoadingLucky(false)
         history.push(`/my_recipe/${res.data.recipe.id}`)
       })
       .catch((error) => {
@@ -123,9 +127,11 @@ const Main = () => {
               <p className="main-sect">ingredient list</p>
               <div className="input-group">
                 <UserInput inputValue={ingredientInput} options={ingredientOptions} onChange={handleChange} placeholder="Enter Ingredient..." />
-                <IconButton type="button" onClick={handleAddIngredient} className="add-btn">
-                  <AddIcon />
-                </IconButton>
+                {loadingIngredients
+                  ? (<div className="inline-spinner"><div className="spinner-border"></div></div>)
+                  : <IconButton type="button" onClick={handleAddIngredient} className="add-btn">
+                    <AddIcon />
+                  </IconButton>}
               </div>
             </form>
 
@@ -158,12 +164,12 @@ const Main = () => {
           </div>
         </div>
         <div className="main-btn-wrapper">
-          {!loading
-            ? (<React.Fragment>
+          {loadingLucky
+            ? <div className="spinner-border"></div>
+            : (<React.Fragment>
               <RecButton onClick={handleSubmit}>get recommendations</RecButton>
               <RecButton className="ml-md-3" lucky onClick={handleLuckyClick}>I am Feeling Lucky</RecButton>
             </React.Fragment>)
-            : <div className="spinner-border"></div>
           }
         </div>
       </div>

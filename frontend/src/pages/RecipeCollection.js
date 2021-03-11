@@ -6,6 +6,7 @@ import axios from 'axios'
 import RecipeCard from '../components/RecipeCard'
 import { preferenceContext, ingredientContext, recipeContext } from '../contexts/contexts'
 import { API_URL } from '../constants'
+import ArrowBackIcon from '@material-ui/icons/ArrowBack'
 
 import { makeStyles } from '@material-ui/core/styles'
 import { Grid, Link } from '@material-ui/core/'
@@ -43,8 +44,6 @@ const RecipeCollection = (props) => {
     /**
      * if the current session is authenticated and this is for viewing bookmarked recipes, we fetch bookmarks from backend
      */
-    console.log(recipes)
-    console.log(ingredients)
     if (authState.isAuthenticated) {
       authService.getUser()
         .then(info => {
@@ -66,7 +65,6 @@ const RecipeCollection = (props) => {
         })
     }
     if (!isMyRecipe && querySent) {
-      console.log(preferences)
       axios.post(`${API_URL}/recipes`, {
         ingredients: ingredients,
         diet: preferences.diet,
@@ -100,8 +98,8 @@ const RecipeCollection = (props) => {
   return (
     <div className={classes.root}>
       {!isMyRecipe &&
-        <Link color='inherit' component='button' onClick={handleClickMain}>
-          back to ingredient list
+        <Link className="my-3" color='inherit' component='button' onClick={handleClickMain}>
+          <ArrowBackIcon fontSize='large'></ArrowBackIcon>
         </Link>
       }
       <Grid
@@ -111,8 +109,15 @@ const RecipeCollection = (props) => {
         justify="flex-start"
         alignItems="center"
       >
-        {recipes.map(r => (
-          <Grid item xs={12} sm={6} md={3} key={r.id}>
+      {
+        recipes.length === 0
+          ? (<div style={{ width: '100%', textAlign: 'center' }}>
+            <div className="spinner-border"></div>
+            <h2>
+              No Ingredients Found...
+            </h2></div>)
+          : recipes.map(r => (
+          <Grid item xs={12} sm={6} md={2} key={r.id}>
             <RecipeCard
               isMyRecipe={isMyRecipe}
               recipe={r}
@@ -120,8 +125,8 @@ const RecipeCollection = (props) => {
               handleBookmarkClick={handleBookmarkClick}
             />
           </Grid>
-        ))
-        }
+          ))
+      }
       </Grid>
     </div>
   )
