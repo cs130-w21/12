@@ -138,7 +138,7 @@ const RecipeCollection = (props) => {
               No Ingredients Found...
             </h2></div>)
           : recipes.map(r => (
-          <Grid item xs={12} sm={6} md={2} key={r.id}>
+          <Grid item xs={12} sm={6} md={3} lg={2} key={r.id}>
             <RecipeCard
               isMyRecipe={isMyRecipe}
               recipe={r}
