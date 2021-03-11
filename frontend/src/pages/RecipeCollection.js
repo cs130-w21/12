@@ -74,11 +74,9 @@ const RecipeCollection = (props) => {
         cuisine: preferences.cuisine,
         'sort by': preferences['sort by']
       }).then(res => {
-        console.log(res.data.recipes)
         setRecipes(res.data.recipes)
         setQuerySent(false)
       }).catch(error => console.error(error))
-      console.log('search result query sent')
     }
   }
 
@@ -107,12 +105,12 @@ const RecipeCollection = (props) => {
       setBookmarkedRecipeIds(bookmarkedRecipeIds.filter(rid => rid !== recipeId))
       axios.delete(`${API_URL}/user/bookmarks/${recipeId}`, reqConfig)
         .then(console.log('delete bookmark success'))
-        .catch(err => console.log(err))
+        .catch(err => console.error(err))
     } else {
       setBookmarkedRecipeIds([...bookmarkedRecipeIds, recipeId])
       axios.post(`${API_URL}/user/bookmarks/${recipeId}`, {}, reqConfig)
         .then(console.log('add bookmark success'))
-        .catch(err => console.log(err))
+        .catch(err => console.error(err))
     }
   }
 
