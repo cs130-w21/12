@@ -34,36 +34,39 @@ const RecipeCollection = (props) => {
   const isMyRecipe = props.isMyRecipe
   const { recipes, setRecipes, querySent, setQuerySent } = useContext(recipeContext)
   const [bookmarkedRecipeIds, setBookmarkedRecipeIds] = useState([])
+  const [authIsSet, setAuthIsSet] = useState(false)
+
   const history = useHistory()
   const { authState, authService } = useOktaAuth()
-  const [reqConfig, setReqConfig] = useState(null)
+  const [reqConfig, setReqConfig] = useState({})
   const { ingredients } = useContext(ingredientContext)
   const { preferences } = useContext(preferenceContext)
 
   useEffect(() => {
-    /**
-     * if the current session is authenticated and this is for viewing bookmarked recipes, we fetch bookmarks from backend
-     */
     if (authState.isAuthenticated) {
       authService.getUser()
         .then(info => {
-          setReqConfig({
+          const config = {
             headers: {
               userId: info.sub,
               authorization: `Bearer ${authState.accessToken}`
             }
-          })
-          if (isMyRecipe && reqConfig !== null) {
-            axios.get(`${API_URL}/user/bookmarks/`, reqConfig)
-              .then((res) => {
-                const { bookmarks } = res.data
-                setBookmarkedRecipeIds(bookmarks.map(b => b.id))
-                setRecipes(bookmarks)
-              })
-              .catch(err => console.error(err))
           }
+          setReqConfig(config)
+          setAuthIsSet(true)
         })
     }
+  }, [])
+
+  useEffect(() => {
+    fetchSearchResults()
+  }, [])
+
+  useEffect(() => {
+    fetchBookmarks()
+  }, [isMyRecipe, authIsSet])
+
+  const fetchSearchResults = () => {
     if (!isMyRecipe && querySent) {
       axios.post(`${API_URL}/recipes`, {
         ingredients: ingredients,
@@ -71,11 +74,29 @@ const RecipeCollection = (props) => {
         cuisine: preferences.cuisine,
         'sort by': preferences['sort by']
       }).then(res => {
+        console.log(res.data.recipes)
         setRecipes(res.data.recipes)
         setQuerySent(false)
       }).catch(error => console.error(error))
+      console.log('search result query sent')
     }
-  }, [authService, authState])
+  }
+
+  const fetchBookmarks = () => {
+    if (authIsSet) {
+      axios.get(`${API_URL}/user/bookmarks/`, reqConfig)
+        .then((res) => {
+          const { bookmarks } = res.data
+          setBookmarkedRecipeIds(bookmarks.map(b => b.id))
+          if (isMyRecipe) {
+            setRecipes(bookmarks)
+          }
+        })
+        .catch(err => {
+          console.error(err)
+        })
+    }
+  }
 
   const handleClickMain = () => {
     history.push('/')
@@ -89,7 +110,7 @@ const RecipeCollection = (props) => {
         .catch(err => console.log(err))
     } else {
       setBookmarkedRecipeIds([...bookmarkedRecipeIds, recipeId])
-      axios.post(`${API_URL}/user/bookmarks/${recipeId}`, reqConfig)
+      axios.post(`${API_URL}/user/bookmarks/${recipeId}`, {}, reqConfig)
         .then(console.log('add bookmark success'))
         .catch(err => console.log(err))
     }
