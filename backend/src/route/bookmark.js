@@ -13,6 +13,7 @@
 const express = require('express');
 
 const service = require('../service/bookmark-service.js');
+const validator = require('../util/validator.js');
 
 /**
  * @type {object}
@@ -33,8 +34,12 @@ const router = express.Router();
 router.get('/', async (req, res) => {
   try {
     const userId = req.get('userId');
-    const bookmarks = await service.getBookmarks(userId);
-    res.status(200).json({ bookmarks });
+    if (validator.isEmpty(userId)) {
+      res.status(400).json({ message: 'User ID not found in request header' });
+    } else {
+      const bookmarks = await service.getBookmarks(userId);
+      res.status(200).json({ bookmarks });
+    }
   } catch (err) {
     console.log(err); // eslint-disable-line no-console
     res.status(500).json({ message: 'Server error' });
@@ -53,9 +58,13 @@ router.get('/', async (req, res) => {
 router.get('/:id', async (req, res) => {
   try {
     const userId = req.get('userId');
-    const recipeId = req.params.id;
-    const bookmark = await service.getOneBookmark(userId, recipeId);
-    res.status(200).json({ bookmark });
+    if (validator.isEmpty(userId)) {
+      res.status(400).json({ message: 'User ID not found in request header' });
+    } else {
+      const recipeId = req.params.id;
+      const bookmark = await service.getOneBookmark(userId, recipeId);
+      res.status(200).json({ bookmark });
+    }
   } catch (err) {
     console.log(err); // eslint-disable-line no-console
     res.status(500).json({ message: 'Server error' });
@@ -74,8 +83,12 @@ router.get('/:id', async (req, res) => {
 router.post('/:id', async (req, res) => {
   try {
     const userId = req.get('userId');
-    await service.addBookmark(userId, req.params.id);
-    res.status(200).json({ message: 'OK' });
+    if (validator.isEmpty(userId)) {
+      res.status(400).json({ message: 'User ID not found in request header' });
+    } else {
+      await service.addBookmark(userId, req.params.id);
+      res.status(200).json({ message: 'OK' });
+    }
   } catch (err) {
     console.log(err); // eslint-disable-line no-console
     res.status(500).json({ message: 'Server error' });
@@ -94,8 +107,12 @@ router.post('/:id', async (req, res) => {
 router.delete('/:id', async (req, res) => {
   try {
     const userId = req.get('userId');
-    await service.deleteBookmark(userId, req.params.id);
-    res.status(200).json({ message: 'OK' });
+    if (validator.isEmpty(userId)) {
+      res.status(400).json({ message: 'User ID not found in request header' });
+    } else {
+      await service.deleteBookmark(userId, req.params.id);
+      res.status(200).json({ message: 'OK' });
+    }
   } catch (err) {
     console.log(err); // eslint-disable-line no-console
     res.status(500).json({ message: 'Server error' });
