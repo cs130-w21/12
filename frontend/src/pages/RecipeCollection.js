@@ -6,6 +6,7 @@ import axios from 'axios'
 import RecipeCard from '../components/RecipeCard'
 import { preferenceContext, ingredientContext, recipeContext } from '../contexts/contexts'
 import { API_URL } from '../constants'
+import ArrowBackIcon from '@material-ui/icons/ArrowBack'
 
 import { makeStyles } from '@material-ui/core/styles'
 import { Grid, Link } from '@material-ui/core/'
@@ -69,13 +70,13 @@ const RecipeCollection = (props) => {
     if (!isMyRecipe && querySent) {
       axios.post(`${API_URL}/recipes`, {
         ingredients: ingredients,
-        preferences: preferences
+        diet: preferences.diet,
+        cuisine: preferences.cuisine,
+        'sort by': preferences['sort by']
       }).then(res => {
-        console.log(res.data.recipes)
         setRecipes(res.data.recipes)
         setQuerySent(false)
       }).catch(error => console.error(error))
-      console.log('search result query sent')
     }
   }
 
@@ -104,20 +105,20 @@ const RecipeCollection = (props) => {
       setBookmarkedRecipeIds(bookmarkedRecipeIds.filter(rid => rid !== recipeId))
       axios.delete(`${API_URL}/user/bookmarks/${recipeId}`, reqConfig)
         .then(console.log('delete bookmark success'))
-        .catch(err => console.log(err))
+        .catch(err => console.error(err))
     } else {
       setBookmarkedRecipeIds([...bookmarkedRecipeIds, recipeId])
       axios.post(`${API_URL}/user/bookmarks/${recipeId}`, {}, reqConfig)
         .then(console.log('add bookmark success'))
-        .catch(err => console.log(err))
+        .catch(err => console.error(err))
     }
   }
 
   return (
     <div className={classes.root}>
       {!isMyRecipe &&
-        <Link color='inherit' component='button' onClick={handleClickMain}>
-          back to ingredient list
+        <Link className="my-3" color='inherit' component='button' onClick={handleClickMain}>
+          <ArrowBackIcon fontSize='large'></ArrowBackIcon>
         </Link>
       }
       <Grid
@@ -127,8 +128,15 @@ const RecipeCollection = (props) => {
         justify="flex-start"
         alignItems="center"
       >
-        {recipes.map(r => (
-          <Grid item xs={12} sm={6} md={3} key={r.id}>
+      {
+        recipes.length === 0
+          ? (<div style={{ width: '100%', textAlign: 'center' }}>
+            <div className="spinner-border"></div>
+            <h2>
+              No Ingredients Found...
+            </h2></div>)
+          : recipes.map(r => (
+          <Grid item xs={12} sm={6} md={3} lg={2} key={r.id}>
             <RecipeCard
               isMyRecipe={isMyRecipe}
               recipe={r}
@@ -136,8 +144,8 @@ const RecipeCollection = (props) => {
               handleBookmarkClick={handleBookmarkClick}
             />
           </Grid>
-        ))
-        }
+          ))
+      }
       </Grid>
     </div>
   )

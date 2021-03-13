@@ -1,4 +1,6 @@
 /**
+ * @author Jason Lai
+ *
  * @module index
  * @requires module:route/profile
  * @requires module:route/bookmark
@@ -11,10 +13,10 @@ const express = require('express');
 const cors = require('cors');
 
 const ingredients = require('./ingredients.json');
-const syncAllTables = require('./model/sync.js');
-const searchRouter = require('./route/search.js');
-const profileRouter = require('./route/profile.js');
-const bookmarkRouter = require('./route/bookmark.js');
+const syncAllTables = require('./src/model/sync.js');
+const searchRouter = require('./src/route/search.js');
+const profileRouter = require('./src/route/profile.js');
+const bookmarkRouter = require('./src/route/bookmark.js');
 
 const app = express();
 

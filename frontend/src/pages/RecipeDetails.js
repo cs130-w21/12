@@ -85,11 +85,11 @@ const RecipeDetails = (props) => {
       if (bookmarked) {
         axios.delete(`${API_URL}/user/bookmarks/${recipeId}`, reqConfig)
           .then(console.log('delete bookmark success'))
-          .catch(err => console.log(err))
+          .catch(err => console.error(err))
       } else {
         axios.post(`${API_URL}/user/bookmarks/${recipeId}`, reqConfig)
           .then(console.log('add bookmark success'))
-          .catch(err => console.log(err))
+          .catch(err => console.error(err))
       }
       setBookmarked(!bookmarked)
     }
@@ -167,7 +167,7 @@ const RecipeDetails = (props) => {
                 ))
               ))
             }
-            {recipeInfo.analyzedInstructions && console.log(recipeInfo.analyzedInstructions.steps)}
+            {recipeInfo.analyzedInstructions}
             <Link target="_blank" href={recipeInfo.url}>
               Read the detailed instructions
             </Link>
