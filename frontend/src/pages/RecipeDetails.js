@@ -69,15 +69,17 @@ const RecipeDetails = (props) => {
   }, [authState])
 
   useEffect(() => {
-    axios.get(`${API_URL}/user/bookmarks/${recipeId}`, reqConfig)
-      .then(res => {
-        setBookmarked(res.data.bookmark.recipeId !== null)
-      })
-      .catch(err => console.log(err))
+    if (authState.isAuthenticated) {
+      axios.get(`${API_URL}/user/bookmarks/${recipeId}`, reqConfig)
+        .then(res => {
+          setBookmarked(res.data.bookmark.recipeId !== null)
+        })
+        .catch(err => console.log(err))
+    }
   }, [reqConfig])
 
   const handleBookmarkClick = () => {
-    if (!authState.isAuthenticated) {
+    if (authState.isAuthenticated) {
       setOpenDialog(true)
     } else {
       if (bookmarked) {
