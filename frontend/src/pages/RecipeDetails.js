@@ -62,7 +62,8 @@ const RecipeDetails = (props) => {
           }
           axios.get(`${API_URL}/user/bookmarks/${recipeId}`, config)
             .then(res => {
-              setBookmarked(res.data.bookmark.recipeId !== null)
+              console.log(Object.keys(res.data.bookmark).includes('recipeId'))
+              setBookmarked(Object.keys(res.data.bookmark).includes('recipeId'))
             })
             .catch(err => console.log(err))
           setReqConfig(config)
