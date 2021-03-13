@@ -60,6 +60,11 @@ const RecipeDetails = (props) => {
               authorization: `Bearer ${authState.accessToken.accessToken}`
             }
           }
+          axios.get(`${API_URL}/user/bookmarks/${recipeId}`, config)
+            .then(res => {
+              setBookmarked(res.data.bookmark.recipeId !== null)
+            })
+            .catch(err => console.log(err))
           setReqConfig(config)
         })
     }
@@ -67,16 +72,6 @@ const RecipeDetails = (props) => {
       .then((res) => { setRecipeData(res.data.recipeInfo) })
       .catch(err => console.error(err))
   }, [authState])
-
-  useEffect(() => {
-    if (authState.isAuthenticated) {
-      axios.get(`${API_URL}/user/bookmarks/${recipeId}`, reqConfig)
-        .then(res => {
-          setBookmarked(res.data.bookmark.recipeId !== null)
-        })
-        .catch(err => console.log(err))
-    }
-  }, [reqConfig])
 
   const handleBookmarkClick = () => {
     if (authState.isAuthenticated) {
