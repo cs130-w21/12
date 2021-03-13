@@ -74,7 +74,7 @@ const RecipeDetails = (props) => {
   }, [authState])
 
   const handleBookmarkClick = () => {
-    if (authState.isAuthenticated) {
+    if (!authState.isAuthenticated) {
       setOpenDialog(true)
     } else {
       if (bookmarked) {
