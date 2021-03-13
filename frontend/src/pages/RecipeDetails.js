@@ -153,6 +153,7 @@ const RecipeDetails = (props) => {
           <Grid item xs={8}>
             <h3 className={classes.root}> <FastfoodIcon /> Instructions </h3>
             {recipeInfo.analyzedInstructions &&
+              recipeInfo.analyzedInstructions.length > 0 &&
               recipeInfo.analyzedInstructions.map(r => (
                 r.steps.map(j => (
                   <div key={j.id}>
@@ -162,7 +163,6 @@ const RecipeDetails = (props) => {
                 ))
               ))
             }
-            {recipeInfo.analyzedInstructions}
             <Link target="_blank" href={recipeInfo.url}>
               Read the detailed instructions
             </Link>
