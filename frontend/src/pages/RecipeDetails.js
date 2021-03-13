@@ -87,7 +87,7 @@ const RecipeDetails = (props) => {
           .then(console.log('delete bookmark success'))
           .catch(err => console.error(err))
       } else {
-        axios.post(`${API_URL}/user/bookmarks/${recipeId}`, reqConfig)
+        axios.post(`${API_URL}/user/bookmarks/${recipeId}`, {}, reqConfig)
           .then(console.log('add bookmark success'))
           .catch(err => console.error(err))
       }
