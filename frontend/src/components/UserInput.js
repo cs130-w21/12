@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 import Autocomplete from '@material-ui/lab/Autocomplete'
 import '../styles/Main.css'
@@ -12,8 +12,10 @@ import { StyledInput } from '../styles/styles'
 const UserInput = (props) => {
   const options = props.options
   const placeholder = props.placeholder
+  const [inputValue, setInputValue] = useState(props.inputValue)
   const handleChange = (e, v) => {
     props.onChange(v)
+    setInputValue(v)
   }
   return (
     <Autocomplete
@@ -25,6 +27,7 @@ const UserInput = (props) => {
       )}
       getOptionLabel={(option) => option}
       onChange={handleChange}
+      value={inputValue}
       freeSolo
       renderInput={(params) => (
         <div ref={params.InputProps.ref}>
@@ -43,7 +46,9 @@ UserInput.propTypes = {
   /* represents the string that are used for placeholder in the input */
   placeholder: PropTypes.string,
   /* represents the function to be fired when the input has changed */
-  onChange: PropTypes.func
+  onChange: PropTypes.func,
+  /* represents the inputValue of the Autocomplete */
+  inputValue: PropTypes.string
 }
 
 export default UserInput

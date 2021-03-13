@@ -1,59 +1,8 @@
 # Cuisine Machine
 
-[![Build Status](https://travis-ci.org/cs130-w21/template.svg?branch=master)](https://travis-ci.org/cs130-w21/template)
 [![Release](https://img.shields.io/github/v/release/cs130-w21/template?label=release)](https://github.com/cs130-w21/template/releases/latest)
 
 Cuisine Machine is a web application that generates a list of recipes based on a user's ingredients andd dietary preferences. A user will be able to create a profile and bookmark recipes that they enjoy and/or that catch their eye. 
-
-## The User Experience
-
-### Home
-
-![Alt text](/readme-imgs/homepage.png?raw=true)
-
-At the homepage, the user will enter their ingredents and specify their dietary preferences. 
-
-![Alt text](/readme-imgs/homepagedetails.png?raw=true)
-
-On the left side of the page, there is a search box where the user will enter their ingredients. The user will type in an ingredient and select it from the autocomplete menu either clicking the plus button or pressing the enter button on their keyboard. The ingredient will then show up under the search bar as a part of the user's ingredient list. The user can remnove the ingredient by clicking the x next to the ingredient name. The 'include pantry?' option allows the user to include common ingredients (e.g., flour, sugar, salt) without typing them all out individually.  
-
-To specify their dietary preferences, the user will move on to the right side of the page. The user will be able to specify their desired diet and cuisine, as well as how the recipe list will be sorted. Similar to how the ingredent search bar autocompleted the user's input, the diet, cuisine, and sort by search bars do the same. The user can scroll through all of the options or type in a few letters to get to their desired option.
-
-Finally, the user will click on the 'get recommendations' button which will bring them to a page with a list of generated recipes based on the user's ingredent and dietary information.
-
-The user can also click on the 'i am feeling lucky' button to get a random recipe.
-
-There is a login/sign up button in the top right corner of the page that the user can click on to log into or create an account. It will bring them to a page hosted by Okta. From this page, the user can either create a new profile or log into an existng account. The user can also resolve any login issues by clicking on the 'Need help signing in?' button.
-
-![Alt text](/readme-imgs/loginbutton.png?raw=true)
-![Alt text](/readme-imgs/loginpage.png?raw=true)
-
-### Generate Recipes
-
-Upon clicking the 'generate receipes' button, the user will be brought to a page with a list of generated recipes based on the user's ingredent and dietary information. 
-
-![Alt text](/readme-imgs/recipelist.png?raw=true)
-
-From here, the user can click on a recipe card to view the recipe's information and instructions. The user can also click 'go back to ingredient list' to modify their ingredient list and dietary preferences. Or, the user can click on 'more recipes' to view more recipes that use their ingredients and abide by their dietary preferences.
-
-### Recipe Details
-
-After the user selects a recipe from their list of generated recipes, they will be directed to another page that contains the detailed information of the recipe. The user can see specific measuremens and instructions of the recipe, as well as go to the original website where the recipe actually resides. 
-
-![Alt text](/readme-imgs/recipedetails.png?raw=true)
-
-### User Profile
-
-After logging in, the user will see an avatar in the top right corner of the page (instead of the 'login/signup' button). The user can click on this button to view their profile or logout of their profile. 
-
-![Alt text](/readme-imgs/myrecipesbutton.png?raw=true)
-![Alt text](/readme-imgs/profilepage.png?raw=true)
-
-### Bookmarked Recipes
-
-A user who has logged into an account will be able to bookmark recipes by clicking on the bookmark icon on the recipe card in the list of generated recipes or the bookmark icon on the recipe details page. The user will be able to access their bookmarked recipes by clicking on the 'my recipes' button next to the avatar in the top right corner of the page. 
-
-![Alt text](/readme-imgs/bookmark.png?raw=true)
 
 ## How to Deploy/Install
 
@@ -81,3 +30,46 @@ Deploy the backend:
 docker-compose up --build
 ```
 Go to localhost:8080. 
+
+## How CI/CD Works
+
+### frontend
+
+The Github Workflow contains a script (https://github.com/cs130-w21/12/blob/master/.github/workflows/deploy-frontend.yml) such that when any changes are being pushed to the master, it will trigger a automatic deploy.
+
+The deployment works as follows:
+
+1. Login to heroku
+```
+heroku container:login
+```
+
+2. Build a Docker Image using a Dockerfile in the frontend directory
+```
+docker build -f frontend/Dockerfile -t registry.heroku.com/${{ secrets.HEROKU_FRONTEND_NAME }}/web ./frontend
+```
+
+3. Push our Docker Image to the heroku registry
+```
+docker push registry.heroku.com/${{ secrets.HEROKU_FRONTEND_NAME }}/web:latest
+```
+
+4. Release the Docker Image
+```
+heroku container:release web -a ${{ secrets.HEROKU_FRONTEND_NAME }}
+```
+
+### backend
+
+Similar to the frontend, the backend will automatically build, test, and deploy once any changes are pushed to the master. The steps are as follows once something is pushed to the master. 
+
+1. The Github Workflow script https://github.com/cs130-w21/12/blob/master/.github/workflows/backendCI.yml will detect a push on master and create an Ubuntu container that will test the push through running the commands:
+```
+yarn 
+yarn --cwd "backend" test
+```
+2. Heroku will notice that a push on master has successfully passed all tests and will begin to build. Heroku will start building the backend by inspecting app.json to set our Heroku environment to a container. Then it will automatically build the Dockerfile listed inside of heroku.yml.
+
+3. Once built, the app will be automatically be deployed at our staging app at https://apitest-cuisinemachine.herokuapp.com/ 
+
+4. Once ready, the changes can be manually promoted to our production app at https://cuisinemachine.herokuapp.com via the Heroku dashboard.

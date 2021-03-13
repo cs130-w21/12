@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: src/service/recipe-service.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: src/service/recipe-service.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/**
+ * @author Jason Lai
+ *
+ * @module service/recipe-service
+ * @description This module is an application service for interacting with the Recipe objects.
+ * @requires module:gateway/recipe-gateway
+ * @requires module:postgres/recipe-query
+ */
+
+'use strict';
+
+const recipeGateway = require('../gateway/recipe-gateway.js');
+const recipeQuery = require('../postgres/recipe-query.js');
+
+/**
+ * @private
+ * @function cleanUpBulkRecipes
+ * @param {object} recipes - An array of recipes
+ * @returns {Recipe[]} An array of recipes
+ * @description This is a utility function only accessible to other functions of this module.
+ */
+const cleanUpBulkRecipes = (recipes) => recipes.map((r) => ({
+  id: r.id,
+  title: r.title,
+  imageUrl: r.image,
+}));
+
+/**
+ * @private
+ * @function cleanUpRecipeInfo
+ * @param {object} recipe - An object containing detailed recipe information
+ * @returns {object} A concise recipe detail JSON
+ * @description This is a utility function only accessible to other functions of this module.
+ */
+const cleanUpRecipeInfo = (recipe) => ({
+  id: recipe.id,
+  title: recipe.title,
+  preparationTime: recipe.readyInMinutes,
+  servings: recipe.servings,
+  ingredients: recipe.extendedIngredients.map((i) => ({
+    name: i.name,
+    amount: i.amount,
+    unit: i.measures,
+  })),
+  summary: recipe.summary,
+  instructions: recipe.instructions,
+  analyzedInstructions: recipe.analyzedInstructions.map((i) => ({
+    name: i.name,
+    steps: i.steps,
+  })),
+  tags: {
+    vegetarian: recipe.vegetarian,
+    vegan: recipe.vegan,
+    glutenFree: recipe.glutenFree,
+    dairyFree: recipe.dairyFree,
+    sustainable: recipe.sustainable,
+  },
+  url: recipe.spoonacularSourceUrl,
+  imageUrl: recipe.image,
+});
+
+/**
+ * @async
+ * @function findRecipes
+ * @param {string[]} ingredients - An array of strings containing ingredients
+ * @param {string} cuisine - A string containing cuisine preference
+ * @param {string} diet - A string containing diet preference
+ * @param {string} sort - A string contating sorting preference
+ * @returns {Recipe[]} An array of Recipe objects
+ * @description This method uses the recipe gateway to obtain recipes based on ingredients,
+ * cuisine preference, and diet preference, then ensures that all recipes received from the
+ * gateway is stored in the database.
+ */
+const findRecipes = async (ingredients, cuisine, diet, sort) => {
+  const result = await recipeGateway.findRecipes(ingredients.map((i) => i.replace(/\s+/g, '+')), cuisine, diet, sort);
+  const recipes = cleanUpBulkRecipes(result.results);
+  for (const recipe of recipes) {
+    await recipeQuery.ensureRecipe(recipe); // eslint-disable-line no-await-in-loop
+  }
+  return recipes;
+};
+
+/**
+ * @async
+ * @function getRecipeInfo
+ * @param {int} recipeId - A unique integer representing a recipe ID
+ * @returns {object} A recipe detail JSON
+ * @description This method uses the recipe gateway to obtain detailed information of a recipe.
+ */
+const getRecipeInfo = async (recipeId) => {
+  const result = await recipeGateway.getRecipeInformation(recipeId);
+  return cleanUpRecipeInfo(result);
+};
+
+/**
+ * @async
+ * @function getRandomRecipe
+ * @returns {Recipe} A recipe object
+ * @description This method uses the recipe gateway to get a random recipe, then ensures that the
+ * recipe received from the gateway is stored in the database.
+ */
+const getRandomRecipe = async () => {
+  const result = await recipeGateway.getRandomRecipe();
+  const recipe = cleanUpBulkRecipes(result.recipes)[0];
+  await recipeQuery.ensureRecipe(recipe);
+  return recipe;
+};
+
+module.exports = { findRecipes, getRecipeInfo, getRandomRecipe };
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-gateway_recipe-gateway.html">gateway/recipe-gateway</a></li><li><a href="module-index.html">index</a></li><li><a href="module-model_Bookmark.html">model/Bookmark</a></li><li><a href="module-model_database.html">model/database</a></li><li><a href="module-model_Recipe.html">model/Recipe</a></li><li><a href="module-model_sync.html">model/sync</a></li><li><a href="module-model_User.html">model/User</a></li><li><a href="module-postgres_bookmark-query.html">postgres/bookmark-query</a></li><li><a href="module-postgres_recipe-query.html">postgres/recipe-query</a></li><li><a href="module-postgres_user-query.html">postgres/user-query</a></li><li><a href="module-route_bookmark.html">route/bookmark</a></li><li><a href="module-route_profile.html">route/profile</a></li><li><a href="module-route_search.html">route/search</a></li><li><a href="module-service_bookmark-service.html">service/bookmark-service</a></li><li><a href="module-service_profile-service.html">service/profile-service</a></li><li><a href="module-service_recipe-service.html">service/recipe-service</a></li></ul><h3>Namespaces</h3><ul><li><a href="module-route_bookmark-bookmarkRouter.html">bookmarkRouter</a></li><li><a href="module-route_profile-profileRouter.html">profileRouter</a></li><li><a href="module-route_search-searchRouter.html">searchRouter</a></li></ul><h3>Classes</h3><ul><li><a href="module-model_Bookmark-Bookmark.html">Bookmark</a></li><li><a href="module-model_Recipe-Recipe.html">Recipe</a></li><li><a href="module-model_User-User.html">User</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.6</a> on Sun Mar 07 2021 17:53:51 GMT-0800 (Pacific Standard Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

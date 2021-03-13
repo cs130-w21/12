@@ -38,10 +38,12 @@ const Main = () => {
   const [ingredientOptions, setIngredientOptions] = useState([])
   const { ingredients, setIngredients } = useContext(ingredientContext)
   const { preferences, setPreferences } = useContext(preferenceContext)
+  const { setRecipes } = useContext(recipeContext)
   const { setQuerySent } = useContext(recipeContext)
   const [ingredientInput, setIngredientInput] = useState(null)
   const [open, setOpen] = useState(false)
-  const [loading, setLoading] = useState(false)
+  const [loadingIngredients, setLoadingIngredients] = useState(true)
+  const [loadingLucky, setLoadingLucky] = useState(false)
   const [alertMessage, setAlertMessage] = useState('')
   const history = useHistory()
 
@@ -52,7 +54,10 @@ const Main = () => {
 
   useEffect(() => {
     axios.get('https://api-cuisinemachine.herokuapp.com/')
-      .then((res) => setIngredientOptions(res.data))
+      .then((res) => {
+        setIngredientOptions(res.data)
+        setLoadingIngredients(false)
+      })
       .catch((error) => {
         // Dummy Data for Fallback
         setIngredientOptions(['onion', 'garlic', 'ham', 'hot dog', 'turkey', 'steak'])
@@ -95,13 +100,14 @@ const Main = () => {
 
   const handleSubmit = () => {
     history.push('/search_results')
+    setRecipes([])
     setQuerySent(true)
   }
   const handleLuckyClick = () => {
-    setLoading(true)
+    setLoadingLucky(true)
     axios.get(`${API_URL}/recipes`)
       .then((res) => {
-        setLoading(false)
+        setLoadingLucky(false)
         history.push(`/search_result/${res.data.recipe.id}`)
       })
       .catch((error) => {
@@ -120,10 +126,12 @@ const Main = () => {
             <form onSubmit={handlePushResult}>
               <p className="main-sect">ingredient list</p>
               <div className="input-group">
-                <UserInput options={ingredientOptions} onChange={handleChange} placeholder="Enter Ingredient..." />
-                <IconButton type="button" onClick={handleAddIngredient} className="add-btn">
-                  <AddIcon />
-                </IconButton>
+                <UserInput inputValue={ingredientInput} options={ingredientOptions} onChange={handleChange} placeholder="Enter Ingredient..." />
+                {loadingIngredients
+                  ? (<div className="inline-spinner"><div className="spinner-border"></div></div>)
+                  : <IconButton type="button" onClick={handleAddIngredient} className="add-btn">
+                    <AddIcon />
+                  </IconButton>}
               </div>
             </form>
 
@@ -147,21 +155,21 @@ const Main = () => {
             <div>
               <div className="main-sect">preferences</div>
               <div className="main-sub-section">diet</div>
-              <UserInput options={diets} onChange={(e) => handlePreferences('diet', e)} placeholder="search..." />
+              <UserInput options={diets} inputValue={preferences.diet} onChange={(e) => handlePreferences('diet', e)} placeholder="search..." />
               <div className="main-sub-section">cuisine</div>
-              <UserInput options={cuisines} onChange={(e) => handlePreferences('cuisine', e)} placeholder="search..." />
+              <UserInput options={cuisines} inputValue={preferences.cuisine} onChange={(e) => handlePreferences('cuisine', e)} placeholder="search..." />
               <div className="main-sub-section">sort by</div>
-              <UserInput options={['Date', 'Rate', 'Calories']} onChange={(e) => handlePreferences('sort by', e)} placeholder="search..." />
+              <UserInput options={['Time', 'Popularity', 'Calories']} inputValue={preferences['sort by']} onChange={(e) => handlePreferences('sort by', e)} placeholder="search..." />
             </div>
           </div>
         </div>
         <div className="main-btn-wrapper">
-          {!loading
-            ? (<React.Fragment>
+          {loadingLucky
+            ? <div className="spinner-border"></div>
+            : (<React.Fragment>
               <RecButton onClick={handleSubmit}>get recommendations</RecButton>
               <RecButton className="ml-md-3" lucky onClick={handleLuckyClick}>I am Feeling Lucky</RecButton>
             </React.Fragment>)
-            : <div className="spinner-border"></div>
           }
         </div>
       </div>

@@ -4,7 +4,7 @@ export const ingredientContext = createContext({
   setIngredients: () => { }
 })
 export const preferenceContext = createContext({
-  preferences: { diet: null, cuisine: null, 'sort by': null },
+  preferences: { diet: '', cuisine: '', 'sort by': '' },
   setPreferences: () => { }
 })
 export const recipeContext = createContext({
