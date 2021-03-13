@@ -72,7 +72,7 @@ const RecipeCollection = (props) => {
         ingredients: ingredients,
         diet: preferences.diet,
         cuisine: preferences.cuisine,
-        'sort by': preferences['sort by']
+        sort: preferences['sort by']
       }).then(res => {
         setRecipes(res.data.recipes)
         setQuerySent(false)
